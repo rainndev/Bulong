@@ -1,37 +1,30 @@
-"use client";
+import React from "react";
+import DashboardClient from "./DashboardClient";
+import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
+import { headers } from "next/headers";
 
-import { useRouter } from "next/navigation";
-import { useSession, signOut } from "@/lib/auth-client";
-import { useEffect } from "react";
+export type PostType = Prisma.PostGetPayload<{}>;
 
-export default function DashboardPage() {
-  const router = useRouter();
-  const { data: session, isPending } = useSession();
+const Page = async () => {
+  // Infer type of a Post
 
-  useEffect(() => {
-    if (!isPending && !session?.user) {
-      router.push("/sign-in");
-    }
-  }, [isPending, session, router]);
+  const headersList = await headers();
+  const host = headersList.get("host"); // e.g., localhost:3000 or your domain
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const baseUrl = `${protocol}://${host}`;
 
-  if (isPending)
-    return <p className="text-center mt-8 text-white">Loading...</p>;
-  if (!session?.user)
-    return <p className="text-center mt-8 text-white">Redirecting...</p>;
+  const getPost = async (userID: string): Promise<PostType[]> => {
+    "use server";
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: userID,
+      },
+    });
+    return posts;
+  };
 
-  const { user } = session;
+  return <DashboardClient getPost={getPost} baseUrl={baseUrl} />;
+};
 
-  return (
-    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p>Welcome, {user.name || "User"}!</p>
-      <p>Email: {user.email}</p>
-      <button
-        onClick={() => signOut()}
-        className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
-      >
-        Sign Out
-      </button>
-    </main>
-  );
-}
+export default Page;
