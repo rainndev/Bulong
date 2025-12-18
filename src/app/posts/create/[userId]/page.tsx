@@ -1,4 +1,6 @@
 import { createPost } from "@/lib/actions/post";
+import { isUserExist } from "@/lib/actions/user";
+import { notFound } from "next/navigation";
 
 const CreatePostPage = async ({
   params,
@@ -6,6 +8,10 @@ const CreatePostPage = async ({
   params: Promise<{ userId: string }>;
 }) => {
   const { userId } = await params;
+
+  if (!(await isUserExist(userId))) {
+    return notFound();
+  }
 
   const formAction = async (formData: FormData) => {
     "use server";
