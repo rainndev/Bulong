@@ -27,3 +27,17 @@ export const getPost = async (userID: string): Promise<PostType[]> => {
   });
   return posts;
 };
+
+export const getPostById = async (
+  userID: string,
+  postId: string
+): Promise<PostType | null> => {
+  const post = await prisma.post.findFirst({
+    where: {
+      id: postId,
+      authorId: userID,
+    },
+  });
+
+  return post;
+};

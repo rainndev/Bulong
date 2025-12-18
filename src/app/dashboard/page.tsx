@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export type PostType = Prisma.PostGetPayload<{}>;
 
@@ -44,9 +45,15 @@ const DashboardPage = async () => {
       {/* list of messages */}
       <ul>
         {posts.map((data) => (
-          <li key={data.id}>{data.title}</li>
+          <li key={data.id}>
+            <Link href={`/dashboard/message/${userId}/${data.id}`}>
+              {" "}
+              {data.title}{" "}
+            </Link>
+          </li>
         ))}
       </ul>
+
       <button
         onClick={signOut}
         className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
