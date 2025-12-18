@@ -2,21 +2,38 @@
 
 import { Prisma } from "@prisma/client";
 import { prisma } from "../prisma";
+import { PostSchema } from "../schema";
 
 export type PostType = Prisma.PostGetPayload<{}>;
 
-export const createPost = async (formData: FormData, userId: string) => {
-  const title = formData.get("title") as string;
-  const content = formData.get("content") as string;
+export const createPost = async (prevState: any, formData: FormData) => {
+  const rawData = {
+    title: formData.get("title"),
+    content: formData.get("content"),
+    userId: formData.get("userId"),
+  };
 
-  await prisma.post.create({
-    data: {
-      title,
-      content,
-      author: { connect: { id: userId } },
-      published: true,
-    },
-  });
+  const validatedFields = PostSchema.safeParse(rawData);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    await prisma.post.create({
+      data: {
+        title: validatedFields.data.title,
+        content: validatedFields.data.content,
+        author: { connect: { id: validatedFields.data.userId } },
+        published: true,
+      },
+    });
+    return { success: true };
+  } catch (error) {
+    return { error: "Database failure" };
+  }
 };
 
 export const getPost = async (userID: string): Promise<PostType[]> => {
