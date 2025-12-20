@@ -32,11 +32,21 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
             return (
               <Link
                 key={data.name}
-                className="hover:bg-violet-100 flex items-center gap-2 px-4 py-3 rounded-lg cursor-pointer group"
+                className={`${
+                  data.path === currentPath && "bg-violet-100"
+                } hover:bg-violet-100 flex items-center gap-2 transition-colors ease-in-out px-4 py-3 rounded-lg cursor-pointer group`}
                 href={data.path}
               >
-                <Icon className="text-lg group-hover:text-violet-950" />
-                <span className="text-md group-hover:text-violet-950">
+                <Icon
+                  className={`${
+                    data.path === currentPath && "text-violet-950"
+                  } text-lg group-hover:text-violet-950`}
+                />
+                <span
+                  className={`${
+                    data.path === currentPath && "text-violet-950"
+                  } text-md group-hover:text-violet-950`}
+                >
                   {data.name}
                 </span>
               </Link>
@@ -47,7 +57,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
         <div className="w-full">
           <button
             onClick={signOut}
-            className="bg-violet-50 w-full p-2 rounded-lg "
+            className="bg-violet-500  px-4 py-3 hover:bg-violet-300 transition-colors ease-in-out text-white text-sm w-full  rounded-lg cursor-pointer "
           >
             Sign Out
           </button>
