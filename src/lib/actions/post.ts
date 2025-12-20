@@ -3,6 +3,9 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../prisma";
 import { PostSchema } from "../schema";
+import { auth } from "../auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export type PostType = Prisma.PostGetPayload<{}>;
 
@@ -57,4 +60,13 @@ export const getPostById = async (
   });
 
   return post;
+};
+
+export const signOut = async () => {
+  "use server";
+  await auth.api.signOut({
+    headers: await headers(),
+  });
+
+  redirect("/sign-in");
 };

@@ -1,4 +1,3 @@
-// CreatePostForm.tsx
 "use client";
 
 import { createPost } from "@/lib/actions/post";

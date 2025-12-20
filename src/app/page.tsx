@@ -6,7 +6,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="flex items-center justify-center h-screen bg-neutral-950 text-white">
+    <main className="flex items-center justify-center h-full bg-neutral-950 text-white">
       <div className="flex gap-4">
         <button
           onClick={() => router.push("/sign-up")}

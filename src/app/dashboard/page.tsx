@@ -4,17 +4,9 @@ import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import NavigationBar from "@/components/NavigationBar";
 
 export type PostType = Prisma.PostGetPayload<{}>;
-
-const signOut = async () => {
-  "use server";
-  await auth.api.signOut({
-    headers: await headers(),
-  });
-
-  redirect("/sign-in");
-};
 
 const DashboardPage = async () => {
   const headersList = await headers();
@@ -36,30 +28,26 @@ const DashboardPage = async () => {
   const posts = await getPost(userId as string);
 
   return (
-    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p>Welcome, {user?.name || "User"}!</p>
-      <p>Email: {user?.email}</p>
-      <p>Share Own Link: {`${baseUrl}/posts/create/${user?.id}`}</p>
+    <main className="h-full flex items-center justify-center  mx-auto  text-black bg-amber-200 w-full">
+      <NavigationBar currentPath="/dashboard" />
+      <div className="w-full p-10">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <p>Welcome, {user?.name || "User"}!</p>
+        <p>Email: {user?.email}</p>
+        <p>Share Own Link: {`${baseUrl}/posts/create/${user?.id}`}</p>
 
-      {/* list of messages */}
-      <ul>
-        {posts.map((data) => (
-          <li key={data.id}>
-            <Link href={`/dashboard/message/${userId}/${data.id}`}>
-              {" "}
-              {data.title}{" "}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <button
-        onClick={signOut}
-        className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
-      >
-        Sign Out
-      </button>
+        {/* list of messages */}
+        <ul>
+          {posts.map((data) => (
+            <li key={data.id}>
+              <Link href={`/dashboard/message/${userId}/${data.id}`}>
+                {" "}
+                {data.title}{" "}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 };

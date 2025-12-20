@@ -27,33 +27,35 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
-      <h1 className="text-2xl font-bold">Sign In</h1>
+    <main className="w-full h-full flex justify-center items-center  bg-amber-100 ">
+      <div className="max-w-md flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white ">
+        <h1 className="text-2xl font-bold">Sign In</h1>
 
-      {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
-        />
-        <button
-          type="submit"
-          className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
-        >
-          Sign In
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+            className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+          />
+          <button
+            type="submit"
+            className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
     </main>
   );
 }
