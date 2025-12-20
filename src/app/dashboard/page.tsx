@@ -2,7 +2,6 @@ import { Prisma } from "@prisma/client";
 import { headers } from "next/headers";
 import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import NavigationBar from "@/components/NavigationBar";
 
@@ -40,7 +39,7 @@ const DashboardPage = async () => {
         <ul>
           {posts.map((data) => (
             <li key={data.id}>
-              <Link href={`/dashboard/message/${userId}/${data.id}`}>
+              <Link href={`/messages/${userId}/${data.id}`}>
                 {" "}
                 {data.title}{" "}
               </Link>
