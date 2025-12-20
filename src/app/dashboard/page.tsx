@@ -24,7 +24,6 @@ const DashboardPage = async () => {
   }
 
   const userId = session?.user.id;
-  const posts = await getPost(userId as string);
 
   return (
     <main className="h-full flex items-center justify-center  mx-auto  text-black bg-gray-50 rounded-3xl w-full">
@@ -34,18 +33,6 @@ const DashboardPage = async () => {
         <p>Welcome, {user?.name || "User"}!</p>
         <p>Email: {user?.email}</p>
         <p>Share Own Link: {`${baseUrl}/posts/create/${user?.id}`}</p>
-
-        {/* list of messages */}
-        <ul>
-          {posts.map((data) => (
-            <li key={data.id}>
-              <Link href={`/messages/${userId}/${data.id}`}>
-                {" "}
-                {data.title}{" "}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
     </main>
   );

@@ -1,13 +1,23 @@
 import NavigationBar from "@/components/NavigationBar";
-import React from "react";
+import { getPost } from "@/lib/actions/post";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import Link from "next/link";
+import MessagesClient from "./MessagesClient";
 
-const page = () => {
-  return (
-    <div className="flex items-center justify-center  mx-auto bg-gray-50  text-black w-full rounded-3xl h-full">
-      <NavigationBar currentPath="/messages" />
-      <div className="w-full p-10">Messages</div>
-    </div>
-  );
+const MessagesPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return <div>Not logged in</div>;
+  }
+
+  const userId = session?.user.id;
+  const posts = await getPost(userId as string);
+
+  return <MessagesClient posts={posts} />;
 };
 
-export default page;
+export default MessagesPage;
