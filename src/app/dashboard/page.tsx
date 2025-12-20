@@ -27,9 +27,9 @@ const DashboardPage = async () => {
   const posts = await getPost(userId as string);
 
   return (
-    <main className="h-full flex items-center justify-center  mx-auto  text-black bg-amber-200 w-full">
+    <main className="h-full flex items-center justify-center  mx-auto  text-black bg-gray-50 rounded-3xl w-full">
       <NavigationBar currentPath="/dashboard" />
-      <div className="w-full p-10">
+      <div className="w-full p-10  h-full">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <p>Welcome, {user?.name || "User"}!</p>
         <p>Email: {user?.email}</p>

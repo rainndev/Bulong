@@ -2,10 +2,12 @@
 
 import { signOut } from "@/lib/actions/post";
 import Link from "next/link";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { BiMessageSquareDots } from "react-icons/bi";
 
 const links = [
-  { path: "/dashboard", name: "Dashboard" },
-  { path: "/messages", name: "Messages" },
+  { path: "/dashboard", name: "Dashboard", icon: MdOutlineSpaceDashboard },
+  { path: "/messages", name: "Messages", icon: BiMessageSquareDots },
 ];
 
 interface NavigationBarProps {
@@ -14,25 +16,38 @@ interface NavigationBarProps {
 
 const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
   return (
-    <div className="bg-amber-500 h-full min-w-xs p-10">
-      <div className="flex flex-col ">
+    <div className=" h-full min-w-2xs p-4 bg-white  rounded-tl-3xl rounded-bl-3xl py-10">
+      <div className="flex flex-col justify-between items-center  h-full ">
+        {/* title and logo */}
         <div className="flex">
           <p>title</p>
           <span>image</span>
         </div>
 
-        <ul className="space-y-2">
-          {links.map((data) => (
-            <li key={data.name}>
-              <Link href={data.path}>{data.name}</Link>
-            </li>
-          ))}
-        </ul>
+        {/* links */}
+        <div className="h-full py-20 w-full flex flex-col space-y-2">
+          {links.map((data) => {
+            const Icon = data.icon;
 
-        <div className="h-full">
+            return (
+              <Link
+                key={data.name}
+                className="hover:bg-violet-100 flex items-center gap-2 px-4 py-3 rounded-lg cursor-pointer group"
+                href={data.path}
+              >
+                <Icon className="text-lg group-hover:text-violet-950" />
+                <span className="text-md group-hover:text-violet-950">
+                  {data.name}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="w-full">
           <button
             onClick={signOut}
-            className="bg-amber-50 w-full p-2 rounded-lg"
+            className="bg-violet-50 w-full p-2 rounded-lg "
           >
             Sign Out
           </button>
