@@ -44,6 +44,9 @@ export const getPost = async (userID: string): Promise<PostType[]> => {
     where: {
       authorId: userID,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   return posts;
 };
