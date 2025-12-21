@@ -20,9 +20,11 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
-    if (!debouncedSearch) return;
-
     const getSearchedPost = async () => {
+      if (!debouncedSearch) {
+        setDisplayedPosts(posts);
+        return;
+      }
       const searchedPosts = await searchPost(debouncedSearch);
       setDisplayedPosts(searchedPosts);
     };
