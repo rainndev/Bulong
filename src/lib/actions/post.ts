@@ -40,7 +40,7 @@ export const createPost = async (prevState: any, formData: FormData) => {
 };
 
 export const getPost = async (userID: string): Promise<PostType[]> => {
-  const posts = await prisma.post.findMany({
+  return await prisma.post.findMany({
     where: {
       authorId: userID,
     },
@@ -48,7 +48,6 @@ export const getPost = async (userID: string): Promise<PostType[]> => {
       createdAt: "desc",
     },
   });
-  return posts;
 };
 
 export const getPostById = async (
@@ -72,4 +71,15 @@ export const signOut = async () => {
   });
 
   redirect("/sign-in");
+};
+
+export const searchPost = async (query: string): Promise<PostType[]> => {
+  return await prisma.post.findMany({
+    where: {
+      OR: [
+        { title: { contains: query, mode: "insensitive" } },
+        { content: { contains: query, mode: "insensitive" } },
+      ],
+    },
+  });
 };

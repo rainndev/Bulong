@@ -30,3 +30,12 @@
   scrollbar-width: thin;
   scrollbar-color: #9ca3af transparent;
 }
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
