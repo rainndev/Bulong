@@ -27,8 +27,8 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="w-full h-full flex justify-center items-center  bg-amber-100 ">
-      <div className="max-w-md flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white ">
+    <main className="w-full h-full flex justify-center items-center   ">
+      <div className="max-w-md flex justify-center flex-col mx-auto p-6 space-y-4 text-black ">
         <h1 className="text-2xl font-bold">Sign In</h1>
 
         {error && <p className="text-red-500">{error}</p>}
@@ -39,18 +39,18 @@ export default function SignInPage() {
             type="email"
             placeholder="Email"
             required
-            className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+            className="w-full rounded-lg text-violet-950 bg-white border border-gray-500 px-4 py-3"
           />
           <input
             name="password"
             type="password"
             placeholder="Password"
             required
-            className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+            className="w-full rounded-lg text-violet-950 bg-white border border-gray-500 px-4 py-3"
           />
           <button
             type="submit"
-            className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
+            className="w-full bg-violet-400 text-white font-medium rounded-lg px-4 py-3 hover:bg-violet-300 "
           >
             Sign In
           </button>
