@@ -25,7 +25,9 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
               {posts.map((data) => (
                 <li
                   onClick={() => setSelectedMessage(data)}
-                  className="hover:bg-violet-100 transition-colors ease-in-out border border-violet-200 rounded-xl p-5 cursor-pointer"
+                  className={`${
+                    selectedMessage?.id === data.id && "bg-violet-100"
+                  } hover:bg-violet-100 transition-colors ease-in-out border border-violet-200 rounded-xl p-5 cursor-pointer`}
                   key={data.id}
                 >
                   <span>{data.title}</span>
