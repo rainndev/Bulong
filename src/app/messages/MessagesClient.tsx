@@ -12,35 +12,41 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   const [selectedMessage, setSelectedMessage] = useState<PostType>();
 
   return (
-    <main className="flex items-center bg-gray-50 text-black w-full rounded-3xl h-screen">
+    <main className="flex bg-gray-50 text-black w-full rounded-3xl h-full overflow-hidden">
       <NavigationBar currentPath="/messages" />
 
-      <div className="w-full p-10 h-full">
-        <h1 className="text-2xl font-bold">Messages</h1>
+      <div className="flex flex-col w-full h-full">
+        <div>
+          <h1 className="text-2xl font-bold p-10 pb-5">Messages</h1>
+        </div>
 
-        <div className="flex h-full overflow-hidden mt-5 gap-5">
-          {/* list of message */}
-          <div className="min-w-sm h-full">
+        <div className="flex flex-1 min-h-0 px-2 pb-10 gap-5">
+          <div className="w-100 flex flex-col h-full">
             <ul className="space-y-2 overflow-y-auto h-full pr-2">
               {posts.map((data) => (
                 <li
+                  key={data.id}
                   onClick={() => setSelectedMessage(data)}
                   className={`${
-                    selectedMessage?.id === data.id && "bg-violet-100"
-                  } hover:bg-violet-100 transition-colors ease-in-out border border-violet-200 rounded-xl p-5 cursor-pointer`}
-                  key={data.id}
+                    selectedMessage?.id === data.id
+                      ? "bg-violet-100  border-l-violet-950 "
+                      : ""
+                  } hover:bg-violet-100 border-l-4 transition-colors border border-violet-200 rounded-tr-xl rounded-br-xl p-5 cursor-pointer`}
                 >
-                  <span>{data.title}</span>
-                  <p className="truncate">{data.content}</p>
+                  <span className="font-semibold block">{data.title}</span>
+                  <p className="truncate text-sm text-gray-600">
+                    {data.content}
+                  </p>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* specific message */}
-          <div className="bg-violet-50 rounded-2xl w-full p-10 overflow-y-auto">
-            <h1 className="text-xl">{selectedMessage?.title}</h1>
-            <p className="mt-2">{selectedMessage?.content}</p>
+          <div className="bg-violet-50 rounded-2xl flex-1 h-full p-10 overflow-y-auto">
+            <h1 className="text-xl font-bold">{selectedMessage?.title}</h1>
+            <p className="mt-4 whitespace-pre-wrap">
+              {selectedMessage?.content}
+            </p>
           </div>
         </div>
       </div>
