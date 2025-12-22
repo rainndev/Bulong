@@ -4,6 +4,7 @@ import { signOut } from "@/lib/actions/post";
 import Link from "next/link";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
+import { IoExitOutline } from "react-icons/io5";
 
 const links = [
   { path: "/dashboard", name: "Dashboard", icon: MdOutlineSpaceDashboard },
@@ -16,8 +17,8 @@ interface NavigationBarProps {
 
 const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
   return (
-    <div className=" h-full min-w-2xs p-4 bg-white  rounded-tl-3xl rounded-bl-3xl py-10">
-      <div className="flex flex-col justify-between items-center  h-full ">
+    <div className="h-full min-w-2xs rounded-tl-3xl rounded-bl-3xl bg-white p-4 py-10">
+      <div className="flex h-full flex-col items-center justify-between">
         {/* title and logo */}
         <div className="flex">
           <p>title</p>
@@ -25,7 +26,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
         </div>
 
         {/* links */}
-        <div className="h-full py-20 w-full flex flex-col space-y-2">
+        <div className="flex h-full w-full flex-col space-y-2 py-20">
           {links.map((data) => {
             const Icon = data.icon;
 
@@ -34,7 +35,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
                 key={data.name}
                 className={`${
                   data.path === currentPath && "bg-violet-100"
-                } hover:bg-violet-100 flex items-center gap-2 transition-colors ease-in-out px-4 py-3 rounded-lg cursor-pointer group`}
+                } group flex cursor-pointer items-center gap-2 rounded-lg px-4 py-3 transition-colors ease-in-out hover:bg-violet-100`}
                 href={data.path}
               >
                 <Icon
@@ -54,10 +55,11 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
           })}
         </div>
 
-        <div className="w-full">
+        <div className="flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-gray-500 hover:bg-violet-100">
+          <IoExitOutline className="text-2xl" />
           <button
             onClick={signOut}
-            className="bg-violet-500  px-4 py-3 hover:bg-violet-300 transition-colors ease-in-out text-white text-sm w-full  rounded-lg cursor-pointer "
+            className="w-full text-sm transition-colors ease-in-out"
           >
             Sign Out
           </button>
