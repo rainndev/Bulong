@@ -52,7 +52,7 @@ export const getPost = async (userID: string): Promise<PostType[]> => {
 
 export const getPostById = async (
   userID: string,
-  postId: string
+  postId: string,
 ): Promise<PostType | null> => {
   const post = await prisma.post.findFirst({
     where: {
@@ -82,4 +82,81 @@ export const searchPost = async (query: string): Promise<PostType[]> => {
       ],
     },
   });
+};
+
+export const getTotalPost = async (userId: string): Promise<number> => {
+  return await prisma.post.count({
+    where: {
+      authorId: userId,
+    },
+  });
+};
+
+export const getRecentPost = async (
+  userId: string,
+  count: number = 2,
+): Promise<PostType[]> => {
+  return await prisma.post.findMany({
+    where: {
+      authorId: userId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: count,
+  });
+};
+
+export const getMessagesCountToday = async (
+  userId: string,
+): Promise<number> => {
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+  const endOfToday = new Date();
+  endOfToday.setHours(23, 59, 59, 999);
+
+  return await prisma.post.count({
+    where: {
+      authorId: userId,
+      createdAt: {
+        gte: startOfToday,
+        lte: endOfToday,
+      },
+    },
+  });
+};
+
+export const getMessagesCountThisWeek = async (
+  userId: string,
+): Promise<number> => {
+  const now = new Date();
+
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - now.getDay() + 1);
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+  endOfWeek.setHours(23, 59, 59, 999);
+
+  return await prisma.post.count({
+    where: {
+      authorId: userId,
+      createdAt: {
+        gte: startOfWeek,
+        lte: endOfWeek,
+      },
+    },
+  });
+};
+
+export const getAverageMessagesPerDaySQL = async (userId: string) => {
+  const result = await prisma.$queryRaw<{ avg: number | null }[]>`
+    SELECT COUNT(*)::float / COUNT(DISTINCT DATE("createdAt")) AS avg
+    FROM "Post"
+    WHERE "authorId" = ${userId};
+  `;
+
+  return result[0]?.avg ? Number(result[0].avg.toFixed(1)) : 0;
 };
