@@ -13,7 +13,7 @@ interface MessagesClientProps {
 
 const MessagesClient = ({ posts }: MessagesClientProps) => {
   const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>(
-    posts.length > 0 ? posts[0] : undefined
+    posts.length > 0 ? posts[0] : undefined,
   );
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
@@ -33,20 +33,20 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   }, [debouncedSearch]);
 
   return (
-    <main className="flex bg-gray-50 text-black w-full rounded-3xl h-full overflow-hidden">
+    <main className="flex h-full w-full overflow-hidden bg-gray-50 text-black">
       <NavigationBar currentPath="/messages" />
 
-      <div className="flex flex-col w-full h-full">
+      <div className="flex h-full w-full flex-col">
         <div>
-          <h1 className="text-2xl font-bold p-10 pb-5">Messages</h1>
+          <h1 className="p-10 pb-5 text-2xl font-bold">Messages</h1>
         </div>
 
         {/* list of message */}
-        <div className="flex flex-1 min-h-0 px-2 pb-10 gap-5 ">
-          <div className="w-100 flex flex-col h-full ">
+        <div className="flex min-h-0 flex-1 gap-5 px-2 pb-10">
+          <div className="flex h-full w-100 flex-col">
             <div className="relative w-full">
               {/* icon */}
-              <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                 <IoSearch className="h-4 w-4 text-black" />
               </div>
               {/* input search */}
@@ -55,13 +55,13 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search messages..."
-                className="w-full pl-11 pr-4 py-3 rounded-full border border-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 bg-white text-md"
+                className="text-md w-full rounded-full border border-violet-200 bg-white py-3 pr-4 pl-11 focus:ring-2 focus:ring-violet-500 focus:outline-none"
               />
             </div>
-            <ul className="space-y-2 overflow-y-auto h-full  mt-5 hide-scrollbar">
+            <ul className="hide-scrollbar mt-5 h-full space-y-2 overflow-y-auto">
               {/* show this if no message found */}
               {displayedPosts.length < 1 && (
-                <div className="w-full  flex justify-center text-sm text-gray-500 ">
+                <div className="flex w-full justify-center text-sm text-gray-500">
                   No message found
                 </div>
               )}
@@ -72,11 +72,11 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                   onClick={() => setSelectedMessage(data)}
                   className={`${
                     selectedMessage?.id === data.id
-                      ? "bg-violet-100  border-l-violet-950 "
+                      ? "border-l-violet-950 bg-violet-100"
                       : ""
-                  } hover:bg-violet-100 border-l-4 transition-colors border border-violet-200 rounded-tr-xl rounded-br-xl p-5 cursor-pointer`}
+                  } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-5 transition-colors hover:bg-violet-100`}
                 >
-                  <span className="font-semibold block">{data.title}</span>
+                  <span className="block font-semibold">{data.title}</span>
                   <p className="truncate text-sm text-gray-600">
                     {data.content}
                   </p>
@@ -86,7 +86,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
           </div>
 
           {/* specific message */}
-          <div className="bg-violet-50 rounded-2xl flex-1 h-full p-10 overflow-y-auto">
+          <div className="h-full flex-1 overflow-y-auto rounded-2xl bg-violet-50 p-10">
             <h1 className="text-xl font-bold">{selectedMessage?.title}</h1>
             <p className="mt-4 whitespace-pre-wrap">
               {selectedMessage?.content}

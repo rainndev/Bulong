@@ -17,16 +17,16 @@ interface NavigationBarProps {
 
 const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
   return (
-    <div className="h-full min-w-2xs rounded-tl-3xl rounded-bl-3xl bg-white p-4 py-10">
-      <div className="flex h-full flex-col items-center justify-between">
+    <div className="fixed bottom-0 left-0 z-20 h-16 w-full bg-white p-4 py-10 md:static md:top-0 md:h-full md:w-[18rem]">
+      <div className="flex h-full flex-row items-center justify-between md:flex-col">
         {/* title and logo */}
-        <div className="flex">
+        {/* <div className="flex">
           <p>title</p>
           <span>image</span>
-        </div>
+        </div> */}
 
         {/* links */}
-        <div className="flex h-full w-full flex-col space-y-2 py-20">
+        <div className="flex h-full w-full flex-row items-center space-x-2 md:flex-col md:space-y-2 md:py-20">
           {links.map((data) => {
             const Icon = data.icon;
 
@@ -46,7 +46,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
                 <span
                   className={`${
                     data.path === currentPath && "text-violet-950"
-                  } text-md group-hover:text-violet-950`}
+                  } text-md hidden group-hover:text-violet-950 md:block`}
                 >
                   {data.name}
                 </span>
@@ -55,12 +55,12 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
           })}
         </div>
 
-        <div className="flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-gray-500 hover:bg-violet-100">
+        <div
+          onClick={signOut}
+          className="flex w-fit cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-gray-500 hover:bg-violet-100 md:w-full"
+        >
           <IoExitOutline className="text-2xl" />
-          <button
-            onClick={signOut}
-            className="w-full text-sm transition-colors ease-in-out"
-          >
+          <button className="hidden w-full text-sm transition-colors ease-in-out">
             Sign Out
           </button>
         </div>

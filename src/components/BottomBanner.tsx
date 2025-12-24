@@ -16,7 +16,9 @@ const BottomBanner = ({ userId }: { userId: string }) => {
         consectetur distinctio.
       </p>
       <div className="mt-10 flex items-center gap-2">
-        <p>Share Own Link: {`${baseUrl}/posts/create/${userId}`}</p>
+        <p className="truncate">
+          Share Own Link: {`${baseUrl}/posts/create/${userId}`}
+        </p>
 
         <button
           onClick={() => handleCopy(`${baseUrl}/posts/create/${userId}`)}

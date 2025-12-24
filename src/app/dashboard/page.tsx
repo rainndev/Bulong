@@ -36,7 +36,7 @@ const DashboardPage = async () => {
   return (
     <main className="mx-auto flex h-screen w-full rounded-3xl bg-gray-50 text-[#242731]">
       <NavigationBar currentPath="/dashboard" />
-      <div className="h-full w-full p-10">
+      <div className="h-full w-full p-5 md:p-10">
         <p className="text-xl font-semibold text-[#242731]">
           Hello, {user?.name || "User"}!
         </p>
