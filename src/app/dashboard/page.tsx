@@ -12,16 +12,11 @@ import { auth } from "@/lib/auth";
 import { IoAnalytics } from "react-icons/io5";
 import NavigationBar from "@/components/NavigationBar";
 import AreaChartExample from "@/components/AreaChartExample";
-import { prisma } from "@/lib/prisma";
+import BottomBanner from "@/components/BottomBanner";
 
 export type PostType = Prisma.PostGetPayload<{}>;
 
 const DashboardPage = async () => {
-  const headersList = await headers();
-  const host = headersList.get("host"); // e.g., localhost:3000 or your domain
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const baseUrl = `${protocol}://${host}`;
-
   //current session
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -106,21 +101,7 @@ const DashboardPage = async () => {
               </div>
             </div>
 
-            <div className="flex flex-col justify-between rounded-3xl bg-linear-to-r from-purple-600 to-indigo-600 p-6">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-                id ea eveniet deleniti ratione dolor assumenda voluptatibus?
-                Amet minima, vitae asperiores error quo quidem, deserunt ratione
-                delectus provident consectetur distinctio.
-              </p>
-              <div className="mt-10 flex items-center gap-2">
-                <p>Share Own Link: {`${baseUrl}/posts/create/${user?.id}`}</p>
-
-                <button className="rounded-xl bg-white px-6 py-2 text-sm font-bold text-black transition hover:bg-gray-100">
-                  Copy
-                </button>
-              </div>
-            </div>
+            <BottomBanner userId={userId} />
           </div>
         </div>
       </div>
