@@ -2,16 +2,15 @@ import { Prisma } from "@prisma/client";
 import { headers } from "next/headers";
 import {
   getAverageMessagesPerDaySQL,
-  getMessagesCountThisWeek,
+  getMessagesThisWeekData,
   getMessagesCountToday,
-  getPost,
   getRecentPost,
   getTotalPost,
 } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { IoAnalytics } from "react-icons/io5";
 import NavigationBar from "@/components/NavigationBar";
-import AreaChartExample from "@/components/AreaChartExample";
+import AreaChartMessages from "@/components/AreaChartMessages";
 import BottomBanner from "@/components/BottomBanner";
 
 export type PostType = Prisma.PostGetPayload<{}>;
@@ -31,7 +30,7 @@ const DashboardPage = async () => {
   const totalPost = await getTotalPost(userId);
   const recentPost = await getRecentPost(userId);
   const messagesToday = await getMessagesCountToday(userId);
-  const messagesThisWeek = await getMessagesCountThisWeek(userId);
+  const { totalThisWeek, chartData } = await getMessagesThisWeekData(userId);
   const avgMessagePerDay = await getAverageMessagesPerDaySQL(userId);
 
   return (
@@ -66,7 +65,7 @@ const DashboardPage = async () => {
               </div>
 
               <div className="relative flex justify-center">
-                <AreaChartExample />
+                <AreaChartMessages data={chartData} />
               </div>
             </div>
 
@@ -84,7 +83,7 @@ const DashboardPage = async () => {
 
               <div className="rounded-3xl bg-[#242731] p-6">
                 <p className="mb-2 text-sm text-gray-400">Messages This Week</p>
-                <h2 className="text-3xl font-bold">{messagesThisWeek}</h2>
+                <h2 className="text-3xl font-bold">{totalThisWeek}</h2>
                 <p className="mt-1 text-xs text-blue-400">+1.5%</p>
                 <div className="mt-4 h-12 w-full via-blue-400/20 to-transparent">
                   <IoAnalytics className="text-4xl" />

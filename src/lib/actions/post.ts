@@ -127,11 +127,10 @@ export const getMessagesCountToday = async (
   });
 };
 
-export const getMessagesCountThisWeek = async (
-  userId: string,
-): Promise<number> => {
+export const getMessagesThisWeekData = async (userId: string) => {
   const now = new Date();
 
+  // Monday start
   const startOfWeek = new Date(now);
   startOfWeek.setDate(now.getDate() - now.getDay() + 1);
   startOfWeek.setHours(0, 0, 0, 0);
@@ -140,7 +139,8 @@ export const getMessagesCountThisWeek = async (
   endOfWeek.setDate(startOfWeek.getDate() + 6);
   endOfWeek.setHours(23, 59, 59, 999);
 
-  return await prisma.post.count({
+  // Fetch posts this week
+  const posts = await prisma.post.findMany({
     where: {
       authorId: userId,
       createdAt: {
@@ -148,7 +148,45 @@ export const getMessagesCountThisWeek = async (
         lte: endOfWeek,
       },
     },
+    select: {
+      createdAt: true,
+    },
   });
+
+  // Prepare 7-day map
+  const daysMap: Record<string, number> = {};
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(startOfWeek);
+    d.setDate(startOfWeek.getDate() + i);
+    const key = d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+    });
+    daysMap[key] = 0;
+  }
+
+  // Count messages per day
+  for (const post of posts) {
+    const key = post.createdAt.toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+    });
+
+    if (daysMap[key] !== undefined) {
+      daysMap[key]++;
+    }
+  }
+
+  const chartData = Object.entries(daysMap).map(([date, messagesCount]) => ({
+    date,
+    messagesCount,
+  }));
+
+  return {
+    chartData,
+    totalThisWeek: posts.length,
+  };
 };
 
 export const getAverageMessagesPerDaySQL = async (userId: string) => {

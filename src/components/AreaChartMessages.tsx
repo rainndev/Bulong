@@ -2,40 +2,19 @@
 
 import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 
-// #region Sample data
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-  },
-];
+type AreaChartProps = {
+  data: {
+    date: string;
+    messagesCount: number;
+  }[];
+  isAnimationActive?: boolean;
+};
 
 // #endregion
-const AreaChartExample = ({ isAnimationActive = true }) => (
+const AreaChartMessages = ({
+  data,
+  isAnimationActive = true,
+}: AreaChartProps) => (
   <AreaChart
     style={{
       width: "100%",
@@ -54,12 +33,12 @@ const AreaChartExample = ({ isAnimationActive = true }) => (
       </linearGradient>
     </defs>
 
-    <XAxis dataKey="name" />
+    <XAxis dataKey="date" />
     <YAxis width="auto" />
     <Tooltip />
     <Area
       type="monotone"
-      dataKey="uv"
+      dataKey="messagesCount"
       stroke="#8884d8"
       fillOpacity={1}
       fill="url(#colorUv)"
@@ -68,4 +47,4 @@ const AreaChartExample = ({ isAnimationActive = true }) => (
   </AreaChart>
 );
 
-export default AreaChartExample;
+export default AreaChartMessages;
