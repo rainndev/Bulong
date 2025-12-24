@@ -20,10 +20,10 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
     <div className="fixed bottom-0 left-0 z-20 h-16 w-full bg-white p-4 py-10 md:static md:top-0 md:h-full md:w-[18rem]">
       <div className="flex h-full flex-row items-center justify-between md:flex-col">
         {/* title and logo */}
-        {/* <div className="flex">
+        <div className="hidden md:flex">
           <p>title</p>
           <span>image</span>
-        </div> */}
+        </div>
 
         {/* links */}
         <div className="flex h-full w-full flex-row items-center space-x-2 md:flex-col md:space-y-2 md:py-20">
@@ -35,7 +35,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
                 key={data.name}
                 className={`${
                   data.path === currentPath && "bg-violet-100"
-                } group flex cursor-pointer items-center gap-2 rounded-lg px-4 py-3 transition-colors ease-in-out hover:bg-violet-100`}
+                } group flex w-fit cursor-pointer items-center gap-2 rounded-lg px-4 py-3 transition-colors ease-in-out hover:bg-violet-100 md:w-full`}
                 href={data.path}
               >
                 <Icon

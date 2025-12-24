@@ -17,6 +17,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   );
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
+  const [isDialogShowing, setDialogShowing] = useState(false);
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
@@ -41,9 +42,8 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
           <h1 className="p-10 pb-5 text-2xl font-bold">Messages</h1>
         </div>
 
-        {/* list of message */}
         <div className="flex min-h-0 flex-1 gap-5 px-2 pb-10">
-          <div className="flex h-full w-100 flex-col">
+          <div className="flex h-full w-full flex-col md:w-100">
             <div className="relative w-full">
               {/* icon */}
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -66,10 +66,14 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                 </div>
               )}
 
+              {/* list of message */}
               {displayedPosts.map((data) => (
                 <li
                   key={data.id}
-                  onClick={() => setSelectedMessage(data)}
+                  onClick={() => {
+                    setDialogShowing(true);
+                    setSelectedMessage(data);
+                  }}
                   className={`${
                     selectedMessage?.id === data.id
                       ? "border-l-violet-950 bg-violet-100"
@@ -86,12 +90,23 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
           </div>
 
           {/* specific message */}
-          <div className="h-full flex-1 overflow-y-auto rounded-2xl bg-violet-50 p-10">
-            <h1 className="text-xl font-bold">{selectedMessage?.title}</h1>
-            <p className="mt-4 whitespace-pre-wrap">
-              {selectedMessage?.content}
-            </p>
-          </div>
+          {isDialogShowing && (
+            <div className="fixed top-0 right-0 bottom-0 left-0 z-20 h-full flex-1 overflow-y-auto rounded-2xl bg-violet-50 p-10 md:static">
+              <div className="flex w-full justify-end md:hidden">
+                <button
+                  onClick={() => setDialogShowing(false)}
+                  className="mb-10 rounded-2xl bg-violet-200 px-10 py-2 text-sm"
+                >
+                  close
+                </button>
+              </div>
+
+              <h1 className="text-xl font-bold">{selectedMessage?.title}</h1>
+              <p className="mt-4 whitespace-pre-wrap">
+                {selectedMessage?.content}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </main>
