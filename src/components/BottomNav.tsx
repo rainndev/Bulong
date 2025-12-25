@@ -23,7 +23,7 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
 
           {/* Bottom Sheet */}
           <motion.div
-            className="fixed right-0 bottom-0 left-0 z-50 h-[95%] rounded-t-2xl bg-white p-5"
+            className="fixed right-0 bottom-0 left-0 z-50 flex h-[95%] flex-col rounded-t-2xl bg-white p-5"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -44,8 +44,12 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
               {post?.title || "No title"}
             </p>
 
-            <div className="mt-5 h-[90%] rounded-2xl bg-violet-50 p-5">
+            <div className="mt-5 mb-4 flex-1 rounded-2xl bg-violet-50 p-5">
               <p className="text-sm text-gray-700">{post?.content}</p>
+            </div>
+
+            <div className="mt-3 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white">
+              Share
             </div>
           </motion.div>
         </div>

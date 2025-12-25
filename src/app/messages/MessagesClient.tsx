@@ -80,9 +80,11 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                     selectedMessage?.id === data.id
                       ? "border-l-violet-950 bg-violet-100"
                       : ""
-                  } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-5 transition-colors hover:bg-violet-100`}
+                  } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-4 transition-colors hover:bg-violet-100 md:p-5`}
                 >
-                  <span className="block font-semibold">{data.title}</span>
+                  <span className="text-md block font-semibold">
+                    {data.title}
+                  </span>
                   <p className="truncate text-sm text-gray-600">
                     {data.content}
                   </p>
