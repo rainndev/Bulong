@@ -41,7 +41,9 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
 
       <div className="flex h-full w-full flex-col">
         <div>
-          <h1 className="p-10 pb-5 text-2xl font-bold">Messages</h1>
+          <h1 className="w-full p-10 pb-5 text-center text-xl font-bold md:text-start md:text-2xl">
+            Messages
+          </h1>
         </div>
 
         <div className="flex min-h-0 flex-1 gap-5 px-2 pb-10">
