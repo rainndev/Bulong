@@ -57,7 +57,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search messages..."
-                className="text-md w-full rounded-full border border-violet-200 bg-white py-3 pr-4 pl-11 focus:ring-2 focus:ring-violet-500 focus:outline-none"
+                className="text-md w-full rounded-full border border-violet-200 bg-white py-2.5 pr-4 pl-11 text-sm focus:ring-2 focus:ring-violet-500 focus:outline-none"
               />
             </div>
             <ul className="hide-scrollbar mt-5 h-full space-y-2 overflow-y-auto">
