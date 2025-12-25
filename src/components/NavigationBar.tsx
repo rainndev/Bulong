@@ -26,7 +26,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
         </div>
 
         {/* links */}
-        <div className="flex h-full w-full flex-row items-center space-x-2 md:flex-col md:space-y-2 md:py-20">
+        <div className="flex h-full w-full flex-row items-center gap-2 md:flex-col md:py-20">
           {links.map((data) => {
             const Icon = data.icon;
 
