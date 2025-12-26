@@ -38,10 +38,10 @@ const DashboardPage = async () => {
     <main className="mx-auto flex h-screen w-full rounded-3xl bg-gray-50 text-[#242731]">
       <NavigationBar currentPath="/dashboard" />
       <div className="h-full w-full p-2 md:p-10">
-        <p className="text-xl font-semibold text-[#242731]">
-          Hello, {user?.name || "User"}!
+        <p className="mt-10 px-2 text-lg font-semibold text-[#242731] md:mt-0 md:text-xl">
+          Hello, {user?.name || "User"}! 👋
         </p>
-        <h1 className="text-2xl font-bold md:text-4xl">
+        <h1 className="mb-5 px-2 text-xl font-bold md:mb-0 md:text-4xl">
           Welcome to Your Dashboard
         </h1>
 
