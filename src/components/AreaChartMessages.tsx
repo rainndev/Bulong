@@ -56,11 +56,12 @@ const AreaChartMessages = ({
     </defs>
 
     <XAxis
+      tickMargin={10}
       className="text-2xl"
       tick={{ fontSize, fill: "white" }}
       dataKey="date"
     />
-    <YAxis tick={{ fontSize, fill: "white" }} width="auto" />
+    <YAxis tickMargin={10} tick={{ fontSize, fill: "white" }} width="auto" />
     <Tooltip content={<CustomTooltip />} />
     <Area
       type="monotone"
