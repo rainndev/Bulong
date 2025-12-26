@@ -2,12 +2,34 @@
 
 import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 
+const fontSize = window.innerWidth < 640 ? 10 : 12;
+
 type AreaChartProps = {
   data: {
     date: string;
     messagesCount: number;
   }[];
   isAnimationActive?: boolean;
+};
+
+type CustomTooltipProps = {
+  active?: boolean;
+  payload?: any[];
+  label?: string;
+};
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+  if (!active || !payload || !payload.length) return null;
+
+  return (
+    <div className="rounded-lg border border-[#949494]/20 bg-[#242731]/95 p-3 md:p-5">
+      <p className="mb-1 text-xs text-[#949494] md:text-sm">{label}</p>
+
+      <p className="md:text-md text-sm">
+        Messages Received: {payload[0].value}
+      </p>
+    </div>
+  );
 };
 
 // #endregion
@@ -33,12 +55,17 @@ const AreaChartMessages = ({
       </linearGradient>
     </defs>
 
-    <XAxis dataKey="date" />
-    <YAxis width="auto" />
-    <Tooltip />
+    <XAxis
+      className="text-2xl"
+      tick={{ fontSize, fill: "white" }}
+      dataKey="date"
+    />
+    <YAxis tick={{ fontSize, fill: "white" }} width="auto" />
+    <Tooltip content={<CustomTooltip />} />
     <Area
       type="monotone"
       dataKey="messagesCount"
+      name="Messages"
       stroke="#8884d8"
       fillOpacity={1}
       fill="url(#colorUv)"
