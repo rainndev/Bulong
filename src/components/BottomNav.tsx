@@ -1,5 +1,10 @@
 import { PostType } from "@/lib/actions/post";
 import { motion, AnimatePresence } from "motion/react";
+import { FaFacebook } from "react-icons/fa";
+import { PiSnapchatLogoFill } from "react-icons/pi";
+import { useState } from "react";
+import { IconType } from "react-icons";
+import { BiLogoInstagramAlt } from "react-icons/bi";
 
 type Props = {
   isOpen: boolean;
@@ -7,11 +12,41 @@ type Props = {
   post: PostType | undefined;
 };
 
+type SocmedTypes = {
+  name: string;
+  shortName: string;
+  icon: IconType;
+};
+
+const socmedOptions: SocmedTypes[] = [
+  {
+    name: "Facebook",
+    shortName: "FB",
+    icon: FaFacebook,
+  },
+
+  {
+    name: "Instagram",
+    shortName: "IG",
+    icon: BiLogoInstagramAlt,
+  },
+
+  {
+    name: "Snapchat",
+    shortName: "SNAP",
+    icon: PiSnapchatLogoFill,
+  },
+];
+
 export default function BottomNav({ isOpen, onClose, post }: Props) {
+  const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
+    socmedOptions[0],
+  );
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="md:hidden">
+        <div className="text-[#242731] md:hidden">
           {/* Overlay */}
           <motion.div
             className="fixed inset-0 z-40 bg-black/40"
@@ -39,6 +74,21 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
           >
             {/* drag handle */}
             <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-gray-300" />
+            <div className="mb-10 flex w-full items-center justify-center">
+              <div className="flex w-fit justify-center gap-5 rounded-full bg-violet-100 p-3 px-8 text-2xl">
+                {socmedOptions.map((data) => {
+                  const Icon = data.icon;
+
+                  return (
+                    <Icon
+                      className={`${selectedSocmed.shortName === data.shortName && "rounded-full bg-violet-300 p-0.5 transition-all ease-in-out"}`}
+                      onClick={() => setSelectedSocmed(data)}
+                      key={data.shortName}
+                    />
+                  );
+                })}
+              </div>
+            </div>
 
             <p className="text-center text-xl font-bold">
               {post?.title || "No title"}
@@ -48,8 +98,9 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
               <p className="text-sm text-gray-700">{post?.content}</p>
             </div>
 
-            <div className="mt-3 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white">
-              Share
+            <div className="mt-3 mb-5 flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white">
+              <span>Share to</span>
+              {<selectedSocmed.icon className="text-xl" />}
             </div>
           </motion.div>
         </div>
