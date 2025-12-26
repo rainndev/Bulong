@@ -58,7 +58,7 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
 
           {/* Bottom Sheet */}
           <motion.div
-            className="fixed right-0 bottom-0 left-0 z-50 flex h-[95%] flex-col rounded-t-2xl bg-white p-5"
+            className="fixed right-0 bottom-0 left-0 z-50 flex h-[95%] flex-col rounded-t-3xl bg-white p-5"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}

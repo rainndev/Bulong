@@ -87,7 +87,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                   <span className="text-md block font-semibold">
                     {data.title}
                   </span>
-                  <p className="truncate text-sm text-gray-600">
+                  <p className="truncate text-xs text-gray-600 md:text-sm">
                     {data.content}
                   </p>
                 </li>
