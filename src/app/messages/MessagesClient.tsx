@@ -57,7 +57,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   };
 
   return (
-    <main className="flex h-screen w-full flex-row overflow-hidden bg-gray-50 text-black">
+    <main className="flex h-dvh w-full flex-row overflow-hidden bg-gray-50 text-black">
       <NavigationBar currentPath="/messages" />
 
       <div className="flex min-w-0 flex-1 flex-col">

@@ -36,7 +36,7 @@ const DashboardPage = async () => {
   const avgMessagePerDay = await getAverageMessagesPerDaySQL(userId);
 
   return (
-    <main className="flex h-screen w-full flex-col overflow-hidden bg-gray-50 text-[#242731] md:flex-row">
+    <main className="flex h-dvh w-full flex-col overflow-hidden bg-gray-50 text-[#242731] md:flex-row">
       <NavigationBar currentPath="/dashboard" />
       <div className="h-full flex-1 overflow-y-auto p-4 md:p-10">
         <p className="mt-10 px-2 text-lg font-semibold text-[#242731] md:mt-0 md:text-xl">
