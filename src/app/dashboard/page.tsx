@@ -13,6 +13,7 @@ import NavigationBar from "@/components/NavigationBar";
 import AreaChartMessages from "@/components/AreaChartMessages";
 import BottomBanner from "@/components/BottomBanner";
 import { FaEnvelope } from "react-icons/fa";
+import { hideMessage } from "@/lib/utils";
 
 export type PostType = Prisma.PostGetPayload<{}>;
 
@@ -76,10 +77,10 @@ const DashboardPage = async () => {
 
                       <div className="flex min-w-0 flex-col text-sm">
                         <h1 className="text-md font-semibold md:text-lg">
-                          {data.title}
+                          {hideMessage(data.title, data.isRead)}
                         </h1>
                         <p className="truncate text-xs text-[#949494] md:text-sm">
-                          {data.content}
+                          {hideMessage(data.content, data.isRead)}
                         </p>
                       </div>
                     </div>
