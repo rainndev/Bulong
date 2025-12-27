@@ -17,7 +17,7 @@ interface NavigationBarProps {
 
 const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
   return (
-    <div className="fixed inset-x-2 bottom-4 z-20 rounded-full border-2 border-violet-200 bg-white p-4 py-2 drop-shadow-2xl drop-shadow-violet-600/30 md:static md:top-0 md:h-full md:w-[18rem] md:rounded-none md:border-0 md:drop-shadow-none">
+    <div className="fixed inset-x-2 bottom-4 z-20 rounded-full border-2 border-violet-200 bg-white p-4 py-2 drop-shadow-2xl drop-shadow-violet-600/30 md:static md:top-0 md:h-dvh md:w-[18rem] md:rounded-none md:border-0 md:drop-shadow-none">
       <div className="flex h-full flex-row items-center justify-between md:flex-col">
         {/* title and logo */}
         <div className="hidden md:flex">

@@ -57,10 +57,10 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   };
 
   return (
-    <main className="flex h-full w-full overflow-hidden bg-gray-50 text-black">
+    <main className="flex h-screen w-full flex-row overflow-hidden bg-gray-50 text-black">
       <NavigationBar currentPath="/messages" />
 
-      <div className="flex h-full w-full flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         <div>
           <h1 className="w-full p-10 pb-5 text-center text-xl font-bold md:text-start md:text-2xl">
             Messages
@@ -68,7 +68,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
         </div>
 
         <div className="flex min-h-0 flex-1 gap-5 px-2 pb-10">
-          <div className="flex h-full w-full flex-col md:w-100">
+          <div className="flex h-full w-full shrink-0 flex-col md:w-80 lg:w-96">
             <div className="relative w-full">
               {/* icon */}
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -120,7 +120,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
 
           {/* specific message */}
 
-          <div className="fixed top-0 right-0 bottom-0 left-0 z-20 hidden h-full flex-1 overflow-y-auto rounded-2xl bg-violet-50 p-10 md:static md:block">
+          <div className="hidden flex-1 overflow-y-auto rounded-2xl bg-violet-50 p-10 md:block">
             <div className="flex w-full justify-end md:hidden">
               <button className="mb-10 rounded-2xl bg-violet-200 px-10 py-2 text-sm">
                 close
