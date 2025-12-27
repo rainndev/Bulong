@@ -59,7 +59,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
           onClick={signOut}
           className="flex w-fit cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-gray-500 hover:bg-violet-100 md:w-full"
         >
-          <IoExitOutline className="text-2xl" />
+          <IoExitOutline className="text-lg md:text-2xl" />
           <button className="hidden w-full text-sm transition-colors ease-in-out md:block">
             Sign Out
           </button>
