@@ -8,22 +8,30 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
 import BottomNav from "@/components/BottomNav";
 import { hideMessage } from "@/lib/utils";
+import { FaTrash } from "react-icons/fa";
+import { deletePost } from "@/lib/actions/post";
+import NoSelectedMessage from "@/components/NoSelectedMessage";
 
 interface MessagesClientProps {
   posts: PostType[];
 }
 
+const initialPostData = {
+  id: "example-id",
+  title: "Nothing Selected",
+  content: "Choose a message from the list to view its content.",
+  published: false,
+  authorId: "example-author",
+  isRead: true,
+  createdAt: new Date(),
+  updatedAt: null,
+};
+
 const MessagesClient = ({ posts }: MessagesClientProps) => {
-  const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>({
-    id: "example-id",
-    title: "Nothing Selected",
-    content: "Choose a message from the list to view its content.",
-    published: false,
-    authorId: "example-author",
-    isRead: true,
-    createdAt: new Date(),
-    updatedAt: null,
-  });
+  const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>(
+    initialPostData,
+  );
+
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
   const [isDialogShowing, setDialogShowing] = useState(false);
@@ -53,6 +61,21 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
           post.id === data.id ? { ...post, isRead: true } : post,
         ),
       );
+    }
+  };
+
+  const handleDeletePost = async () => {
+    const selectedPostId = selectedMessage?.id;
+
+    if (!selectedPostId) return;
+
+    const isSuccess = await deletePost(selectedPostId);
+
+    if (isSuccess) {
+      setDisplayedPosts((prev) =>
+        prev.filter((data) => data.id != selectedPostId),
+      );
+      setSelectedMessage(initialPostData);
     }
   };
 
@@ -119,19 +142,28 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
           </div>
 
           {/* specific message */}
+          {selectedMessage?.id === "example-id" ? (
+            <NoSelectedMessage />
+          ) : (
+            <div className="hidden flex-1 overflow-y-auto rounded-2xl border border-violet-200 bg-white p-10 md:flex md:flex-col">
+              <div className="flex w-full justify-end">
+                <button
+                  disabled={selectedMessage?.id === "example-id"}
+                  onClick={() => handleDeletePost()}
+                  className="mb-10 cursor-pointer rounded-2xl bg-violet-200 p-4 transition-colors ease-in-out hover:bg-violet-100 hover:text-violet-900 active:bg-violet-100 active:text-violet-900 lg:p-5"
+                >
+                  <FaTrash className="lg:text-md text-sm" />
+                </button>
+              </div>
 
-          <div className="hidden flex-1 overflow-y-auto rounded-2xl bg-violet-50 p-10 md:block">
-            <div className="flex w-full justify-end md:hidden">
-              <button className="mb-10 rounded-2xl bg-violet-200 px-10 py-2 text-sm">
-                close
-              </button>
+              <h1 className="mb-5 text-center font-bold md:text-xl lg:text-3xl">
+                {selectedMessage?.title}
+              </h1>
+              <p className="text-md text-md mt-4 flex-1 rounded-2xl bg-violet-50 whitespace-pre-wrap md:p-5 md:text-lg lg:p-10">
+                {selectedMessage?.content}
+              </p>
             </div>
-
-            <h1 className="text-xl font-bold">{selectedMessage?.title}</h1>
-            <p className="mt-4 whitespace-pre-wrap">
-              {selectedMessage?.content}
-            </p>
-          </div>
+          )}
 
           <BottomNav
             isOpen={isDialogShowing}
