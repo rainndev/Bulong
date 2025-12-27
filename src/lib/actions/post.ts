@@ -214,3 +214,18 @@ export const markAsReadPost = async (postId?: string) => {
     return false;
   }
 };
+
+export const deletePost = async (postId?: string) => {
+  if (!postId) return false;
+
+  try {
+    const deletedPost = await prisma.post.delete({
+      where: { id: postId },
+    });
+
+    return !!deletedPost;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};

@@ -1,16 +1,16 @@
-import { PostType } from "@/lib/actions/post";
+import { deletePost, PostType } from "@/lib/actions/post";
 import { motion, AnimatePresence } from "motion/react";
 import { FaFacebook } from "react-icons/fa";
 import { PiSnapchatLogoFill } from "react-icons/pi";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { IconType } from "react-icons";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import { FaTrash } from "react-icons/fa";
 
-type Props = {
+type BottomNavProps = {
   isOpen: boolean;
   onClose: () => void;
   post: PostType | undefined;
+  setDisplayedPosts: Dispatch<SetStateAction<PostType[]>>;
 };
 
 type SocmedTypes = {
@@ -39,10 +39,23 @@ const socmedOptions: SocmedTypes[] = [
   },
 ];
 
-export default function BottomNav({ isOpen, onClose, post }: Props) {
+export default function BottomNav({
+  isOpen,
+  onClose,
+  post,
+  setDisplayedPosts,
+}: BottomNavProps) {
   const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
     socmedOptions[0],
   );
+
+  const handlePostDelete = async () => {
+    const isSuccess = await deletePost(post?.id);
+    if (isSuccess) {
+      onClose();
+      setDisplayedPosts((prev) => prev.filter((data) => data.id != post?.id));
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -103,7 +116,10 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
               <span>Share to</span>
               {<selectedSocmed.icon className="text-xl" />}
             </div>
-            <div className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm font-semibold text-white">
+            <div
+              onClick={() => handlePostDelete()}
+              className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm font-semibold text-white"
+            >
               <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
                 <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-semibold text-transparent">
                   Delete Message
