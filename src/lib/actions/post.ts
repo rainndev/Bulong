@@ -198,3 +198,19 @@ export const getAverageMessagesPerDaySQL = async (userId: string) => {
 
   return result[0]?.avg ? Number(result[0].avg.toFixed(1)) : 0;
 };
+
+export const markAsReadPost = async (postId?: string) => {
+  if (!postId) return false;
+
+  try {
+    const updatedPost = await prisma.post.update({
+      where: { id: postId },
+      data: { isRead: true },
+    });
+
+    return !!updatedPost;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};

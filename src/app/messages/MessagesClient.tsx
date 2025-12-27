@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { PostType } from "../dashboard/page";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
-import { searchPost } from "@/lib/actions/post";
-import { AnimatePresence, motion } from "motion/react";
+import { markAsReadPost, searchPost } from "@/lib/actions/post";
 import BottomNav from "@/components/BottomNav";
+import { hideMessage } from "@/lib/utils";
 
 interface MessagesClientProps {
   posts: PostType[];
@@ -34,6 +34,20 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
 
     getSearchedPost();
   }, [debouncedSearch]);
+
+  const fetchMarkIsRead = async (data: PostType) => {
+    if (data.isRead) return;
+
+    const success = await markAsReadPost(data.id);
+
+    if (success) {
+      setDisplayedPosts((prev) =>
+        prev.map((post) =>
+          post.id === data.id ? { ...post, isRead: true } : post,
+        ),
+      );
+    }
+  };
 
   return (
     <main className="flex h-full w-full overflow-hidden bg-gray-50 text-black">
@@ -77,18 +91,18 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                   onClick={() => {
                     setDialogShowing(true);
                     setSelectedMessage(data);
+                    fetchMarkIsRead(data);
                   }}
                   className={`${
-                    selectedMessage?.id === data.id
-                      ? "border-l-violet-950 bg-violet-100"
-                      : ""
+                    selectedMessage?.id === data.id &&
+                    "border-l-violet-950 bg-violet-100"
                   } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-4 transition-colors hover:bg-violet-100 md:p-5`}
                 >
                   <span className="text-md block font-semibold">
-                    {data.title}
+                    {hideMessage(data.title, data.isRead)}
                   </span>
                   <p className="truncate text-xs text-gray-600 md:text-sm">
-                    {data.content}
+                    {hideMessage(data.content, data.isRead)}
                   </p>
                 </li>
               ))}

@@ -27,6 +27,7 @@ model Post {
   content   String?
   published Boolean   @default(false)
   authorId  String
+  isRead    Boolean @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   author    User      @relation(fields: [authorId], references: [id])
