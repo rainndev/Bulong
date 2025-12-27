@@ -120,6 +120,8 @@ const DashboardPage = async () => {
             </div>
 
             <BottomBanner userId={userId} />
+
+            <div className="invisible h-30" />
           </div>
         </div>
       </div>

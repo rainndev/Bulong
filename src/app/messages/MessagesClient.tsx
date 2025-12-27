@@ -113,6 +113,8 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                   </p>
                 </li>
               ))}
+
+              <li className="invisible h-20" />
             </ul>
           </div>
 
