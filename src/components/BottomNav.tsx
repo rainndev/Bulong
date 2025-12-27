@@ -5,6 +5,7 @@ import { PiSnapchatLogoFill } from "react-icons/pi";
 import { useState } from "react";
 import { IconType } from "react-icons";
 import { BiLogoInstagramAlt } from "react-icons/bi";
+import { FaTrash } from "react-icons/fa";
 
 type Props = {
   isOpen: boolean;
@@ -90,17 +91,24 @@ export default function BottomNav({ isOpen, onClose, post }: Props) {
               </div>
             </div>
 
-            <p className="text-center text-xl font-bold">
+            <p className="text-center text-xl font-bold antialiased">
               {post?.title || "No title"}
             </p>
 
-            <div className="mt-5 mb-4 flex-1 rounded-2xl bg-violet-50 p-5">
+            <div className="mt-5 mb-4 flex-1 rounded-2xl bg-violet-50 p-5 antialiased">
               <p className="text-sm text-gray-700">{post?.content}</p>
             </div>
 
-            <div className="mt-3 mb-5 flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white">
+            <div className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white">
               <span>Share to</span>
               {<selectedSocmed.icon className="text-xl" />}
+            </div>
+            <div className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm font-semibold text-white">
+              <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
+                <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-semibold text-transparent">
+                  Delete Message
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>

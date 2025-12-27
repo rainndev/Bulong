@@ -105,10 +105,10 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                     "border-l-violet-950 bg-violet-100"
                   } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-4 transition-colors hover:bg-violet-100 md:p-5`}
                 >
-                  <span className="text-md block font-semibold">
+                  <span className="text-md block font-semibold antialiased">
                     {hideMessage(data.title, data.isRead)}
                   </span>
-                  <p className="truncate text-xs text-gray-600 md:text-sm">
+                  <p className="truncate text-xs text-gray-600 antialiased md:text-sm">
                     {hideMessage(data.content, data.isRead)}
                   </p>
                 </li>

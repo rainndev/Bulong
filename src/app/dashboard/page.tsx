@@ -76,10 +76,10 @@ const DashboardPage = async () => {
                       </div>
 
                       <div className="flex min-w-0 flex-col text-sm">
-                        <h1 className="text-md font-semibold md:text-lg">
+                        <h1 className="text-md font-semibold antialiased md:text-lg">
                           {hideMessage(data.title, data.isRead)}
                         </h1>
-                        <p className="truncate text-xs text-[#949494] md:text-sm">
+                        <p className="truncate text-xs text-[#949494] antialiased md:text-sm">
                           {hideMessage(data.content, data.isRead)}
                         </p>
                       </div>
