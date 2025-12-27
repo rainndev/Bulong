@@ -18,14 +18,14 @@ const BottomBanner = ({ userId }: { userId: string }) => {
   return (
     <div className="flex flex-col justify-between rounded-3xl bg-linear-to-r from-purple-600 to-indigo-600 p-6">
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni id ea
-        eveniet deleniti ratione dolor assumenda voluptatibus? Amet minima,
-        vitae asperiores error quo quidem, deserunt ratione delectus provident
-        consectetur distinctio.
+        Bulong lets you get anonymous messages from friends and followers. Share
+        your link and start receiving honest thoughts and secrets today!
       </p>
 
       <div className="mt-10 flex items-center gap-2">
-        <p className="truncate">Share Own Link: {fullLink}</p>
+        <p className="truncate">
+          Share Own Link <br /> {fullLink}
+        </p>
 
         <button
           onClick={() => handleCopy(fullLink)}

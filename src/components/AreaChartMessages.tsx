@@ -56,6 +56,7 @@ const AreaChartMessages = ({
         maxWidth: "700px",
         maxHeight: "35vh",
         aspectRatio: 1.618,
+        outline: "none",
       }}
       responsive
       data={data}
