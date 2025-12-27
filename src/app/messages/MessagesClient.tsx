@@ -14,9 +14,16 @@ interface MessagesClientProps {
 }
 
 const MessagesClient = ({ posts }: MessagesClientProps) => {
-  const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>(
-    posts.length > 0 ? posts[0] : undefined,
-  );
+  const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>({
+    id: "example-id",
+    title: "Nothing Selected",
+    content: "Choose a message from the list to view its content.",
+    published: false,
+    authorId: "example-author",
+    isRead: true,
+    createdAt: new Date(),
+    updatedAt: null,
+  });
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
   const [isDialogShowing, setDialogShowing] = useState(false);
