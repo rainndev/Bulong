@@ -6,11 +6,12 @@ import { PostType } from "../dashboard/page";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
-import BottomNav from "@/components/BottomNav";
+import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
 import { hideMessage } from "@/lib/utils";
 import { FaTrash } from "react-icons/fa";
 import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
+import { motion } from "motion/react";
 
 interface MessagesClientProps {
   posts: PostType[];
@@ -36,6 +37,9 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
   const [search, setSearch] = useState("");
   const [isDialogShowing, setDialogShowing] = useState(false);
   const debouncedSearch = useDebounce(search, 500);
+  const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
+    socmedOptions[0],
+  );
 
   useEffect(() => {
     const getSearchedPost = async () => {
@@ -146,14 +150,37 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
             <NoSelectedMessage />
           ) : (
             <div className="hidden flex-1 overflow-y-auto rounded-2xl border border-violet-200 bg-white p-10 md:flex md:flex-col">
-              <div className="flex w-full justify-end">
-                <button
-                  disabled={selectedMessage?.id === "example-id"}
-                  onClick={() => handleDeletePost()}
-                  className="mb-10 cursor-pointer rounded-2xl bg-violet-200 p-4 transition-colors ease-in-out hover:bg-violet-100 hover:text-violet-900 active:bg-violet-100 active:text-violet-900 lg:p-5"
-                >
-                  <FaTrash className="lg:text-md text-sm" />
-                </button>
+              <div className="flex w-full justify-between">
+                <div className="mb-10 flex w-full items-center justify-start">
+                  <div className="flex w-fit justify-center gap-5 rounded-full bg-violet-100 p-3 px-8 text-2xl lg:text-3xl">
+                    {socmedOptions.map((data) => {
+                      const Icon = data.icon;
+
+                      return (
+                        <Icon
+                          className={`${selectedSocmed.shortName === data.shortName && "cursor-pointer rounded-full bg-violet-300 p-1 transition-all ease-in-out"}`}
+                          onClick={() => setSelectedSocmed(data)}
+                          key={data.shortName}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="mb-10 flex items-center rounded-full bg-violet-200 transition-colors ease-in-out hover:bg-violet-100 hover:text-violet-900 active:bg-violet-100 active:text-violet-900">
+                  <motion.button
+                    initial={{
+                      scale: 0.9,
+                    }}
+                    whileTap={{
+                      scale: 0.7,
+                    }}
+                    onClick={() => handleDeletePost()}
+                    className="cursor-pointer"
+                  >
+                    <FaTrash className="m-3 p-1 text-2xl lg:text-3xl" />
+                  </motion.button>
+                </div>
               </div>
 
               <h1 className="mb-5 text-center font-bold md:text-xl lg:text-3xl">

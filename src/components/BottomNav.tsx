@@ -13,13 +13,13 @@ type BottomNavProps = {
   setDisplayedPosts: Dispatch<SetStateAction<PostType[]>>;
 };
 
-type SocmedTypes = {
+export type SocmedTypes = {
   name: string;
   shortName: string;
   icon: IconType;
 };
 
-const socmedOptions: SocmedTypes[] = [
+export const socmedOptions: SocmedTypes[] = [
   {
     name: "Facebook",
     shortName: "FB",
