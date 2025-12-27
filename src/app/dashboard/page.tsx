@@ -14,6 +14,7 @@ import AreaChartMessages from "@/components/AreaChartMessages";
 import BottomBanner from "@/components/BottomBanner";
 import { FaEnvelope } from "react-icons/fa";
 import { hideMessage } from "@/lib/utils";
+import LoadingAnimation from "@/components/LoadingAnimation";
 
 export type PostType = Prisma.PostGetPayload<{}>;
 
