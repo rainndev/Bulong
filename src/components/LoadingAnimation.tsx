@@ -15,7 +15,7 @@ const LoadingAnimation = () => {
               delay: i * 0.2,
               repeat: Infinity,
             }}
-            className="rounded-sm bg-violet-300 p-1.5 md:p-2"
+            className="rounded-sm bg-violet-400 p-1.5 md:p-2"
             key={i}
           />
         ))}

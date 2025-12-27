@@ -45,7 +45,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
                 />
                 <span
                   className={`${
-                    data.path === currentPath && "text-violet-950"
+                    data.path === currentPath && "font-semibold text-violet-950"
                   } text-md hidden group-hover:text-violet-950 md:block`}
                 >
                   {data.name}
