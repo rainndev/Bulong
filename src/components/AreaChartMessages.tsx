@@ -9,6 +9,7 @@ type AreaChartProps = {
     messagesCount: number;
   }[];
   isAnimationActive?: boolean;
+  className?: string;
 };
 
 type CustomTooltipProps = {
@@ -35,6 +36,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 const AreaChartMessages = ({
   data,
   isAnimationActive = true,
+  className,
 }: AreaChartProps) => {
   const [fontSize, setFontSize] = useState(12);
 
@@ -58,6 +60,7 @@ const AreaChartMessages = ({
         aspectRatio: 1.618,
         outline: "none",
       }}
+      className={className}
       responsive
       data={data}
       margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
