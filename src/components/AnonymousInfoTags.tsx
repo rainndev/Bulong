@@ -12,28 +12,28 @@ type AnonymousInfoTagsProps = {
 
 const AnonymousInfoTags = ({ data }: AnonymousInfoTagsProps) => {
   return (
-    <div className="mb-1 flex w-full gap-2">
-      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-4 py-2 text-sm">
+    <div className="mb-1 flex w-full flex-wrap gap-2 text-xs md:text-sm">
+      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-3 py-1 md:px-4 md:py-2">
         <IoIosBrowsers />
         {data?.browser || "Unknown"}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-4 py-2 text-sm">
+      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-3 py-1 md:px-4 md:py-2">
         <FaLocationDot />
         {data?.country || "Unknown"}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-4 py-2 text-sm">
+      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-3 py-1 md:px-4 md:py-2">
         <MdDevices />
         {data?.device || "Unknown"}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-4 py-2 text-sm">
+      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-3 py-1 md:px-4 md:py-2">
         <IoHardwareChip />
         {data?.OS || "Unknown"}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-4 py-2 text-sm">
+      <span className="flex w-fit items-center gap-2 rounded-full bg-violet-50 px-3 py-1 md:px-4 md:py-2">
         <FaCity />
         {data?.region || "Unknown"}
       </span>

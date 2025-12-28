@@ -5,6 +5,7 @@ import { PiSnapchatLogoFill } from "react-icons/pi";
 import { Dispatch, SetStateAction, useState } from "react";
 import { IconType } from "react-icons";
 import { BiLogoInstagramAlt } from "react-icons/bi";
+import AnonymousInfoTags from "./AnonymousInfoTags";
 
 type BottomNavProps = {
   isOpen: boolean;
@@ -88,6 +89,7 @@ export default function BottomNav({
           >
             {/* drag handle */}
             <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-gray-300" />
+
             <div className="mb-10 flex w-full items-center justify-center">
               <div className="flex w-fit justify-center gap-5 rounded-full bg-violet-100 p-3 px-8 text-2xl">
                 {socmedOptions.map((data) => {
@@ -104,11 +106,11 @@ export default function BottomNav({
               </div>
             </div>
 
-            <p className="text-center text-xl font-bold antialiased">
+            <p className="mb-10 text-center text-xl font-bold antialiased">
               {post?.title || "No title"}
             </p>
-
-            <div className="mt-5 mb-4 flex-1 rounded-2xl bg-violet-50 p-5 antialiased">
+            <AnonymousInfoTags data={post} />
+            <div className="mt-1 mb-4 flex-1 rounded-2xl bg-violet-50 p-5 antialiased">
               <p className="text-sm text-gray-700">{post?.content}</p>
             </div>
 
