@@ -12,6 +12,12 @@ import { FaTrash } from "react-icons/fa";
 import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
 import { motion } from "motion/react";
+import { IoIosBrowsers } from "react-icons/io";
+import { FaLocationDot } from "react-icons/fa6";
+import { MdDevices } from "react-icons/md";
+import { IoHardwareChip } from "react-icons/io5";
+import { FaCity } from "react-icons/fa";
+import AnonymousInfoTags from "@/components/AnonymousInfoTags";
 
 interface MessagesClientProps {
   posts: PostType[];
@@ -188,12 +194,16 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
                 </div>
               </div>
 
-              <h1 className="mb-5 text-center font-bold md:text-xl lg:text-3xl">
+              <h1 className="mb-10 text-center font-bold md:text-xl lg:text-3xl">
                 {selectedMessage?.title}
               </h1>
-              <p className="text-md text-md mt-4 flex-1 rounded-2xl bg-violet-50 whitespace-pre-wrap md:p-5 md:text-lg lg:p-10">
-                {selectedMessage?.content}
-              </p>
+
+              {/* basic info of sender */}
+              <AnonymousInfoTags data={selectedMessage} />
+
+              <div className="text-md text-md mt-4 flex-1 rounded-2xl bg-violet-50 whitespace-pre-wrap md:p-5 md:text-lg lg:p-10">
+                <p>{selectedMessage?.content}</p>
+              </div>
             </div>
           )}
 
