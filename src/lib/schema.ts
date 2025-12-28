@@ -7,4 +7,9 @@ export const PostSchema = z.object({
     .max(50, "Title is too long"),
   content: z.string().min(10, "Content must be at least 10 characters"),
   userId: z.string().trim().min(1, "Invalid User"),
+  browser: z.string(),
+  country: z.string(),
+  device: z.string(),
+  OS: z.string(),
+  region: z.string(),
 });

@@ -3,9 +3,22 @@
 import { createPost } from "@/lib/actions/post";
 import { useActionState, useEffect, useState } from "react";
 
-export default function CreatePostForm({ userId }: { userId: string }) {
-  const [info, setInfo] = useState<any>(null);
+type anonymouseInfoType = {
+  device: string;
+  os: string;
+  browser: string;
+  country: string;
+  region: string;
+};
 
+export default function CreatePostForm({ userId }: { userId: string }) {
+  const [info, setInfo] = useState<anonymouseInfoType>({
+    device: "Unknown",
+    os: "Unknown",
+    browser: "Unknown",
+    country: "Unknown",
+    region: "Unknown",
+  });
   const [state, formAction] = useActionState(createPost, null);
 
   useEffect(() => {
@@ -19,6 +32,11 @@ export default function CreatePostForm({ userId }: { userId: string }) {
   return (
     <form action={formAction}>
       <input type="hidden" name="userId" value={userId} />
+      <input type="hidden" name="browser" value={info.browser} />
+      <input type="hidden" name="country" value={info.country} />
+      <input type="hidden" name="device" value={info.device} />
+      <input type="hidden" name="os" value={info.os} />
+      <input type="hidden" name="region" value={info.region} />
 
       <div>
         <input name="title" placeholder="Title" className="..." />

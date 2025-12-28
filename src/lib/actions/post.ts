@@ -14,6 +14,11 @@ export const createPost = async (prevState: any, formData: FormData) => {
     title: formData.get("title"),
     content: formData.get("content"),
     userId: formData.get("userId"),
+    browser: formData.get("browser") as string,
+    country: formData.get("country") as string,
+    device: formData.get("device") as string,
+    OS: formData.get("os") as string,
+    region: formData.get("region") as string,
   };
 
   const validatedFields = PostSchema.safeParse(rawData);
@@ -31,6 +36,11 @@ export const createPost = async (prevState: any, formData: FormData) => {
         content: validatedFields.data.content,
         author: { connect: { id: validatedFields.data.userId } },
         published: true,
+        browser: validatedFields.data.browser,
+        country: validatedFields.data.country,
+        device: validatedFields.data.device,
+        OS: validatedFields.data.OS,
+        region: validatedFields.data.region,
       },
     });
     return { success: true };
