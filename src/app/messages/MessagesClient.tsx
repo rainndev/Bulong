@@ -2,7 +2,7 @@
 
 import NavigationBar from "@/components/NavigationBar";
 import { useEffect, useState } from "react";
-import { PostType } from "../dashboard/page";
+import { PostType } from "../dashboard/layout";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
