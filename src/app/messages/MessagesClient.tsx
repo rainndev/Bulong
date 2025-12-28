@@ -12,11 +12,6 @@ import { FaTrash } from "react-icons/fa";
 import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
 import { motion } from "motion/react";
-import { IoIosBrowsers } from "react-icons/io";
-import { FaLocationDot } from "react-icons/fa6";
-import { MdDevices } from "react-icons/md";
-import { IoHardwareChip } from "react-icons/io5";
-import { FaCity } from "react-icons/fa";
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
 
 interface MessagesClientProps {

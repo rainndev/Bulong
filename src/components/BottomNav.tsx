@@ -6,6 +6,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { IconType } from "react-icons";
 import { BiLogoInstagramAlt } from "react-icons/bi";
 import AnonymousInfoTags from "./AnonymousInfoTags";
+import { useRef } from "react";
+import { toPng } from "html-to-image";
 
 type BottomNavProps = {
   isOpen: boolean;
@@ -50,12 +52,35 @@ export default function BottomNav({
     socmedOptions[0],
   );
 
+  const [isCaptured, setCapture] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
   const handlePostDelete = async () => {
     const isSuccess = await deletePost(post?.id);
     if (isSuccess) {
       onClose();
       setDisplayedPosts((prev) => prev.filter((data) => data.id != post?.id));
     }
+  };
+
+  const downloadImage = async () => {
+    if (!post || !cardRef.current) return;
+    setCapture(true);
+
+    await new Promise((r) => requestAnimationFrame(r));
+
+    const dataUrl = await toPng(cardRef.current, {
+      quality: 1,
+      pixelRatio: 3,
+      cacheBust: true,
+    });
+
+    const link = document.createElement("a");
+    link.download = "message.png";
+    link.href = dataUrl;
+    link.click();
+
+    setCapture(false);
   };
 
   return (
@@ -73,6 +98,7 @@ export default function BottomNav({
 
           {/* Bottom Sheet */}
           <motion.div
+            ref={cardRef}
             className="fixed right-0 bottom-0 left-0 z-50 flex h-[95%] flex-col rounded-t-3xl bg-white p-5"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -89,6 +115,8 @@ export default function BottomNav({
           >
             {/* drag handle */}
             <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-gray-300" />
+
+            {/* container message */}
 
             <div className="mb-10 flex w-full items-center justify-center">
               <div className="flex w-fit justify-center gap-5 rounded-full bg-violet-100 p-3 px-8 text-2xl">
@@ -114,20 +142,31 @@ export default function BottomNav({
               <p className="text-sm text-gray-700">{post?.content}</p>
             </div>
 
-            <div className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white">
-              <span>Share to</span>
-              {<selectedSocmed.icon className="text-xl" />}
-            </div>
             <div
-              onClick={() => handlePostDelete()}
-              className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm font-semibold text-white"
+              onClick={downloadImage}
+              className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white`}
             >
-              <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
-                <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-semibold text-transparent">
-                  Delete Message
-                </span>
-              </div>
+              {isCaptured ? (
+                <p>Someone sent you a message 👀✨</p>
+              ) : (
+                <>
+                  <span>Share to</span>
+                  <selectedSocmed.icon className="text-xl" />
+                </>
+              )}
             </div>
+            {!isCaptured && (
+              <div
+                onClick={() => handlePostDelete()}
+                className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm font-semibold text-white"
+              >
+                <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
+                  <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-semibold text-transparent">
+                    Delete Message
+                  </span>
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
       )}
