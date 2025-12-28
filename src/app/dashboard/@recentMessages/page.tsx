@@ -2,7 +2,6 @@ import { getRecentPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { hideMessage } from "@/lib/utils";
 import { headers } from "next/headers";
-import React from "react";
 import { FaEnvelope } from "react-icons/fa";
 
 const RecentMessages = async () => {

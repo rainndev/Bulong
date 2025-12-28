@@ -17,7 +17,7 @@ const MessagesPage = async () => {
   const userId = session?.user.id;
   const posts = await getPost(userId as string);
 
-  return <MessagesClient posts={posts} />;
+  return <MessagesClient posts={posts} userId={userId} />;
 };
 
 export default MessagesPage;

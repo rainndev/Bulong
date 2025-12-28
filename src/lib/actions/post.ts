@@ -83,13 +83,17 @@ export const signOut = async () => {
   redirect("/sign-in");
 };
 
-export const searchPost = async (query: string): Promise<PostType[]> => {
+export const searchPost = async (
+  query: string,
+  userId: string,
+): Promise<PostType[]> => {
   return await prisma.post.findMany({
     where: {
       OR: [
         { title: { contains: query, mode: "insensitive" } },
         { content: { contains: query, mode: "insensitive" } },
       ],
+      authorId: userId,
     },
   });
 };

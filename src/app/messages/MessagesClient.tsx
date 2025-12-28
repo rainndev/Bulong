@@ -16,6 +16,7 @@ import AnonymousInfoTags from "@/components/AnonymousInfoTags";
 
 interface MessagesClientProps {
   posts: PostType[];
+  userId: string;
 }
 
 const initialPostData = {
@@ -34,7 +35,7 @@ const initialPostData = {
   updatedAt: null,
 };
 
-const MessagesClient = ({ posts }: MessagesClientProps) => {
+const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
   const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>(
     initialPostData,
   );
@@ -53,7 +54,7 @@ const MessagesClient = ({ posts }: MessagesClientProps) => {
         setDisplayedPosts(posts);
         return;
       }
-      const searchedPosts = await searchPost(debouncedSearch);
+      const searchedPosts = await searchPost(debouncedSearch, userId);
       setDisplayedPosts(searchedPosts);
     };
 
