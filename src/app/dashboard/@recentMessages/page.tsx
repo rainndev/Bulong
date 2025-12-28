@@ -40,7 +40,7 @@ const RecentMessages = async () => {
             </div>
 
             <div className="flex min-w-0 flex-col text-sm">
-              <h1 className="text-md mb-1 font-semibold antialiased md:text-lg">
+              <h1 className="text-md mb-1 truncate font-semibold antialiased md:text-lg">
                 {hideMessage(data.title, data.isRead)}
               </h1>
               <p className="truncate text-xs text-[#949494] antialiased md:text-sm">
