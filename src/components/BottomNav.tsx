@@ -7,7 +7,7 @@ import { IconType } from "react-icons";
 import { BiLogoInstagramAlt } from "react-icons/bi";
 import AnonymousInfoTags from "./AnonymousInfoTags";
 import { useRef } from "react";
-import { toPng } from "html-to-image";
+import { downloadImage } from "@/lib/utils";
 
 type BottomNavProps = {
   isOpen: boolean;
@@ -61,26 +61,6 @@ export default function BottomNav({
       onClose();
       setDisplayedPosts((prev) => prev.filter((data) => data.id != post?.id));
     }
-  };
-
-  const downloadImage = async () => {
-    if (!post || !cardRef.current) return;
-    setCapture(true);
-
-    await new Promise((r) => requestAnimationFrame(r));
-
-    const dataUrl = await toPng(cardRef.current, {
-      quality: 1,
-      pixelRatio: 3,
-      cacheBust: true,
-    });
-
-    const link = document.createElement("a");
-    link.download = "message.png";
-    link.href = dataUrl;
-    link.click();
-
-    setCapture(false);
   };
 
   return (
@@ -143,7 +123,7 @@ export default function BottomNav({
             </div>
 
             <div
-              onClick={downloadImage}
+              onClick={() => downloadImage(post, cardRef, setCapture)}
               className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white`}
             >
               {isCaptured ? (

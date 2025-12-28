@@ -1,13 +1,13 @@
 "use client";
 
 import NavigationBar from "@/components/NavigationBar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PostType } from "../dashboard/layout";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
 import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
-import { hideMessage } from "@/lib/utils";
+import { downloadImage, hideMessage } from "@/lib/utils";
 import { FaTrash } from "react-icons/fa";
 import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
