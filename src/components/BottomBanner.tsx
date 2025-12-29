@@ -13,7 +13,7 @@ const BottomBanner = ({ userName }: { userName: string }) => {
     await navigator.clipboard.writeText(textToCopy);
   };
 
-  const fullLink = baseUrl ? `${baseUrl}/${userName}` : "";
+  const fullLink = baseUrl ? `${baseUrl}/@${userName}` : "";
 
   return (
     <div className="flex flex-col justify-between rounded-3xl bg-linear-to-r from-purple-600 to-indigo-600 p-6">

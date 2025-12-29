@@ -9,8 +9,12 @@ const CreatePostPage = async ({
 }) => {
   const { userName } = await params;
 
-  const user = await isUserExist(userName);
+  const decodedUserName = decodeURIComponent(userName);
+  const cleanUsername = decodedUserName.startsWith("@")
+    ? decodedUserName.substring(1)
+    : decodedUserName;
 
+  const user = await isUserExist(cleanUsername);
   if (!user) {
     return notFound();
   }
