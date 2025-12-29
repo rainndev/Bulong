@@ -20,13 +20,20 @@ export default function SignUpPage() {
       password: formData.get("password") as string,
     });
 
-    console.log(res);
+    if (res?.error) {
+      if (
+        res.error.code === "FAILED_TO_CREATE_USER" ||
+        res.error.message?.toLowerCase().includes("unique")
+      ) {
+        setError("Username already exists. Please choose another.");
+        return;
+      }
 
-    if (res.error) {
       setError(res.error.message || "Something went wrong.");
-    } else {
-      router.push("/dashboard");
+      return;
     }
+
+    router.push("/dashboard");
   }
 
   return (
