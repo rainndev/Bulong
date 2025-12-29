@@ -5,17 +5,19 @@ import { notFound } from "next/navigation";
 const CreatePostPage = async ({
   params,
 }: {
-  params: Promise<{ userId: string }>;
+  params: Promise<{ userName: string }>;
 }) => {
-  const { userId } = await params;
+  const { userName } = await params;
 
-  if (!(await isUserExist(userId))) {
+  const user = await isUserExist(userName);
+
+  if (!user) {
     return notFound();
   }
 
   return (
     <div>
-      <CreatePostForm userId={userId} />
+      <CreatePostForm userId={user.id} />
     </div>
   );
 };

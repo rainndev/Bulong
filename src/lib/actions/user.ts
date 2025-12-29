@@ -1,13 +1,18 @@
 "use server";
 
+import { Prisma } from "@prisma/client";
 import { prisma } from "../prisma";
 
-export const isUserExist = async (userId: string): Promise<boolean> => {
+export type UserType = Prisma.UserGetPayload<{}>;
+
+export const isUserExist = async (
+  userName: string,
+): Promise<UserType | null> => {
   const user = await prisma.user.findFirst({
     where: {
-      id: userId,
+      name: userName,
     },
   });
 
-  return user != null;
+  return user;
 };

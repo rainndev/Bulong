@@ -29,6 +29,7 @@ const Layout = async ({
   }
 
   const userId = session?.user.id;
+  const userName = session?.user.name;
   const messagesToday = await getMessagesCountToday(userId);
   const { totalThisWeek } = await getMessagesThisWeekData(userId);
   const avgMessagePerDay = await getAverageMessagesPerDaySQL(userId);
@@ -85,7 +86,7 @@ const Layout = async ({
               </div>
             </div>
 
-            <BottomBanner userId={userId} />
+            <BottomBanner userName={userName} />
 
             <div className="invisible h-30" />
           </div>

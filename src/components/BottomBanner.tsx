@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const BottomBanner = ({ userId }: { userId: string }) => {
+const BottomBanner = ({ userName }: { userName: string }) => {
   const [baseUrl, setBaseUrl] = useState("");
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const BottomBanner = ({ userId }: { userId: string }) => {
     await navigator.clipboard.writeText(textToCopy);
   };
 
-  const fullLink = baseUrl ? `${baseUrl}/posts/create/${userId}` : "";
+  const fullLink = baseUrl ? `${baseUrl}/${userName}` : "";
 
   return (
     <div className="flex flex-col justify-between rounded-3xl bg-linear-to-r from-purple-600 to-indigo-600 p-6">
