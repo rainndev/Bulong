@@ -15,7 +15,7 @@ export default function SignUpPage() {
     const formData = new FormData(e.currentTarget);
 
     const res = await signUp.email({
-      name: formData.get("name") as string,
+      name: formData.get("username") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     });
@@ -30,25 +30,25 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="w-full  h-full flex justify-center items-center">
-      <div className="max-w-md  mx-auto p-6 space-y-4 text-black ">
+    <main className="flex h-full w-full items-center justify-center">
+      <div className="mx-auto max-w-md space-y-4 p-6 text-black">
         <h1 className="text-2xl font-bold">Sign Up</h1>
 
         {error && <p className="text-red-500">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            name="name"
-            placeholder="Full Name"
+            name="username"
+            placeholder="Username"
             required
-            className="w-full rounded-lg text-violet-950 bg-white border border-gray-500 px-4 py-3"
+            className="w-full rounded-lg border border-gray-500 bg-white px-4 py-3 text-violet-950"
           />
           <input
             name="email"
             type="email"
             placeholder="Email"
             required
-            className="w-full rounded-lg text-violet-950 bg-white border border-gray-500 px-4 py-3"
+            className="w-full rounded-lg border border-gray-500 bg-white px-4 py-3 text-violet-950"
           />
           <input
             name="password"
@@ -56,11 +56,11 @@ export default function SignUpPage() {
             placeholder="Password"
             required
             minLength={8}
-            className="w-full rounded-lg text-violet-950 bg-white border border-gray-500 px-4 py-3"
+            className="w-full rounded-lg border border-gray-500 bg-white px-4 py-3 text-violet-950"
           />
           <button
             type="submit"
-            className="w-full bg-violet-400 text-white font-medium rounded-lg px-4 py-3 hover:bg-violet-300 "
+            className="w-full rounded-lg bg-violet-400 px-4 py-3 font-medium text-white hover:bg-violet-300"
           >
             Create Account
           </button>

@@ -205,7 +205,9 @@ export const getMessagesThisWeekData = async (userId: string) => {
 
 export const getAverageMessagesPerDaySQL = async (userId: string) => {
   const result = await prisma.$queryRaw<{ avg: number | null }[]>`
-    SELECT COUNT(*)::float / COUNT(DISTINCT DATE("createdAt")) AS avg
+    SELECT 
+      COUNT(*)::float 
+      / NULLIF(COUNT(DISTINCT DATE("createdAt")), 0) AS avg
     FROM "Post"
     WHERE "authorId" = ${userId};
   `;
