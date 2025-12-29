@@ -16,7 +16,7 @@ const BottomBanner = ({ userName }: { userName: string }) => {
   const fullLink = baseUrl ? `${baseUrl}/@${userName}` : "";
 
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-linear-to-r from-purple-600 to-indigo-600 p-6">
+    <div className="flex flex-col justify-between rounded-3xl bg-[#242731] p-6 text-violet-200 antialiased">
       <p>
         Bulong lets you get anonymous messages from friends and followers. Share
         your link and start receiving honest thoughts and secrets today!
@@ -29,7 +29,7 @@ const BottomBanner = ({ userName }: { userName: string }) => {
 
         <button
           onClick={() => handleCopy(fullLink)}
-          className="rounded-xl bg-white px-6 py-2 text-sm font-bold text-black transition hover:bg-gray-100"
+          className="rounded-lg bg-white px-6 py-2 text-sm font-bold text-[#242731] transition hover:bg-gray-100 md:rounded-xl"
         >
           Copy
         </button>

@@ -47,7 +47,7 @@ const Layout = async ({
 
         <div className="mt-3 font-sans text-white md:mt-10">
           <div className="mx-auto space-y-3 md:space-y-6">
-            <div className="grid grid-cols-1 items-center gap-8 rounded-3xl border bg-[#242731] p-6 md:grid-cols-2 md:p-8">
+            <div className="grid grid-cols-1 items-center gap-3 rounded-3xl md:grid-cols-2 md:gap-6">
               {/* total message and chart */}
               {totalMessagesAndChart}
 
@@ -55,29 +55,27 @@ const Layout = async ({
               {recentMessages}
             </div>
 
-            <div className="grid h-full grid-cols-1 gap-3 md:grid-cols-3 md:gap-6">
-              <div className="h-full rounded-3xl bg-[#242731] p-6">
-                <p className="mb-2 text-sm text-gray-400">
-                  New Messages (Today)
-                </p>
-                <h2 className="text-3xl font-bold">{messagesToday}</h2>
+            <div className="grid h-full grid-cols-1 gap-3 text-[#242731] md:grid-cols-3 md:gap-6">
+              <div className="h-full rounded-3xl border border-violet-200 bg-violet-100 p-6">
+                <p className="mb-2 text-sm">New Messages (Today)</p>
+                <h2 className="text-2xl font-bold">{messagesToday}</h2>
 
                 <div className="mt-4 w-full via-blue-400/20 to-transparent">
                   <IoAnalytics className="text-xl md:text-4xl" />
                 </div>
               </div>
 
-              <div className="rounded-3xl bg-[#242731] p-6">
-                <p className="mb-2 text-sm text-gray-400">Messages This Week</p>
-                <h2 className="text-3xl font-bold">{totalThisWeek}</h2>
+              <div className="rounded-3xl border border-violet-200 bg-violet-100 p-6">
+                <p className="mb-2 text-sm">Messages This Week</p>
+                <h2 className="text-2xl font-bold">{totalThisWeek}</h2>
 
                 <div className="mt-4 w-full via-blue-400/20 to-transparent">
                   <IoAnalytics className="text-xl md:text-4xl" />
                 </div>
               </div>
 
-              <div className="rounded-3xl bg-[#242731] p-6">
-                <p className="mb-2 text-sm text-gray-400">AVG Message/Day</p>
+              <div className="rounded-3xl border border-violet-200 bg-violet-100 p-6">
+                <p className="mb-2 text-sm">AVG Message/Day</p>
                 <h2 className="text-2xl font-bold">{avgMessagePerDay}</h2>
 
                 <div className="mt-4 w-full via-blue-400/20 to-transparent">

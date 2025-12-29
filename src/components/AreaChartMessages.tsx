@@ -22,10 +22,12 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload || !payload.length) return null;
 
   return (
-    <div className="rounded-lg border border-[#949494]/20 bg-[#242731]/95 p-3 md:p-5">
-      <p className="mb-1 text-xs text-[#949494] md:text-sm">{label}</p>
+    <div className="rounded-lg border border-[#949494]/20 bg-[#242731]/90 p-3 md:p-5">
+      <p className="mb-1 text-xs font-semibold text-white/70 md:text-sm">
+        {label}
+      </p>
 
-      <p className="md:text-md text-sm">
+      <p className="md:text-md text-sm text-white">
         Messages Received: {payload[0].value}
       </p>
     </div>
@@ -75,10 +77,14 @@ const AreaChartMessages = ({
       <XAxis
         tickMargin={10}
         className="text-2xl"
-        tick={{ fontSize, fill: "white" }}
+        tick={{ fontSize, fill: "#242731" }}
         dataKey="date"
       />
-      <YAxis tickMargin={10} tick={{ fontSize, fill: "white" }} width="auto" />
+      <YAxis
+        tickMargin={10}
+        tick={{ fontSize, fill: "#242731" }}
+        width="auto"
+      />
       <Tooltip content={<CustomTooltip />} />
       <Area
         type="monotone"
