@@ -16,14 +16,14 @@ const BottomBanner = ({ userName }: { userName: string }) => {
   const fullLink = baseUrl ? `${baseUrl}/@${userName}` : "";
 
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-[#242731] p-6 text-violet-50 antialiased">
+    <div className="md:text-md flex flex-col justify-between rounded-3xl bg-[#242731] p-6 text-sm text-violet-50 antialiased lg:text-lg">
       <p>
         Bulong lets you get anonymous messages from friends and followers. Share
         your link and start receiving honest thoughts and secrets today!
       </p>
 
       <div className="mt-10 flex items-center gap-2">
-        <p className="truncate">
+        <p className="flex-1 truncate">
           Share Own Link <br /> {fullLink}
         </p>
 
