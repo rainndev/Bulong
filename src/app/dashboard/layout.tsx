@@ -56,7 +56,7 @@ const Layout = async ({
             </div>
 
             <div className="grid h-full grid-cols-1 gap-3 text-[#242731] md:grid-cols-3 md:gap-6">
-              <div className="h-full rounded-3xl border border-violet-200 bg-violet-100 p-6">
+              <div className="h-full rounded-3xl border border-violet-200 bg-violet-50 p-6">
                 <p className="mb-2 text-sm">New Messages (Today)</p>
                 <h2 className="text-2xl font-bold">{messagesToday}</h2>
 
@@ -65,7 +65,7 @@ const Layout = async ({
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-violet-200 bg-violet-100 p-6">
+              <div className="rounded-3xl border border-violet-200 bg-violet-50 p-6">
                 <p className="mb-2 text-sm">Messages This Week</p>
                 <h2 className="text-2xl font-bold">{totalThisWeek}</h2>
 
@@ -74,7 +74,7 @@ const Layout = async ({
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-violet-200 bg-violet-100 p-6">
+              <div className="rounded-3xl border border-violet-200 bg-violet-50 p-6">
                 <p className="mb-2 text-sm">AVG Message/Day</p>
                 <h2 className="text-2xl font-bold">{avgMessagePerDay}</h2>
 
