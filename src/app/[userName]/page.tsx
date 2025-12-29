@@ -19,11 +19,7 @@ const CreatePostPage = async ({
     return notFound();
   }
 
-  return (
-    <div>
-      <CreatePostForm userId={user.id} />
-    </div>
-  );
+  return <CreatePostForm userId={user.id} />;
 };
 
 export default CreatePostPage;
