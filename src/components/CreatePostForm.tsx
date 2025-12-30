@@ -4,6 +4,7 @@ import { createPost } from "@/lib/actions/post";
 import { useActionState, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
+import { FaUser } from "react-icons/fa";
 
 type anonymouseInfoType = {
   device: string;
@@ -45,15 +46,22 @@ export default function CreatePostForm({ userId }: { userId: string }) {
         <input type="hidden" name="os" value={info.os} />
         <input type="hidden" name="region" value={info.region} />
 
-        <div className="mb-5 rounded-4xl bg-linear-to-r from-purple-600 to-indigo-600 p-10 text-white drop-shadow-2xl drop-shadow-purple-600/10">
-          <p className="w-full text-center text-lg md:text-xl">{randomTitle}</p>
+        <div className="mb-5 flex-1 rounded-4xl bg-linear-to-r from-purple-600 to-indigo-600 p-15 text-white drop-shadow-2xl drop-shadow-purple-600/10 md:p-20">
+          <div className="mb-5 flex items-center justify-center">
+            <div className="w-fit rounded-full bg-violet-100 p-5 md:p-6 lg:p-8">
+              <FaUser className="text-xl text-violet-600 md:text-3xl lg:text-4xl" />
+            </div>
+          </div>
+          <p className="text-md w-full text-center md:text-lg lg:text-xl">
+            {randomTitle}
+          </p>
         </div>
 
         <div className="mb-3">
           <input
             name="title"
             placeholder="Title"
-            className="w-full rounded-2xl border-2 border-violet-300 p-3 transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className="md:text-md w-full rounded-2xl border-2 border-violet-300 p-3 pl-4 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
           />
           {/* Render Title Errors */}
           {state?.errors?.title && (
@@ -67,7 +75,7 @@ export default function CreatePostForm({ userId }: { userId: string }) {
           <textarea
             name="content"
             placeholder="Content"
-            className="h-55 w-full rounded-2xl border-2 border-violet-300 p-3 transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className="md:text-md h-55 w-full rounded-2xl border-2 border-violet-300 p-3 pl-4 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
           />
           {/* Render Content Errors */}
           {state?.errors?.content && (
