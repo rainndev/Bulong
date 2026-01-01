@@ -35,7 +35,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
                 key={data.name}
                 className={`${
                   data.path === currentPath && "bg-violet-100"
-                } group flex w-fit cursor-pointer items-center gap-2 rounded-full px-4 py-3 transition-all ease-in-out hover:bg-violet-100 md:w-full`}
+                } group flex w-fit cursor-pointer items-center gap-2 rounded-full px-4 py-3 transition-all ease-in-out hover:bg-violet-100 md:w-full md:rounded-lg`}
                 href={data.path}
               >
                 <Icon
