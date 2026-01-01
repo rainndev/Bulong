@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import {
   getAverageMessagesPerDaySQL,
@@ -24,7 +24,7 @@ const Layout = async ({
 
   const user = session?.user;
   if (!session) {
-    return <div>Not logged in</div>;
+    redirect("/sign-in");
   }
 
   const userId = session?.user.id;
