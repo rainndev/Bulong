@@ -2,7 +2,6 @@
 
 import NavigationBar from "@/components/NavigationBar";
 import { useEffect, useRef, useState } from "react";
-import { PostType } from "../dashboard/layout";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
@@ -13,6 +12,7 @@ import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
 import { motion } from "motion/react";
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
+import { PostType } from "@/types/post.types";
 
 interface MessagesClientProps {
   posts: PostType[];

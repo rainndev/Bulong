@@ -1,5 +1,4 @@
-import { PostType } from "@/lib/actions/post";
-import React from "react";
+import { PostType } from "@/types/post.types";
 import { FaCity } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosBrowsers } from "react-icons/io";

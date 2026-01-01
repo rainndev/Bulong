@@ -1,9 +1,7 @@
 "use server";
 
-import { Prisma } from "@prisma/client";
 import { prisma } from "../prisma";
-
-export type UserType = Prisma.UserGetPayload<{}>;
+import { UserType } from "@/types/user.types";
 
 export const isUserExist = async (
   userName: string,

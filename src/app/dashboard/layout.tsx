@@ -9,7 +9,6 @@ import { auth } from "@/lib/auth";
 import { IoAnalytics } from "react-icons/io5";
 import NavigationBar from "@/components/NavigationBar";
 import BottomBanner from "@/components/BottomBanner";
-export type PostType = Prisma.PostGetPayload<{}>;
 
 const Layout = async ({
   recentMessages,

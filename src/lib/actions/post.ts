@@ -1,13 +1,11 @@
 "use server";
 
-import { Prisma } from "@prisma/client";
 import { prisma } from "../prisma";
 import { PostSchema } from "../schema";
 import { auth } from "../auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-
-export type PostType = Prisma.PostGetPayload<{}>;
+import { PostType } from "@/types/post.types";
 
 export const createPost = async (prevState: any, formData: FormData) => {
   const rawData = {
