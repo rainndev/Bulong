@@ -37,7 +37,7 @@ export default function CreatePostForm({ userId }: { userId: string }) {
   console.log("state", state);
   console.log("info", info);
   return (
-    <div className="flex h-screen flex-col items-center justify-center p-5 md:p-10">
+    <div className="flex h-dvh flex-col items-center justify-center overflow-y-auto p-5 md:p-10">
       <form action={formAction} className="w-full max-w-3xl">
         <input type="hidden" name="userId" value={userId} />
         <input type="hidden" name="browser" value={info.browser} />
