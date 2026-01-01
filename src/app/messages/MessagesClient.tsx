@@ -6,7 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
 import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
-import { downloadImage, hideMessage } from "@/lib/utils";
+import { downloadOrShareImage, hideMessage } from "@/lib/utils";
 import { FaTrash } from "react-icons/fa";
 import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";

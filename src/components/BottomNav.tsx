@@ -7,7 +7,7 @@ import { IconType } from "react-icons";
 import { BiLogoInstagramAlt } from "react-icons/bi";
 import AnonymousInfoTags from "./AnonymousInfoTags";
 import { useRef } from "react";
-import { downloadImage } from "@/lib/utils";
+import { downloadOrShareImage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
 
 type BottomNavProps = {
@@ -124,7 +124,7 @@ export default function BottomNav({
             </div>
 
             <div
-              onClick={() => downloadImage(post, cardRef, setCapture)}
+              onClick={() => downloadOrShareImage(post, cardRef, setCapture)}
               className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm text-white`}
             >
               {isCaptured ? (
