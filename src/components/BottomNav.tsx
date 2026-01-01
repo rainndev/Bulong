@@ -1,4 +1,4 @@
-import { deletePost, PostType } from "@/lib/actions/post";
+import { deletePost } from "@/lib/actions/post";
 import { motion, AnimatePresence } from "motion/react";
 import { FaFacebook } from "react-icons/fa";
 import { PiSnapchatLogoFill } from "react-icons/pi";
@@ -8,6 +8,7 @@ import { BiLogoInstagramAlt } from "react-icons/bi";
 import AnonymousInfoTags from "./AnonymousInfoTags";
 import { useRef } from "react";
 import { downloadImage } from "@/lib/utils";
+import { PostType } from "@/types/post.types";
 
 type BottomNavProps = {
   isOpen: boolean;
