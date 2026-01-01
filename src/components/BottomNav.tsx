@@ -115,7 +115,7 @@ export default function BottomNav({
               </div>
             </div>
 
-            <p className="mb-10 text-center text-xl font-bold antialiased">
+            <p className="mb-10 text-center text-xl font-semibold antialiased">
               {post?.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
@@ -125,13 +125,13 @@ export default function BottomNav({
 
             <div
               onClick={() => downloadImage(post, cardRef, setCapture)}
-              className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm font-semibold text-white`}
+              className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm text-white`}
             >
               {isCaptured ? (
-                <p>Someone sent you a message 👀✨</p>
+                <p className="font-medium">Someone sent you a message 👀✨</p>
               ) : (
                 <>
-                  <span>Share to</span>
+                  <span className="font-medium">Share to</span>
                   <selectedSocmed.icon className="text-xl" />
                 </>
               )}
@@ -139,10 +139,10 @@ export default function BottomNav({
             {!isCaptured && (
               <div
                 onClick={() => handlePostDelete()}
-                className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm font-semibold text-white"
+                className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm text-white"
               >
                 <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
-                  <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-semibold text-transparent">
+                  <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-medium text-transparent">
                     Delete Message
                   </span>
                 </div>

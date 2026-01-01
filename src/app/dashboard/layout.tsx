@@ -37,10 +37,10 @@ const Layout = async ({
     <main className="flex h-dvh w-full flex-col overflow-hidden bg-gray-50 text-[#242731] md:flex-row">
       <NavigationBar currentPath="/dashboard" />
       <div className="h-full flex-1 overflow-y-auto p-4 md:p-10">
-        <p className="mt-10 px-2 text-lg font-semibold text-[#242731] md:mt-0 md:text-xl">
+        <p className="mt-10 px-2 text-lg font-medium text-[#242731] md:mt-0 md:text-xl">
           Hello, {user?.name || "User"}! 👋
         </p>
-        <h1 className="mb-5 px-2 text-xl font-bold md:mb-0 md:text-4xl">
+        <h1 className="mb-5 px-2 text-xl font-semibold md:mb-0 md:text-4xl">
           Welcome to Your Dashboard
         </h1>
 

@@ -96,7 +96,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <div>
-          <h1 className="w-full p-10 pb-5 text-center text-xl font-bold md:text-start md:text-2xl">
+          <h1 className="w-full p-10 pb-5 text-center text-xl font-semibold md:text-start md:text-2xl">
             Messages
           </h1>
         </div>
@@ -139,7 +139,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                     "border-l-violet-950 bg-violet-100"
                   } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-4 transition-colors hover:bg-violet-100 md:p-5`}
                 >
-                  <span className="text-md block truncate font-semibold antialiased">
+                  <span className="text-md block truncate font-medium antialiased">
                     {hideMessage(data.title, data.isRead)}
                   </span>
                   <p className="truncate text-xs text-gray-600 antialiased md:text-sm">
@@ -190,7 +190,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                 </div>
               </div>
 
-              <h1 className="mb-10 text-center font-bold md:text-xl lg:text-3xl">
+              <h1 className="mb-10 text-center font-semibold md:text-xl lg:text-3xl">
                 {selectedMessage?.title}
               </h1>
 

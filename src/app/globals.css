@@ -39,3 +39,7 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+@theme {
+  --font-fredoka: var(--font-fredoka);
+}
