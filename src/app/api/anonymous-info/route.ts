@@ -23,17 +23,22 @@ function getDeviceInfo(userAgent: string) {
 
 export async function GET(req: NextRequest) {
   const userAgent = req.headers.get("user-agent") || "";
-
-  const country = req.headers.get("x-vercel-ip-country") || "Unknown";
-  const region = req.headers.get("x-vercel-ip-country-region") || "Unknown";
-
   const deviceInfo = getDeviceInfo(userAgent);
+
+  let geoJsData: any = { region: "Unknown", country_code: "Unknown" };
+
+  try {
+    const res = await fetch("https://get.geojs.io/v1/ip/geo.json");
+    geoJsData = await res.json();
+  } catch (error) {
+    console.log("fetch failed:", error);
+  }
 
   return NextResponse.json({
     device: deviceInfo.device,
     os: deviceInfo.os,
     browser: deviceInfo.browser,
-    country,
-    region,
+    country: geoJsData.country_code,
+    region: geoJsData.region,
   });
 }
