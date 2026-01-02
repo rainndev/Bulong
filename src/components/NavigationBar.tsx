@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";
+import Image from "next/image";
 
 const links = [
   { path: "/dashboard", name: "Dashboard", icon: MdOutlineSpaceDashboard },
@@ -20,9 +21,17 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
     <div className="fixed inset-x-2 bottom-4 z-20 rounded-full border-2 border-violet-200 bg-white p-2 drop-shadow-2xl drop-shadow-violet-600/30 md:static md:top-0 md:h-dvh md:w-48 md:rounded-none md:border-0 md:drop-shadow-none lg:w-[18rem]">
       <div className="flex h-full flex-row items-center justify-between md:flex-col md:py-10">
         {/* title and logo */}
-        <div className="hidden md:flex">
-          <p>title</p>
-          <span>image</span>
+        <div className="hidden w-full items-center justify-start gap-2 px-5 md:flex">
+          <div className="rounded-2xl bg-violet-50 p-2">
+            <Image
+              src={"/logo-transparent-1.png"}
+              alt="app-logo"
+              width={40}
+              height={40}
+            />
+          </div>
+
+          <p className="text-md font-sans font-medium md:text-lg">Bulong</p>
         </div>
 
         {/* links */}
