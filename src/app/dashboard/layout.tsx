@@ -9,6 +9,11 @@ import { auth } from "@/lib/auth";
 import { IoAnalytics } from "react-icons/io5";
 import NavigationBar from "@/components/NavigationBar";
 import BottomBanner from "@/components/BottomBanner";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Bulong",
+};
 
 const Layout = async ({
   recentMessages,

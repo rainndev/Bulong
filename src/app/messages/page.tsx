@@ -2,8 +2,12 @@ import NavigationBar from "@/components/NavigationBar";
 import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import Link from "next/link";
 import MessagesClient from "./MessagesClient";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Messages | Bulong",
+};
 
 const MessagesPage = async () => {
   const session = await auth.api.getSession({

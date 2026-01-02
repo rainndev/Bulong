@@ -46,7 +46,7 @@ export default function SignUpPage() {
   return (
     <main className="flex h-screen w-full items-center justify-center">
       <div className="mx-auto max-w-md space-y-4 p-6 text-black">
-        <h1 className="text-2xl font-bold">Sign Up</h1>
+        <h1 className="text-2xl font-semibold">Sign Up</h1>
 
         {error && <p className="text-red-500">{error}</p>}
 
