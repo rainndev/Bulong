@@ -35,31 +35,37 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
         </div>
 
         {/* links */}
-        <div className="flex h-full w-full flex-row items-center gap-2 md:flex-col md:py-20">
+        <div className="flex h-full w-full flex-row items-center gap-2 md:flex-col md:gap-5 md:py-20">
           {links.map((data) => {
             const Icon = data.icon;
 
             return (
-              <Link
-                key={data.name}
-                className={`${
-                  data.path === currentPath && "bg-violet-100"
-                } group flex w-fit cursor-pointer items-center gap-2 rounded-full px-4 py-3 transition-all ease-in-out hover:bg-violet-100 md:w-full md:rounded-lg`}
-                href={data.path}
-              >
-                <Icon
-                  className={`${
-                    data.path === currentPath && "text-violet-950"
-                  } text-lg group-hover:text-violet-950`}
+              <div className="flex md:w-full">
+                <div
+                  className={`w-1.5 ${data.path === currentPath ? "bg-violet-950" : "bg-violet-200"} mr-3 -ml-1 hidden rounded-tr-full rounded-br-full md:block`}
                 />
-                <span
+                <Link
+                  key={data.name}
                   className={`${
-                    data.path === currentPath && "font-semibold text-violet-950"
-                  } text-md hidden group-hover:text-violet-950 md:block`}
+                    data.path === currentPath &&
+                    "bg-violet-100 md:bg-transparent"
+                  } group flex w-fit cursor-pointer items-center gap-2 rounded-full border-l-violet-200 px-4 py-3 transition-all ease-in-out hover:bg-violet-100 md:-ml-2 md:w-full md:rounded-none md:hover:rounded-tr-xl md:hover:rounded-br-xl`}
+                  href={data.path}
                 >
-                  {data.name}
-                </span>
-              </Link>
+                  <Icon
+                    className={`${
+                      data.path === currentPath && "text-violet-950"
+                    } text-lg group-hover:text-violet-950`}
+                  />
+                  <span
+                    className={`${
+                      data.path === currentPath && "font-medium text-violet-950"
+                    } text-md hidden group-hover:text-violet-950 md:block`}
+                  >
+                    {data.name}
+                  </span>
+                </Link>
+              </div>
             );
           })}
         </div>
