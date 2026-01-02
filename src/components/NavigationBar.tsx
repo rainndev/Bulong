@@ -40,7 +40,7 @@ const NavigationBar = ({ currentPath = "/dashboard" }: NavigationBarProps) => {
             const Icon = data.icon;
 
             return (
-              <div className="flex md:w-full">
+              <div key={data.name} className="flex md:w-full">
                 <div
                   className={`w-1.5 ${data.path === currentPath ? "bg-violet-950" : "bg-violet-200"} mr-3 -ml-1 hidden rounded-tr-full rounded-br-full md:block`}
                 />
