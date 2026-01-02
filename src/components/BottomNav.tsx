@@ -119,7 +119,7 @@ export default function BottomNav({
               {post?.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
-            <div className="mt-1 mb-4 flex-1 rounded-2xl bg-violet-50 p-5 antialiased">
+            <div className="mt-1 mb-4 flex-1 rounded-2xl bg-violet-50 p-5 wrap-break-word antialiased">
               <p className="text-sm text-gray-700">{post?.content}</p>
             </div>
 
