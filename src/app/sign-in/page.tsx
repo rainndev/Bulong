@@ -26,6 +26,7 @@ export default function SignInPage() {
       setIsLoading(false);
       setError(res.error.message || "Something went wrong.");
     } else {
+      router.push("/dashboard");
       setIsLoading(false);
     }
   }
