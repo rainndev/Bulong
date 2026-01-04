@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp, useSession } from "@/lib/auth-client";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -12,6 +12,7 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
     e.preventDefault();
     setError(null);
 
