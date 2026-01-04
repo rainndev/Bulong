@@ -10,7 +10,7 @@ const LandingPageNavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="w-full rounded-2xl bg-violet-400/10 px-4 py-3 text-[#242731] backdrop-blur-lg md:rounded-3xl md:px-10 md:py-5 lg:rounded-4xl">
+    <nav className="w-full rounded-2xl bg-violet-400/10 px-4 py-3 text-[#242731] md:rounded-3xl md:px-10 md:py-5 lg:rounded-4xl">
       <div className="flex items-center justify-between gap-5">
         {/* Logo */}
         <div className="flex items-center gap-2">
