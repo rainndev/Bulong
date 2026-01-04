@@ -3,17 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp, useSession } from "@/lib/auth-client";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { set } from "zod";
 
 export default function SignUpPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const { data } = useSession();
-
-  useEffect(() => {
-    if (!!data?.user) {
-      router.push("/dashboard");
-    }
-  }, [router, data]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,9 +33,12 @@ export default function SignUpPage() {
       }
 
       setError(res.error.message || "Something went wrong.");
+
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(false);
     router.push("/dashboard");
   }
 
@@ -74,9 +73,16 @@ export default function SignUpPage() {
           />
           <button
             type="submit"
-            className="md:text-md w-full cursor-pointer rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
+            className="md:text-md flex w-full cursor-pointer justify-center rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
           >
-            Create Account
+            {isLoading ? (
+              <span className="flex items-center gap-2">
+                <AiOutlineLoading3Quarters className="animate-spin" />
+                <p>Signing Up...</p>
+              </span>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
       </div>

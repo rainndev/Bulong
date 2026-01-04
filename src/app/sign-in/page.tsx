@@ -3,19 +3,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "@/lib/auth-client";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const { data } = useSession();
-
-  useEffect(() => {
-    if (!!data?.user) {
-      router.push("/dashboard");
-    }
-  }, [router, data]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
     e.preventDefault();
     setError(null);
 
@@ -27,9 +23,10 @@ export default function SignInPage() {
     });
 
     if (res.error) {
+      setIsLoading(false);
       setError(res.error.message || "Something went wrong.");
     } else {
-      router.push("/dashboard");
+      setIsLoading(false);
     }
   }
 
@@ -57,9 +54,16 @@ export default function SignInPage() {
           />
           <button
             type="submit"
-            className="md:text-md w-full cursor-pointer rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
+            className="md:text-md flex w-full cursor-pointer justify-center rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
           >
-            Sign In
+            {isLoading ? (
+              <span className="flex items-center gap-2">
+                <AiOutlineLoading3Quarters className="animate-spin" />
+                <p>Signing In...</p>
+              </span>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
       </div>
