@@ -7,7 +7,7 @@ const LandingPageNavBar = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full rounded-2xl bg-violet-400/10 px-10 py-5 text-[#242731] backdrop-blur-lg">
+    <div className="w-full rounded-4xl bg-violet-400/10 px-10 py-5 text-[#242731] backdrop-blur-lg">
       <ul className="flex items-center justify-between">
         <li className="flex">
           <Image
