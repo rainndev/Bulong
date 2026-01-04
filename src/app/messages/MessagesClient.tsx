@@ -1,6 +1,6 @@
 "use client";
 
-import NavigationBar from "@/components/NavigationBar";
+import SideBar from "@/components/SideBar";
 import { useEffect, useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -92,7 +92,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
 
   return (
     <main className="flex h-dvh w-full flex-row overflow-hidden bg-gray-50 text-black">
-      <NavigationBar currentPath="/messages" />
+      <SideBar currentPath="/messages" />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <div>

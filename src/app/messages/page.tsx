@@ -1,4 +1,4 @@
-import NavigationBar from "@/components/NavigationBar";
+import SideBar from "@/components/SideBar";
 import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
