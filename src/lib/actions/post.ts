@@ -78,7 +78,7 @@ export const signOut = async () => {
     headers: await headers(),
   });
 
-  redirect("/sign-in");
+  redirect("/");
 };
 
 export const searchPost = async (
