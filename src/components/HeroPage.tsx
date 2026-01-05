@@ -9,7 +9,7 @@ const HeroPage = () => {
       {/* bottom circular gradient background */}
       <div className="pointer-events-none absolute right-0 bottom-20 h-20 w-50 rounded-full bg-linear-to-r from-purple-400 via-violet-500 to-violet-800 opacity-50 blur-3xl md:h-80 md:w-100" />
 
-      <div className="absolute top-0 left-0 flex h-full w-full flex-col rounded-2xl bg-violet-100/60 p-4 backdrop-blur-lg md:rounded-3xl md:ring-offset-10 lg:flex-row lg:rounded-4xl">
+      <div className="absolute top-0 left-0 flex h-full w-full flex-col rounded-2xl bg-violet-100/60 p-2 backdrop-blur-lg md:rounded-3xl md:p-15 md:ring-offset-10 lg:flex-row lg:rounded-4xl">
         <div className="md:flex-1">
           <h1 className="mt-10 text-center text-[clamp(2rem,5vw,96rem)] font-bold text-[#242731] md:mt-20">
             Welcome to Bulong
