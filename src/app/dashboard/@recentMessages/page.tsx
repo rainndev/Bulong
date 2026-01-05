@@ -2,6 +2,7 @@ import { getRecentPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
 import { hideMessage } from "@/lib/utils";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { FaEnvelope } from "react-icons/fa";
 
 const RecentMessages = async () => {
@@ -16,7 +17,7 @@ const RecentMessages = async () => {
   });
 
   if (!session) {
-    return <div>Not logged in</div>;
+    return redirect("/sign-in");
   }
 
   const userId = session?.user.id;

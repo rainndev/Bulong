@@ -1,6 +1,7 @@
 import AreaChartMessages from "@/components/AreaChartMessages";
 import { getMessagesThisWeekData, getTotalPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
 const TotalMessagesAndChart = async () => {
@@ -15,7 +16,7 @@ const TotalMessagesAndChart = async () => {
   });
 
   if (!session) {
-    return <div>Not logged in</div>;
+    return redirect("/sign-in");
   }
 
   const userId = session?.user.id;

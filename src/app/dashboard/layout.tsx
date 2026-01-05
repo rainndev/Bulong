@@ -28,14 +28,9 @@ const Layout = async ({
   });
 
   const user = session?.user;
+
   if (!session) {
-    return (
-      <div className="flex h-screen w-full flex-col items-center justify-center p-10">
-        <h1 className="mb-5 text-center text-4xl font-bold text-[#242731]">
-          Not log in
-        </h1>
-      </div>
-    );
+    return redirect("/sign-in");
   }
 
   const userId = session?.user.id;
