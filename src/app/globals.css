@@ -43,3 +43,9 @@
 @theme {
   --font-fredoka: var(--font-fredoka);
 }
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
