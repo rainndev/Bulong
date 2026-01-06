@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp, useSession } from "@/lib/auth-client";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -39,9 +39,13 @@ export default function SignUpPage() {
       return;
     }
 
-    setIsLoading(false);
     router.push("/dashboard");
   }
+
+  // Clear loading state on unmount
+  useEffect(() => {
+    return () => setIsLoading(false);
+  }, []);
 
   return (
     <main className="flex h-screen w-full items-center justify-center">

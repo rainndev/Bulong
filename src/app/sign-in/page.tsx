@@ -27,9 +27,13 @@ export default function SignInPage() {
       setError(res.error.message || "Something went wrong.");
     } else {
       router.push("/dashboard");
-      setIsLoading(false);
     }
   }
+
+  // Clear loading state on unmount
+  useEffect(() => {
+    return () => setIsLoading(false);
+  }, []);
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
