@@ -32,6 +32,7 @@ const HeroPage = () => {
             <Image
               src={"/bulong-hero.png"}
               alt="Bulong Hero Image"
+              priority
               width={450}
               height={500}
               className="drop-shadow-3xl translate-y-12 object-contain drop-shadow-violet-300"
