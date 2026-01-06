@@ -10,6 +10,15 @@ export const metadata = {
   title: "Bulong - Anonymous Feedback Platform",
   description:
     "Bulong is an anonymous feedback platform that allows users to send and receive feedback without revealing their identity.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
