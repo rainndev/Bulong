@@ -9,6 +9,8 @@ import AnonymousInfoTags from "./AnonymousInfoTags";
 import { useRef } from "react";
 import { downloadOrShareImage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
+import Image from "next/image";
+import { tr } from "zod/v4/locales";
 
 type BottomNavProps = {
   isOpen: boolean;
@@ -53,7 +55,7 @@ export default function BottomNav({
     socmedOptions[0],
   );
 
-  const [isCaptured, setCapture] = useState(false);
+  const [isCaptured, setCapture] = useState(true);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handlePostDelete = async () => {
@@ -128,7 +130,18 @@ export default function BottomNav({
               className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm text-white`}
             >
               {isCaptured ? (
-                <p className="font-medium">Someone sent you a message 👀✨</p>
+                <div className="flex items-center gap-2 font-medium">
+                  <p>You got a new message!</p>
+                  <span>
+                    <Image
+                      src={"/bulong-logo.png"}
+                      alt="Eyes Emoji"
+                      width={25}
+                      height={25}
+                      className="inline-block rounded-full bg-violet-200 object-contain p-1"
+                    />
+                  </span>
+                </div>
               ) : (
                 <>
                   <span className="font-medium">Share to</span>
