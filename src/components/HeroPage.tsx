@@ -10,12 +10,13 @@ const HeroPage = () => {
       <div className="pointer-events-none absolute right-0 bottom-20 h-20 w-50 rounded-full bg-linear-to-r from-purple-400 via-violet-500 to-violet-800 opacity-50 blur-3xl md:h-80 md:w-100" />
 
       <div className="absolute top-0 left-0 flex h-full w-full flex-col rounded-2xl bg-violet-100/60 p-2 backdrop-blur-lg md:rounded-3xl md:p-15 md:ring-offset-10 lg:flex-row lg:rounded-4xl">
-        <div className="md:flex-1">
-          <h1 className="mt-10 text-center text-[clamp(2rem,5vw,96rem)] font-bold text-[#242731] md:mt-20">
-            Welcome to Bulong
+        <div className="p-5 md:flex-1">
+          <h1 className="mt-10 text-center text-[clamp(2rem,5vw,96rem)] font-bold text-pretty text-[#242731] md:mt-20">
+            Sabihin mo na.
           </h1>
-          <span className="mt-3 block text-center text-sm text-gray-600 md:mt-5 md:text-lg">
-            Your trusted anonymous feedback companion
+          <span className="block text-center text-sm text-gray-600 md:text-lg lg:text-xl">
+            Isang link para sa tanong, confessions, at mga “di masabi” —
+            anonymous 👀
           </span>
         </div>
 
