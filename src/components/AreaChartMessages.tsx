@@ -22,7 +22,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload || !payload.length) return null;
 
   return (
-    <div className="rounded-lg border border-[#949494]/20 bg-[#242731]/90 p-3 md:p-5">
+    <div className="rounded-xl border border-[#949494]/20 bg-[#242731]/90 p-3 md:rounded-2xl md:p-5">
       <p className="mb-1 text-xs font-semibold text-white/70 md:text-sm">
         {label}
       </p>
