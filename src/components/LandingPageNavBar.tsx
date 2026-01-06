@@ -15,10 +15,11 @@ const LandingPageNavBar = () => {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <Image
-            src={"/logo-transparent-1.png"}
+            src={"/bulong-logo.png"}
             alt="Bulong Logo"
             width={50}
             height={50}
+            className="rounded-full bg-violet-200 object-contain p-2 md:h-12 md:w-12 lg:h-16 lg:w-16"
           />
           <div>
             <h1 className="text-xl font-bold md:text-2xl lg:text-4xl">

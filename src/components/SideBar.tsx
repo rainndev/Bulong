@@ -25,16 +25,19 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
           href={"/"}
           className="hidden w-full cursor-pointer items-center justify-start gap-2 px-5 md:flex"
         >
-          <div className="rounded-2xl bg-violet-50 p-2">
+          <div className="flex items-center gap-2">
             <Image
-              src={"/logo-transparent-1.png"}
-              alt="app-logo"
-              width={40}
-              height={40}
+              src={"/bulong-logo.png"}
+              alt="Bulong Logo"
+              width={50}
+              height={50}
+              className="rounded-full bg-violet-200 object-contain p-2"
             />
+            <div>
+              <h1 className="font-bold md:text-2xl">Bulong</h1>
+              <p className="text-xs">Your trusted feedback companion</p>
+            </div>
           </div>
-
-          <p className="text-md font-sans font-medium md:text-lg">Bulong</p>
         </Link>
 
         {/* links */}
