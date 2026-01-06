@@ -4,7 +4,7 @@ import { createPost } from "@/lib/actions/post";
 import { useActionState, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
-import { FaUser } from "react-icons/fa";
+import Image from "next/image";
 
 type anonymouseInfoType = {
   device: string;
@@ -48,8 +48,14 @@ export default function CreatePostForm({ userId }: { userId: string }) {
 
         <div className="mb-5 flex-1 rounded-4xl bg-linear-to-r from-purple-600 to-indigo-600 p-15 text-white drop-shadow-2xl drop-shadow-purple-600/10 md:p-20">
           <div className="mb-5 flex items-center justify-center">
-            <div className="w-fit rounded-full bg-violet-100 p-5 md:p-6 lg:p-8">
-              <FaUser className="text-xl text-violet-600 md:text-3xl lg:text-4xl" />
+            <div className="w-fit rounded-full bg-violet-200 p-4 md:p-6">
+              <Image
+                src={"/bulong-logo.png"}
+                alt="Bulong Logo"
+                width={50}
+                height={50}
+                className="rounded-full bg-violet-200 object-contain"
+              />
             </div>
           </div>
           <p className="text-md w-full text-center md:text-lg lg:text-xl">
