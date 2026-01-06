@@ -13,3 +13,13 @@ export const PostSchema = z.object({
   OS: z.string(),
   region: z.string(),
 });
+
+// Pick only the fields you need for the client
+export const PostFormSchema = PostSchema.pick({
+  userId: true,
+  title: true,
+  content: true,
+});
+
+// Optional TypeScript type
+export type PostFormField = z.infer<typeof PostFormSchema>;
