@@ -18,12 +18,12 @@ interface SideBarProps {
 
 const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
   return (
-    <div className="fixed inset-x-2 bottom-4 z-20 rounded-full border-2 border-violet-200 bg-white p-2 drop-shadow-2xl drop-shadow-violet-600/30 md:static md:top-0 md:h-dvh md:w-48 md:rounded-none md:border-0 md:drop-shadow-none lg:w-[18rem]">
+    <div className="fixed inset-x-2 bottom-4 z-20 rounded-full border-2 border-violet-200 bg-white p-2 drop-shadow-2xl drop-shadow-violet-600/30 md:static md:top-0 md:h-dvh md:w-48 md:rounded-tl-none md:rounded-tr-4xl md:rounded-br-4xl md:rounded-bl-none md:border-none md:drop-shadow-violet-600/10 lg:w-[18rem]">
       <div className="flex h-full flex-row items-center justify-between md:flex-col md:py-10">
         {/* title and logo */}
         <Link
           href={"/"}
-          className="hidden w-full cursor-pointer items-center justify-start gap-2 px-5 md:flex"
+          className="hidden w-full cursor-pointer items-center justify-start gap-2 px-2 md:flex"
         >
           <div className="flex items-center gap-2">
             <Image
@@ -61,12 +61,12 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
                   <Icon
                     className={`${
                       data.path === currentPath && "text-violet-950"
-                    } text-lg group-hover:text-violet-950`}
+                    } text-lg text-[#242731]/50 group-hover:text-violet-950`}
                   />
                   <span
                     className={`${
                       data.path === currentPath && "font-medium text-violet-950"
-                    } text-md hidden group-hover:text-violet-950 md:block`}
+                    } text-md hidden text-[#242731]/50 group-hover:text-violet-950 md:block`}
                   >
                     {data.name}
                   </span>
@@ -78,7 +78,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
 
         <div
           onClick={signOut}
-          className="flex w-fit cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-gray-500 hover:bg-violet-100 md:w-full"
+          className="flex w-fit cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-[#242731]/50 hover:bg-violet-100 md:w-full"
         >
           <IoExitOutline className="text-lg md:text-2xl" />
           <button className="hidden w-full text-sm transition-colors ease-in-out md:block">
