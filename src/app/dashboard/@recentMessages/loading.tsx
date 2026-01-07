@@ -15,12 +15,12 @@ const Loading = () => {
           </div>
 
           <div className="flex w-full min-w-0 flex-col text-sm">
-            <h1 className="text-md mb-1 animate-pulse rounded-lg bg-violet-950/15 font-semibold antialiased md:text-lg">
+            <h1 className="mb-1 animate-pulse rounded-lg bg-violet-950/15 text-[clamp(1rem,2vw,1.125rem)] font-semibold antialiased">
               <span className="invisible truncate">
                 Lorem ipsum dolor sit amet consectetur
               </span>
             </h1>
-            <p className="animate-pulse rounded-lg bg-violet-950/15 text-xs text-[#949494] antialiased md:text-sm">
+            <p className="animate-pulse rounded-lg bg-violet-950/15 text-[clamp(0.75remrem,2vw,0.875rem)] text-[#949494] antialiased">
               <span className="invisible w-full truncate">
                 Lorem ipsum dolor sit amet consectetur
               </span>

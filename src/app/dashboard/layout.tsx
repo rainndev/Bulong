@@ -43,16 +43,16 @@ const Layout = async ({
     <main className="flex h-dvh w-full flex-col overflow-hidden bg-gray-50 text-[#242731] md:flex-row">
       <SideBar currentPath="/dashboard" />
       <div className="h-full flex-1 overflow-y-auto p-4 md:p-10">
-        <p className="mt-10 px-2 text-lg font-medium text-[#242731] md:mt-0 md:text-xl">
+        <p className="mt-10 px-2 text-[clamp(1.125rem,2vw,1.25rem)] font-medium text-[#242731] md:mt-0">
           Hello, {user?.name || "User"}! 👋
         </p>
-        <h1 className="mb-5 px-2 text-xl font-semibold md:mb-0 md:text-4xl">
+        <h1 className="mb-5 px-2 text-[clamp(1.25rem,2vw,2.25rem)] font-semibold md:mb-0">
           Welcome to Your Dashboard
         </h1>
 
         <div className="mt-3 font-sans text-white md:mt-10">
-          <div className="mx-auto space-y-3 md:space-y-6">
-            <div className="grid grid-cols-1 items-center gap-3 rounded-3xl md:grid-cols-2 md:gap-6">
+          <div className="mx-auto space-y-3">
+            <div className="grid grid-cols-1 items-center gap-3 rounded-3xl md:grid-cols-2">
               {/* total message and chart */}
               {totalMessagesAndChart}
 
@@ -60,10 +60,14 @@ const Layout = async ({
               {recentMessages}
             </div>
 
-            <div className="grid h-full grid-cols-1 gap-3 text-[#242731] md:grid-cols-3 md:gap-6">
+            <div className="grid h-full grid-cols-1 gap-3 text-[#242731] md:grid-cols-3">
               <div className="h-full rounded-3xl border border-violet-200 bg-violet-50 p-6">
-                <p className="mb-2 text-sm">New Messages (Today)</p>
-                <h2 className="text-2xl font-bold">{messagesToday}</h2>
+                <p className="mb-2 text-sm font-medium text-[#242731]/50">
+                  New Messages (Today)
+                </p>
+                <h2 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">
+                  {messagesToday}
+                </h2>
 
                 <div className="mt-4 w-full via-blue-400/20 to-transparent">
                   <IoAnalytics className="text-xl md:text-4xl" />
@@ -71,8 +75,12 @@ const Layout = async ({
               </div>
 
               <div className="rounded-3xl border border-violet-200 bg-violet-50 p-6">
-                <p className="mb-2 text-sm">Messages This Week</p>
-                <h2 className="text-2xl font-bold">{totalThisWeek}</h2>
+                <p className="mb-2 text-sm font-medium text-[#242731]/50">
+                  Messages This Week
+                </p>
+                <h2 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">
+                  {totalThisWeek}
+                </h2>
 
                 <div className="mt-4 w-full via-blue-400/20 to-transparent">
                   <IoAnalytics className="text-xl md:text-4xl" />
@@ -80,8 +88,12 @@ const Layout = async ({
               </div>
 
               <div className="rounded-3xl border border-violet-200 bg-violet-50 p-6">
-                <p className="mb-2 text-sm">AVG Message/Day</p>
-                <h2 className="text-2xl font-bold">{avgMessagePerDay}</h2>
+                <p className="mb-2 text-sm font-medium text-[#242731]/50">
+                  AVG Message/Day
+                </p>
+                <h2 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">
+                  {avgMessagePerDay}
+                </h2>
 
                 <div className="mt-4 w-full via-blue-400/20 to-transparent">
                   <IoAnalytics className="text-xl md:text-4xl" />

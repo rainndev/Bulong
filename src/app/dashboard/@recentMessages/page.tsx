@@ -25,7 +25,7 @@ const RecentMessages = async () => {
 
   return (
     <div className="h-full min-h-80 space-y-2 rounded-3xl border border-violet-200 bg-white p-6 text-[#242731] md:space-y-4">
-      <h1 className="lg:text-md rounded-lg bg-violet-50 p-2 pl-3 text-xs text-[#242731]/60 md:pl-4 md:text-sm">
+      <h1 className="lg:text-md rounded-lg bg-violet-50 p-2 pl-3 text-xs font-medium text-[#242731]/50 md:pl-4 md:text-sm">
         Recent
       </h1>
 
@@ -39,10 +39,10 @@ const RecentMessages = async () => {
           </div>
 
           <div className="flex min-w-0 flex-col text-sm">
-            <h1 className="text-md mb-1 truncate font-semibold antialiased md:text-lg">
+            <h1 className="mb-1 truncate text-[clamp(1rem,2vw,1.125rem)] font-semibold antialiased">
               {hideMessage(data.title, data.isRead)}
             </h1>
-            <p className="truncate text-xs text-[#949494] antialiased md:text-sm">
+            <p className="truncate text-[clamp(0.75remrem,2vw,0.875rem)] text-[#949494] antialiased">
               {hideMessage(data.content, data.isRead)}
             </p>
           </div>

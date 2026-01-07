@@ -25,8 +25,10 @@ const TotalMessagesAndChart = async () => {
   const { chartData } = await getMessagesThisWeekData(userId);
   return (
     <div className="relative flex h-full flex-col justify-center rounded-3xl border border-violet-200 bg-violet-50 p-6 text-[#242731]">
-      <p className="md:text-md mb-1 text-sm">Messages Received</p>
-      <h1 className="mb-10 text-4xl font-bold md:mb-8 md:text-5xl">
+      <p className="text-[clamp(0.875rem,2vw,1rem)] font-medium text-[#242731]/50">
+        Messages Received
+      </p>
+      <h1 className="mb-10 text-[clamp(2.5rem,4vw,3rem)] font-bold md:mb-8">
         {totalPost}
       </h1>
 
