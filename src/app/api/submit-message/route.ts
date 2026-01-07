@@ -1,24 +1,43 @@
 import { prisma } from "@/lib/prisma";
 import { PostSchema } from "@/lib/schema";
 
+const getAnonymousInfo = async (userAgent: string, request: Request) => {
+  const isMobile = /Mobi|Android/i.test(userAgent);
+
+  let os = "Unknown";
+  if (/Android/i.test(userAgent)) os = "Android";
+  else if (/iPhone|iPad/i.test(userAgent)) os = "iOS";
+  else if (/Windows/i.test(userAgent)) os = "Windows";
+  else if (/Macintosh/i.test(userAgent)) os = "macOS";
+
+  let browser = "Other";
+  if (/Chrome/i.test(userAgent)) browser = "Chrome";
+  else if (/Safari/i.test(userAgent)) browser = "Safari";
+  else if (/Firefox/i.test(userAgent)) browser = "Firefox";
+
+  let geoJsData: any = { region: "Unknown", country_code: "Unknown" };
+
+  try {
+    const res = await fetch("https://get.geojs.io/v1/ip/geo.json");
+    geoJsData = await res.json();
+  } catch (error) {
+    console.log("fetch failed:", error);
+  }
+
+  return {
+    device: isMobile ? "Mobile" : "Desktop",
+    os,
+    browser,
+    region: geoJsData.region,
+    country: geoJsData.country,
+  };
+};
+
 export const POST = async (request: Request) => {
+  const userAgent = request.headers.get("user-agent") || "";
+  const basicInfo = await getAnonymousInfo(userAgent, request);
+
   const req = await request.json();
-  const anonymouseInfoResponse = await fetch(
-    `${process.env.BETTER_AUTH_URL}/api/anonymous-info`,
-    {
-      cache: "no-store",
-    },
-  );
-
-  console.log("Anonymous info:", anonymouseInfoResponse);
-
-  const anonymouseInfo: {
-    device: string;
-    os: string;
-    browser: string;
-    country: string;
-    region: string;
-  } = await anonymouseInfoResponse.json();
 
   const { userId, title, content } = req;
 
@@ -32,11 +51,11 @@ export const POST = async (request: Request) => {
       title,
       content,
       userId,
-      browser: anonymouseInfo.browser,
-      country: anonymouseInfo.country,
-      device: anonymouseInfo.device,
-      OS: anonymouseInfo.os,
-      region: anonymouseInfo.region,
+      browser: basicInfo.browser,
+      country: basicInfo.country,
+      device: basicInfo.device,
+      OS: basicInfo.os,
+      region: basicInfo.region,
     };
 
     const validatedFields = PostSchema.safeParse(rawData);
