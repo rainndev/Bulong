@@ -55,7 +55,7 @@ export default function BottomNav({
     socmedOptions[0],
   );
 
-  const [isCaptured, setCapture] = useState(true);
+  const [isCaptured, setCapture] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handlePostDelete = async () => {
