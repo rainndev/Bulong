@@ -33,10 +33,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
               height={50}
               className="rounded-full bg-violet-200 object-contain p-2"
             />
-            <div>
-              <h1 className="font-bold md:text-2xl">Bulong</h1>
-              <p className="text-xs">Your trusted feedback companion</p>
-            </div>
+            <h1 className="font-bold md:text-2xl">Bulong</h1>
           </div>
         </Link>
 
@@ -76,6 +73,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
           })}
         </div>
 
+        <div></div>
         <div
           onClick={signOut}
           className="flex w-fit cursor-pointer items-center justify-center rounded-lg px-4 py-3 text-[#242731]/50 hover:bg-violet-100 md:w-full"
