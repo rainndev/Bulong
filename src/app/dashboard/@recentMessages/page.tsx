@@ -24,7 +24,7 @@ const RecentMessages = async () => {
   const recentPost = await getRecentPost(userId, 4);
 
   return (
-    <div className="h-full space-y-2 rounded-3xl border border-violet-200 bg-white p-6 text-[#242731] md:space-y-4">
+    <div className="h-full min-h-80 space-y-2 rounded-3xl border border-violet-200 bg-white p-6 text-[#242731] md:space-y-4">
       <h1 className="lg:text-md rounded-lg bg-violet-50 p-2 pl-3 text-xs text-[#242731]/60 md:pl-4 md:text-sm">
         Recent
       </h1>
