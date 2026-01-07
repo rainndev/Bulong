@@ -30,6 +30,7 @@ export default function SignUpPage() {
         res.error.message?.toLowerCase().includes("unique")
       ) {
         setError("Username already exists. Please choose another.");
+        setIsLoading(false);
         return;
       }
 
