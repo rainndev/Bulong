@@ -1,5 +1,6 @@
 "use client";
 
+import About from "@/components/About";
 import HeroPage from "@/components/HeroPage";
 import LandingPageNavBar from "@/components/LandingPageNavBar";
 
@@ -8,7 +9,7 @@ export default function Home() {
     <main className="flex h-full flex-col items-center gap-6 overflow-auto bg-violet-50 p-4 text-white md:gap-10 md:p-5 lg:p-10">
       <LandingPageNavBar />
       <HeroPage />
-      <div className="h-screen">loram</div>
+      <About />
     </main>
   );
 }
