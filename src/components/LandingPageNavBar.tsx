@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
+const navigationLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/#about" },
+  { name: "Contact", href: "/#contact" },
+];
+
 const LandingPageNavBar = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,9 +39,18 @@ const LandingPageNavBar = () => {
 
         {/* Desktop Menu */}
         <ul className="hidden items-center gap-10 text-lg font-medium lg:flex">
-          <li className="cursor-pointer">Home</li>
-          <li className="cursor-pointer">About</li>
-          <li className="cursor-pointer">Contact</li>
+          {navigationLinks.map((link) => (
+            <li
+              key={link.name}
+              className="cursor-pointer hover:text-violet-600"
+              onClick={() => {
+                router.push(link.href);
+                setMenuOpen(false);
+              }}
+            >
+              {link.name}
+            </li>
+          ))}
         </ul>
 
         {/* Desktop Buttons */}
@@ -84,9 +99,18 @@ const LandingPageNavBar = () => {
             className="mt-4 flex flex-col gap-4 px-2 py-5 lg:hidden"
           >
             <ul className="text-md flex flex-col gap-4 font-medium">
-              <li className="cursor-pointer">Home</li>
-              <li className="cursor-pointer">About</li>
-              <li className="cursor-pointer">Contact</li>
+              {navigationLinks.map((link) => (
+                <li
+                  key={link.name}
+                  className="cursor-pointer hover:text-violet-600"
+                  onClick={() => {
+                    router.push(link.href);
+                    setMenuOpen(false);
+                  }}
+                >
+                  {link.name}
+                </li>
+              ))}
             </ul>
             <div className="flex flex-col gap-3">
               <button
