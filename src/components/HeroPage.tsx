@@ -6,11 +6,15 @@ const images = [
   "/sreenshots/SS-2.png",
   "/sreenshots/SS-2.png",
   "/sreenshots/SS-2.png",
+  "/sreenshots/SS-2.png",
 ];
 
 const HeroPage = () => {
   return (
-    <div className="relative min-h-dvh w-full overflow-hidden rounded-2xl bg-violet-100 p-5 ring-2 ring-violet-200 ring-offset-7 ring-offset-violet-50 backdrop-blur-lg md:rounded-3xl md:p-10 lg:rounded-4xl lg:p-20">
+    <div
+      id="hero"
+      className="relative min-h-dvh w-full overflow-hidden rounded-2xl bg-violet-100 p-5 ring-2 ring-violet-200 ring-offset-7 ring-offset-violet-50 backdrop-blur-lg md:rounded-3xl md:p-10 lg:rounded-4xl lg:p-20"
+    >
       {/* top glow */}
       <div className="pointer-events-none absolute top-20 left-5 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r from-purple-400 via-violet-500 to-violet-800 opacity-50 blur-3xl md:top-96 md:left-20 md:h-120 md:w-300" />
 
