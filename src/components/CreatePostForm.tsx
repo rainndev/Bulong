@@ -7,7 +7,7 @@ import Image from "next/image";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { PostFormSchema } from "@/lib/schema";
 
-export default function CreatePostForm({ userId }: { userId: string }) {
+export default function CreatePostForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [isSuccess, setSuccess] = useState(false);
@@ -17,6 +17,10 @@ export default function CreatePostForm({ userId }: { userId: string }) {
   const params = useParams();
   const raw = params.userName as string;
   const username = decodeURIComponent(raw);
+  const cleanUsername = username.startsWith("@")
+    ? username.substring(1)
+    : username;
+
   const randomTitle = useRandomTitle(username);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,10 +32,11 @@ export default function CreatePostForm({ userId }: { userId: string }) {
     const formData = new FormData(e.currentTarget);
 
     const rawData = {
-      userId,
+      username: cleanUsername,
       title: formData.get("title"),
       content: formData.get("content"),
     };
+
     const validatedFields = PostFormSchema.safeParse(rawData);
 
     if (!validatedFields.success) {
@@ -44,7 +49,7 @@ export default function CreatePostForm({ userId }: { userId: string }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userId,
+        username: cleanUsername,
         title: formData.get("title"),
         content: formData.get("content"),
       }),
@@ -54,6 +59,8 @@ export default function CreatePostForm({ userId }: { userId: string }) {
 
     if (res.ok) {
       setSuccess(true);
+    } else {
+      setSuccess(false);
     }
 
     if (!res.ok && data.errors) {
@@ -121,6 +128,12 @@ export default function CreatePostForm({ userId }: { userId: string }) {
             </p>
           )}
         </div>
+
+        {formError && (
+          <p className="mt-1 text-xs font-medium text-red-400 md:text-sm">
+            {formError}
+          </p>
+        )}
 
         <button
           type="submit"

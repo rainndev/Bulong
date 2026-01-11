@@ -1,8 +1,6 @@
 import CreatePostForm from "@/components/CreatePostForm";
 import { playfulTitles } from "@/constants/titleMessage";
-import { isUserExist } from "@/lib/actions/user";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -23,24 +21,8 @@ export async function generateMetadata({
   };
 }
 
-const CreatePostPage = async ({
-  params,
-}: {
-  params: Promise<{ userName: string }>;
-}) => {
-  const { userName } = await params;
-
-  const decodedUserName = decodeURIComponent(userName);
-  const cleanUsername = decodedUserName.startsWith("@")
-    ? decodedUserName.substring(1)
-    : decodedUserName;
-
-  const user = await isUserExist(cleanUsername);
-  if (!user) {
-    return notFound();
-  }
-
-  return <CreatePostForm userId={user.id} />;
+const CreatePostPage = async () => {
+  return <CreatePostForm />;
 };
 
 export default CreatePostPage;

@@ -6,7 +6,7 @@ export const PostSchema = z.object({
     .min(3, "Title must be at least 3 characters")
     .max(50, "Title is too long"),
   content: z.string().min(10, "Content must be at least 10 characters"),
-  userId: z.string().trim().min(1, "Invalid User"),
+  username: z.string().trim().min(1, "Invalid User"),
   browser: z.string(),
   country: z.string(),
   device: z.string(),
@@ -16,7 +16,7 @@ export const PostSchema = z.object({
 
 // Pick only the fields you need for the client
 export const PostFormSchema = PostSchema.pick({
-  userId: true,
+  username: true,
   title: true,
   content: true,
 });

@@ -14,6 +14,14 @@ model User {
   image         String?   @db.VarChar(2048)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  dailyLimit      Int      @default(5)
+  messagesToday   Int      @default(0)
+  lastResetDate   DateTime @default(now())
+  isDisabled      Boolean  @default(false)
+
+
+
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
