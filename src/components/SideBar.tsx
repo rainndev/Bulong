@@ -5,11 +5,13 @@ import Link from "next/link";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";
+import { MdOutlineSettings } from "react-icons/md";
 import Image from "next/image";
 
 const links = [
   { path: "/dashboard", name: "Dashboard", icon: MdOutlineSpaceDashboard },
   { path: "/messages", name: "Messages", icon: BiMessageSquareDots },
+  { path: "/settings", name: "Settings", icon: MdOutlineSettings },
 ];
 
 interface SideBarProps {
@@ -38,7 +40,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
         </Link>
 
         {/* links */}
-        <div className="flex h-full w-full flex-row items-center gap-2 md:flex-col md:gap-5 md:py-20">
+        <div className="flex h-full w-full flex-row items-center gap-2 md:flex-col md:gap-3 md:py-20">
           {links.map((data) => {
             const Icon = data.icon;
 
