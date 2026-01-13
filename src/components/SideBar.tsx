@@ -15,7 +15,7 @@ const links = [
 ];
 
 interface SideBarProps {
-  currentPath: string;
+  currentPath: "/dashboard" | "/messages" | "/settings" | "/";
 }
 
 const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
