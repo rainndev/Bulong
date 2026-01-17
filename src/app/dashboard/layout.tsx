@@ -1,15 +1,15 @@
-import { notFound, redirect } from "next/navigation";
-import { headers } from "next/headers";
+import BottomBanner from "@/components/BottomBanner";
+import SideBar from "@/components/SideBar";
 import {
   getAverageMessagesPerDaySQL,
-  getMessagesThisWeekData,
   getMessagesCountToday,
+  getMessagesThisWeekData,
 } from "@/lib/actions/post";
-import { auth } from "@/lib/auth";
-import { IoAnalytics } from "react-icons/io5";
-import SideBar from "@/components/SideBar";
-import BottomBanner from "@/components/BottomBanner";
+import { auth } from "@/lib/auth/auth";
 import { Metadata } from "next";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { IoAnalytics } from "react-icons/io5";
 
 export const metadata: Metadata = {
   title: "Dashboard | Bulong",

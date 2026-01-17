@@ -1,8 +1,8 @@
 import AreaChartMessages from "@/components/AreaChartMessages";
 import { getMessagesThisWeekData, getTotalPost } from "@/lib/actions/post";
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const TotalMessagesAndChart = async () => {
   await new Promise((resolve) => {

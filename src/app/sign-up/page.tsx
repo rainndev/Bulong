@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { signUp } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
-import { signUp, useSession } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { set } from "zod";
 
 export default function SignUpPage() {
   const router = useRouter();

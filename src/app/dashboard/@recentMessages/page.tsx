@@ -1,5 +1,5 @@
 import { getRecentPost } from "@/lib/actions/post";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/auth";
 import { hideMessage } from "@/lib/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";

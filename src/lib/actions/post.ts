@@ -3,7 +3,7 @@
 import { PostType } from "@/types/post.types";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "../auth";
+import { auth } from "../auth/auth";
 import { prisma } from "../prisma";
 
 export const getPost = async (userID: string): Promise<PostType[]> => {

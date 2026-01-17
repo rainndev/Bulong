@@ -1,5 +1,5 @@
 import SideBar from "@/components/SideBar";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 
