@@ -1,5 +1,11 @@
 import { PostType } from "@/types/post.types";
+import { clsx, type ClassValue } from "clsx";
 import { toPng } from "html-to-image";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export const hideMessage = (text: string | null, revealed: boolean) => {
   if (!text) return "";

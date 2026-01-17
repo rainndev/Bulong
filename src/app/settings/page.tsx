@@ -1,3 +1,4 @@
+import SpoilUnreadMessages from "@/components/settings/SpoilUnreadMessages";
 import SideBar from "@/components/SideBar";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
@@ -35,14 +36,18 @@ const page = async () => {
         </h1>
 
         <form action={saveSettings}>
-          <div className="flex flex-col gap-4 rounded-2xl bg-violet-100 p-5 md:gap-6 md:p-7 lg:p-10">
-            <p className="text-[clamp(1rem,2vw,1.125rem)]">Limit Message</p>
-            <input
-              type="number"
-              name="dailyLimit"
-              className="no-spinner md:text-md w-full rounded-2xl border-2 border-violet-300 p-3 pl-4 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
-              placeholder="ex: 10"
-            />
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+            <div className="flex flex-col gap-4 rounded-2xl bg-violet-100 p-5 md:gap-6 md:p-7 lg:p-10">
+              <p className="text-[clamp(1rem,2vw,1.125rem)]">Limit Message</p>
+              <input
+                type="number"
+                name="dailyLimit"
+                className="no-spinner md:text-md w-full rounded-2xl border-2 border-violet-300 p-3 pl-4 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+                placeholder="ex: 10"
+              />
+            </div>
+
+            <SpoilUnreadMessages />
           </div>
 
           <button
