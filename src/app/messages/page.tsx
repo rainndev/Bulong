@@ -1,8 +1,8 @@
+import MessagesClient from "@/components/messages/MessagesClient";
 import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth/auth";
 import { Metadata } from "next";
 import { headers } from "next/headers";
-import MessagesClient from "./MessagesClient";
 
 export const metadata: Metadata = {
   title: "Messages | Bulong",

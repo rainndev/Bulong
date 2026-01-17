@@ -1,14 +1,12 @@
+import AnonymousInfoTags from "@/components/AnonymousInfoTags";
+import { socmedOptions } from "@/constants/socmed-options";
 import { deletePost } from "@/lib/actions/post";
 import { downloadOrShareImage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
+import { SocmedTypes } from "@/types/socmed.types";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { IconType } from "react-icons";
-import { BiLogoInstagramAlt } from "react-icons/bi";
-import { FaFacebook } from "react-icons/fa";
-import { PiSnapchatLogoFill } from "react-icons/pi";
-import AnonymousInfoTags from "./AnonymousInfoTags";
 
 type BottomNavProps = {
   isOpen: boolean;
@@ -16,32 +14,6 @@ type BottomNavProps = {
   post: PostType;
   setDisplayedPosts: Dispatch<SetStateAction<PostType[]>>;
 };
-
-export type SocmedTypes = {
-  name: string;
-  shortName: string;
-  icon: IconType;
-};
-
-export const socmedOptions: SocmedTypes[] = [
-  {
-    name: "Facebook",
-    shortName: "FB",
-    icon: FaFacebook,
-  },
-
-  {
-    name: "Instagram",
-    shortName: "IG",
-    icon: BiLogoInstagramAlt,
-  },
-
-  {
-    name: "Snapchat",
-    shortName: "SNAP",
-    icon: PiSnapchatLogoFill,
-  },
-];
 
 export default function BottomNav({
   isOpen,

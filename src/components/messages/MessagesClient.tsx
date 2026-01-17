@@ -1,18 +1,19 @@
 "use client";
 
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
-import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
+import BottomNav from "@/components/messages/BottomNav";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
 import SideBar from "@/components/SideBar";
-import { useSettingsContext } from "@/context/SettingsContext";
+import { socmedOptions } from "@/constants/socmed-options";
 import { useDebounce } from "@/hooks/useDebounce";
-import { deletePost, markAsReadPost, searchPost } from "@/lib/actions/post";
-import { hideMessage } from "@/lib/utils";
+import { deletePost, searchPost } from "@/lib/actions/post";
 import { PostType } from "@/types/post.types";
+import { SocmedTypes } from "@/types/socmed.types";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import ListMessage from "./ListMessage";
 
 interface MessagesClientProps {
   posts: PostType[];
@@ -36,14 +37,14 @@ const initialPostData = {
 };
 
 const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
-  const [selectedMessage, setSelectedMessage] =
-    useState<PostType>(initialPostData);
+  const [selectedMessage, setSelectedMessage] = useState<PostType | null>(
+    initialPostData,
+  );
 
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
   const [isDialogShowing, setDialogShowing] = useState(false);
   const debouncedSearch = useDebounce(search, 500);
-  const { isHideUnreadMessage, setIsHideUnreadMessage } = useSettingsContext();
   const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
     socmedOptions[0],
   );
@@ -60,20 +61,6 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
 
     getSearchedPost();
   }, [debouncedSearch]);
-
-  const markAsRead = async (data: PostType) => {
-    if (data.isRead) return;
-
-    const success = await markAsReadPost(data.id);
-
-    if (success) {
-      setDisplayedPosts((prev) =>
-        prev.map((post) =>
-          post.id === data.id ? { ...post, isRead: true } : post,
-        ),
-      );
-    }
-  };
 
   const handleDeletePost = async () => {
     const selectedPostId = selectedMessage?.id;
@@ -117,47 +104,18 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                 className="md:text-md w-full rounded-2xl border-2 border-violet-300 p-3 pl-10 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-4 md:pl-9"
               />
             </div>
-            <ul className="hide-scrollbar mt-5 h-full space-y-2 overflow-y-auto">
-              {/* show this if no message found */}
-              {displayedPosts.length < 1 && (
-                <div className="flex w-full justify-center text-sm text-gray-500">
-                  No message found
-                </div>
-              )}
-
-              {/* list of message */}
-              {displayedPosts.map((data) => (
-                <li
-                  key={data.id}
-                  onClick={() => {
-                    setDialogShowing(true);
-                    setSelectedMessage(data);
-                    markAsRead(data);
-                  }}
-                  className={`${
-                    selectedMessage?.id === data.id &&
-                    "border-l-violet-950 bg-violet-100"
-                  } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-4 transition-colors hover:bg-violet-100 md:p-5`}
-                >
-                  <span className="text-md block truncate font-medium antialiased">
-                    {isHideUnreadMessage
-                      ? hideMessage(data.title, data.isRead)
-                      : data.title}
-                  </span>
-                  <p className="truncate text-xs text-gray-600 antialiased md:text-sm">
-                    {isHideUnreadMessage
-                      ? hideMessage(data.content, data.isRead)
-                      : data.content}
-                  </p>
-                </li>
-              ))}
-
-              <li className="invisible h-20" />
-            </ul>
+            {/* list of messages */}
+            <ListMessage
+              displayedPosts={displayedPosts}
+              setDialogShowing={setDialogShowing}
+              setDisplayedPosts={setDisplayedPosts}
+              selectedMessage={selectedMessage}
+              setSelectedMessage={setSelectedMessage}
+            />
           </div>
 
-          {/* specific message */}
-          {selectedMessage?.id === "example-id" ? (
+          {/* side message for desktop view */}
+          {selectedMessage?.id === "example-id" || !selectedMessage ? (
             <NoSelectedMessage />
           ) : (
             <div className="hidden flex-1 overflow-y-auto rounded-2xl border border-violet-200 bg-white p-10 md:flex md:flex-col">
@@ -207,10 +165,11 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
             </div>
           )}
 
+          {/* bottom nav message for mobile view */}
           <BottomNav
             isOpen={isDialogShowing}
             onClose={() => setDialogShowing(false)}
-            post={selectedMessage}
+            post={selectedMessage ?? initialPostData}
             setDisplayedPosts={setDisplayedPosts}
           />
         </div>
