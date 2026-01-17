@@ -1,12 +1,12 @@
 "use client";
 
 import SideBar from "@/components/SideBar";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { useDebounce } from "@/hooks/useDebounce";
 import { markAsReadPost, searchPost } from "@/lib/actions/post";
 import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
-import { downloadOrShareImage, hideMessage } from "@/lib/utils";
+import { hideMessage } from "@/lib/utils";
 import { FaTrash } from "react-icons/fa";
 import { deletePost } from "@/lib/actions/post";
 import NoSelectedMessage from "@/components/NoSelectedMessage";
@@ -36,9 +36,8 @@ const initialPostData = {
 };
 
 const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
-  const [selectedMessage, setSelectedMessage] = useState<PostType | undefined>(
-    initialPostData,
-  );
+  const [selectedMessage, setSelectedMessage] =
+    useState<PostType>(initialPostData);
 
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
@@ -61,7 +60,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
     getSearchedPost();
   }, [debouncedSearch]);
 
-  const fetchMarkIsRead = async (data: PostType) => {
+  const markAsRead = async (data: PostType) => {
     if (data.isRead) return;
 
     const success = await markAsReadPost(data.id);
@@ -132,7 +131,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                   onClick={() => {
                     setDialogShowing(true);
                     setSelectedMessage(data);
-                    fetchMarkIsRead(data);
+                    markAsRead(data);
                   }}
                   className={`${
                     selectedMessage?.id === data.id &&

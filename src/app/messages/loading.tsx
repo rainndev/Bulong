@@ -1,6 +1,5 @@
 import LoadingAnimation from "@/components/LoadingAnimation";
 import SideBar from "@/components/SideBar";
-import React from "react";
 
 const loading = () => {
   return (

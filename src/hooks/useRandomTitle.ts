@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { playfulTitles } from "@/constants/titleMessage";
+import { playfulTitles } from "@/constants/title-message";
 
 export function useRandomTitle(username: string) {
   const [title, setTitle] = useState<string>("");

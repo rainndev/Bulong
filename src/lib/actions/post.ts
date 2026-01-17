@@ -1,11 +1,10 @@
 "use server";
 
-import { prisma } from "../prisma";
-import { PostSchema } from "../schema";
-import { auth } from "../auth";
+import { PostType } from "@/types/post.types";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { PostType } from "@/types/post.types";
+import { auth } from "../auth";
+import { prisma } from "../prisma";
 
 export const getPost = async (userID: string): Promise<PostType[]> => {
   return await prisma.post.findMany({

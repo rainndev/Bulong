@@ -1,6 +1,5 @@
 import { PostType } from "@/types/post.types";
 import { toPng } from "html-to-image";
-import { Dispatch, SetStateAction } from "react";
 
 export const hideMessage = (text: string | null, revealed: boolean) => {
   if (!text) return "";

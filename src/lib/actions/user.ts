@@ -1,7 +1,7 @@
 "use server";
 
-import { prisma } from "../prisma";
 import { UserType } from "@/types/user.types";
+import { prisma } from "../prisma";
 
 export const isUserExist = async (
   userName: string,

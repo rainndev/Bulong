@@ -1,9 +1,8 @@
-import SideBar from "@/components/SideBar";
 import { getPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth";
+import { Metadata } from "next";
 import { headers } from "next/headers";
 import MessagesClient from "./MessagesClient";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Messages | Bulong",

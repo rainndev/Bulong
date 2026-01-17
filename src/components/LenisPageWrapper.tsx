@@ -1,8 +1,8 @@
 // LandingPageWrapper.tsx
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
 import Lenis from "@studio-freight/lenis";
+import { ReactNode, useEffect, useRef } from "react";
 
 export default function LenisPageWrapper({
   children,

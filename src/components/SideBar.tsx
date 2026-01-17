@@ -1,12 +1,11 @@
 "use client";
 
 import { signOut } from "@/lib/actions/post";
+import Image from "next/image";
 import Link from "next/link";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";
-import { MdOutlineSettings } from "react-icons/md";
-import Image from "next/image";
+import { MdOutlineSettings, MdOutlineSpaceDashboard } from "react-icons/md";
 
 const links = [
   { path: "/dashboard", name: "Dashboard", icon: MdOutlineSpaceDashboard },

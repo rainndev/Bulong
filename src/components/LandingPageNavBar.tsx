@@ -1,9 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 
 const navigationLinks = [
   { name: "Home", href: "/" },

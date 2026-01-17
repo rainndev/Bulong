@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { useParams } from "next/navigation";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
-import Image from "next/image";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { PostFormSchema } from "@/lib/schema";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useRef, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function CreatePostForm() {
   const [isLoading, setIsLoading] = useState(false);

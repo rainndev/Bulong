@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { signIn } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { signIn, useSession } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function SignInPage() {

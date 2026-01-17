@@ -1,21 +1,19 @@
 import { deletePost } from "@/lib/actions/post";
-import { motion, AnimatePresence } from "motion/react";
-import { FaFacebook } from "react-icons/fa";
-import { PiSnapchatLogoFill } from "react-icons/pi";
-import { Dispatch, SetStateAction, useState } from "react";
-import { IconType } from "react-icons";
-import { BiLogoInstagramAlt } from "react-icons/bi";
-import AnonymousInfoTags from "./AnonymousInfoTags";
-import { useRef } from "react";
 import { downloadOrShareImage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import { tr } from "zod/v4/locales";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { IconType } from "react-icons";
+import { BiLogoInstagramAlt } from "react-icons/bi";
+import { FaFacebook } from "react-icons/fa";
+import { PiSnapchatLogoFill } from "react-icons/pi";
+import AnonymousInfoTags from "./AnonymousInfoTags";
 
 type BottomNavProps = {
   isOpen: boolean;
   onClose: () => void;
-  post: PostType | undefined;
+  post: PostType;
   setDisplayedPosts: Dispatch<SetStateAction<PostType[]>>;
 };
 

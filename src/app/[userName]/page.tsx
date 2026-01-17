@@ -1,5 +1,5 @@
 import CreatePostForm from "@/components/CreatePostForm";
-import { playfulTitles } from "@/constants/titleMessage";
+import { playfulTitles } from "@/constants/title-message";
 import { Metadata } from "next";
 
 export async function generateMetadata({
