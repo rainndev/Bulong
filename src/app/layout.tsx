@@ -1,3 +1,4 @@
+import { SettingsProvider } from "@/context/SettingsContext";
 import { Fredoka } from "next/font/google";
 import "./globals.css";
 
@@ -32,7 +33,7 @@ export default function RootLayout({
         className={`${fredoka.variable} font-fredoka h-full text-[#242731] antialiased`}
       >
         <div className="shadow-3xl h-full bg-linear-to-r from-violet-50 to-violet-200">
-          {children}
+          <SettingsProvider>{children}</SettingsProvider>
         </div>
       </body>
     </html>

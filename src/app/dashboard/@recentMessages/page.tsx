@@ -1,6 +1,6 @@
+import TitleContent from "@/components/dashboard/recent-messages/TitleContent";
 import { getRecentPost } from "@/lib/actions/post";
 import { auth } from "@/lib/auth/auth";
-import { hideMessage } from "@/lib/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { FaEnvelope } from "react-icons/fa";
@@ -38,14 +38,7 @@ const RecentMessages = async () => {
             <FaEnvelope className="rotate-30 text-sm text-violet-950/40" />
           </div>
 
-          <div className="flex min-w-0 flex-col text-sm">
-            <h1 className="mb-1 truncate text-[clamp(1rem,2vw,1.125rem)] font-semibold antialiased">
-              {hideMessage(data.title, data.isRead)}
-            </h1>
-            <p className="truncate text-[clamp(0.75remrem,2vw,0.875rem)] text-[#949494] antialiased">
-              {hideMessage(data.content, data.isRead)}
-            </p>
-          </div>
+          <TitleContent data={data} />
         </div>
       ))}
     </div>

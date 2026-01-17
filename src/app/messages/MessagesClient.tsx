@@ -1,18 +1,18 @@
 "use client";
 
-import SideBar from "@/components/SideBar";
-import { useEffect, useState } from "react";
-import { IoSearch } from "react-icons/io5";
-import { useDebounce } from "@/hooks/useDebounce";
-import { markAsReadPost, searchPost } from "@/lib/actions/post";
-import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
-import { hideMessage } from "@/lib/utils";
-import { FaTrash } from "react-icons/fa";
-import { deletePost } from "@/lib/actions/post";
-import NoSelectedMessage from "@/components/NoSelectedMessage";
-import { motion } from "motion/react";
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
+import BottomNav, { socmedOptions, SocmedTypes } from "@/components/BottomNav";
+import NoSelectedMessage from "@/components/NoSelectedMessage";
+import SideBar from "@/components/SideBar";
+import { useSettingsContext } from "@/context/SettingsContext";
+import { useDebounce } from "@/hooks/useDebounce";
+import { deletePost, markAsReadPost, searchPost } from "@/lib/actions/post";
+import { hideMessage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
+import { IoSearch } from "react-icons/io5";
 
 interface MessagesClientProps {
   posts: PostType[];
@@ -43,6 +43,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
   const [search, setSearch] = useState("");
   const [isDialogShowing, setDialogShowing] = useState(false);
   const debouncedSearch = useDebounce(search, 500);
+  const { isHideUnreadMessage, setIsHideUnreadMessage } = useSettingsContext();
   const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
     socmedOptions[0],
   );
@@ -139,10 +140,14 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                   } cursor-pointer rounded-tr-xl rounded-br-xl border border-l-4 border-violet-200 p-4 transition-colors hover:bg-violet-100 md:p-5`}
                 >
                   <span className="text-md block truncate font-medium antialiased">
-                    {hideMessage(data.title, data.isRead)}
+                    {isHideUnreadMessage
+                      ? hideMessage(data.title, data.isRead)
+                      : data.title}
                   </span>
                   <p className="truncate text-xs text-gray-600 antialiased md:text-sm">
-                    {hideMessage(data.content, data.isRead)}
+                    {isHideUnreadMessage
+                      ? hideMessage(data.content, data.isRead)
+                      : data.content}
                   </p>
                 </li>
               ))}
