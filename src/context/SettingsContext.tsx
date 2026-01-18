@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type SettingsContextType = {
   isHideUnreadMessage: boolean;
@@ -16,7 +16,21 @@ export const SettingsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isHideUnreadMessage, setIsHideUnreadMessage] = useState(false);
+  const [isHideUnreadMessage, setIsHideUnreadMessage] = useState(() => {
+    const saved = localStorage.getItem("isHideUnreadMessage");
+    return saved ? JSON.parse(saved) : true;
+  });
+
+  useEffect(() => {
+    if (isHideUnreadMessage !== null) {
+      localStorage.setItem(
+        "isHideUnreadMessage",
+        JSON.stringify(isHideUnreadMessage),
+      );
+    } else {
+      localStorage.removeItem("isHideUnreadMessage");
+    }
+  }, [isHideUnreadMessage]);
 
   return (
     <SettingsContext.Provider
