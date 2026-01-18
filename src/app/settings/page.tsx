@@ -39,7 +39,7 @@ const page = async () => {
   };
 
   return (
-    <div className="flex h-dvh w-full bg-violet-50">
+    <div className="flex h-dvh w-full bg-gray-50">
       <SideBar currentPath="/settings" />
 
       <div className="flex w-full flex-col gap-6 p-5 md:p-10 lg:p-20">
@@ -49,7 +49,7 @@ const page = async () => {
 
         <form action={saveSettings}>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-            <div className="flex flex-col gap-4 rounded-2xl bg-violet-100 p-5 md:gap-6 md:p-7 lg:p-10">
+            <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow shadow-violet-100 md:gap-6 md:p-7 lg:p-10">
               <p className="text-[clamp(1rem,2vw,1.125rem)]">
                 Limit Message
                 <span className="ml-2 rounded-lg bg-violet-300 px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">

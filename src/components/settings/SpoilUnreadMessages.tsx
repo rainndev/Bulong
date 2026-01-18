@@ -7,7 +7,7 @@ const SpoilUnreadMessages = () => {
   const { isHideUnreadMessage, setIsHideUnreadMessage } = useSettingsContext();
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-violet-100 p-5 md:gap-6 md:p-7 lg:p-10">
+    <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow shadow-violet-100 md:gap-6 md:p-7 lg:p-10">
       <p className="text-[clamp(1rem,2vw,1.125rem)]">
         Spoil Unread Messages{" "}
         <span className="ml-2 rounded-lg bg-violet-300 px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">
