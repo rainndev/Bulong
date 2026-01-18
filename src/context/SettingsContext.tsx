@@ -16,10 +16,14 @@ export const SettingsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isHideUnreadMessage, setIsHideUnreadMessage] = useState(() => {
+  const [isHideUnreadMessage, setIsHideUnreadMessage] = useState(false);
+
+  useEffect(() => {
     const saved = localStorage.getItem("isHideUnreadMessage");
-    return saved ? JSON.parse(saved) : true;
-  });
+    if (saved !== null) {
+      setIsHideUnreadMessage(JSON.parse(saved));
+    }
+  }, []);
 
   useEffect(() => {
     if (isHideUnreadMessage !== null) {
