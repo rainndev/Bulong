@@ -2,6 +2,7 @@ import SpoilUnreadMessages from "@/components/settings/SpoilUnreadMessages";
 import SideBar from "@/components/SideBar";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 const page = async () => {
@@ -10,6 +11,15 @@ const page = async () => {
   });
 
   const userId = session?.user.id;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      dailyLimit: true,
+    },
+  });
 
   const saveSettings = async (form: FormData) => {
     "use server";
@@ -24,6 +34,8 @@ const page = async () => {
         dailyLimit,
       },
     });
+
+    revalidatePath("/settings");
   };
 
   return (
@@ -38,7 +50,12 @@ const page = async () => {
         <form action={saveSettings}>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
             <div className="flex flex-col gap-4 rounded-2xl bg-violet-100 p-5 md:gap-6 md:p-7 lg:p-10">
-              <p className="text-[clamp(1rem,2vw,1.125rem)]">Limit Message</p>
+              <p className="text-[clamp(1rem,2vw,1.125rem)]">
+                Limit Message
+                <span className="ml-2 rounded-lg bg-violet-300 px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">
+                  {user?.dailyLimit ?? "Not Set"}
+                </span>
+              </p>
               <input
                 type="number"
                 name="dailyLimit"
