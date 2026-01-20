@@ -99,24 +99,20 @@ export const getMessagesCountToday = async (
 };
 
 export const getMessagesThisWeekData = async (userId: string) => {
-  const now = new Date();
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
 
-  // Monday start
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - now.getDay() + 1);
-  startOfWeek.setHours(0, 0, 0, 0);
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - 6);
+  startDate.setHours(0, 0, 0, 0);
 
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
-  endOfWeek.setHours(23, 59, 59, 999);
-
-  // Fetch posts this week
+  // Fetch posts from last 7 days
   const posts = await prisma.post.findMany({
     where: {
       authorId: userId,
       createdAt: {
-        gte: startOfWeek,
-        lte: endOfWeek,
+        gte: startDate,
+        lte: today,
       },
     },
     select: {
@@ -124,16 +120,18 @@ export const getMessagesThisWeekData = async (userId: string) => {
     },
   });
 
-  // Prepare 7-day map
+  // Prepare last 7 days map
   const daysMap: Record<string, number> = {};
 
   for (let i = 0; i < 7; i++) {
-    const d = new Date(startOfWeek);
-    d.setDate(startOfWeek.getDate() + i);
+    const d = new Date(startDate);
+    d.setDate(startDate.getDate() + i);
+
     const key = d.toLocaleDateString("en-US", {
       month: "short",
       day: "2-digit",
     });
+
     daysMap[key] = 0;
   }
 
