@@ -1,21 +1,17 @@
 import SaveSettingsButton from "@/components/settings/SaveSettingsButton";
 import SpoilUnreadMessages from "@/components/settings/SpoilUnreadMessages";
 import SideBar from "@/components/SideBar";
-import { auth } from "@/lib/auth/auth";
+import { requireAuth } from "@/lib/actions/user";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Settings | Bulong",
 };
 
 const page = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
+  const session = await requireAuth();
   const userId = session?.user.id;
 
   const user = await prisma.user.findUnique({

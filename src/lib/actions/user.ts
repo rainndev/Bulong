@@ -1,6 +1,9 @@
 "use server";
 
+import { auth } from "@/lib/auth/auth";
 import { UserType } from "@/types/user.types";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { prisma } from "../prisma";
 
 export const isUserExist = async (
@@ -13,4 +16,16 @@ export const isUserExist = async (
   });
 
   return user;
+};
+
+export const requireAuth = async (redirectTo = "/sign-in") => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect(redirectTo);
+  }
+
+  return session;
 };

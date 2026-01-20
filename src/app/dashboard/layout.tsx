@@ -5,10 +5,8 @@ import {
   getMessagesCountToday,
   getMessagesThisWeekData,
 } from "@/lib/actions/post";
-import { auth } from "@/lib/auth/auth";
+import { requireAuth } from "@/lib/actions/user";
 import { Metadata } from "next";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 import { IoAnalytics } from "react-icons/io5";
 
 export const metadata: Metadata = {
@@ -23,15 +21,8 @@ const Layout = async ({
   totalMessagesAndChart: React.ReactNode;
 }) => {
   //current session
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
+  const session = await requireAuth();
   const user = session?.user;
-
-  if (!session) {
-    return redirect("/sign-in");
-  }
 
   const userId = session?.user.id;
   const userName = session?.user.name;
