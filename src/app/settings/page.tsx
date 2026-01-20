@@ -1,3 +1,4 @@
+import SaveSettingsButton from "@/components/settings/SaveSettingsButton";
 import SpoilUnreadMessages from "@/components/settings/SpoilUnreadMessages";
 import SideBar from "@/components/SideBar";
 import { auth } from "@/lib/auth/auth";
@@ -28,7 +29,9 @@ const page = async () => {
 
   const saveSettings = async (form: FormData) => {
     "use server";
-    const dailyLimit = parseInt(form.get("dailyLimit") as string, 10);
+    const dailyLimit = parseInt(form.get("dailyLimit") as string, 10) || 0;
+
+    console.log("Daily Limit to be set:", dailyLimit);
 
     // Update daily limit in the database
     await prisma.user.update({
@@ -72,12 +75,7 @@ const page = async () => {
             <SpoilUnreadMessages />
           </div>
 
-          <button
-            type="submit"
-            className="md:text-md mt-5 flex w-full cursor-pointer justify-center rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
-          >
-            Save Settings
-          </button>
+          <SaveSettingsButton />
         </form>
       </div>
     </div>
