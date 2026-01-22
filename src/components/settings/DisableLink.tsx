@@ -10,11 +10,11 @@ type DisableLinkProps = {
 };
 
 const DisableLink = ({ userId, initialValue }: DisableLinkProps) => {
-  const [enabled, setEnabled] = useState(initialValue);
+  const [isDisabled, setDisabled] = useState(initialValue);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    setEnabled(initialValue);
+    setDisabled(initialValue);
   }, [initialValue]);
 
   return (
@@ -22,18 +22,18 @@ const DisableLink = ({ userId, initialValue }: DisableLinkProps) => {
       <p className="text-[clamp(1rem,2vw,1.125rem)]">
         Accept Messages{" "}
         <span className="ml-2 rounded-lg bg-violet-300 px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">
-          {enabled ? "Inactive " : "Active"}
+          {isDisabled ? "Inactive" : "Active"}
         </span>
       </p>
 
       <Switch
         className="cursor-pointer"
-        checked={enabled}
+        checked={!isDisabled}
         disabled={isPending}
         onCheckedChange={(value) => {
-          setEnabled(value);
+          setDisabled(!value);
           startTransition(() => {
-            toggleLinkAcceptance(userId, value);
+            toggleLinkAcceptance(userId, !value);
           });
         }}
         id="disable-link"
