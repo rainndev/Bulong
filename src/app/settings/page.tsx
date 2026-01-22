@@ -1,3 +1,4 @@
+import DisableLink from "@/components/settings/DisableLink";
 import LimitMessage from "@/components/settings/LimitMessage";
 import SaveSettingsButton from "@/components/settings/SaveSettingsButton";
 import SpoilUnreadMessages from "@/components/settings/SpoilUnreadMessages";
@@ -21,6 +22,7 @@ const page = async () => {
     },
     select: {
       dailyLimit: true,
+      isDisabled: true,
     },
   });
 
@@ -57,6 +59,7 @@ const page = async () => {
             <LimitMessage dailyLimit={user?.dailyLimit ?? null} />
 
             <SpoilUnreadMessages />
+            <DisableLink initialValue={user?.isDisabled} userId={userId} />
           </div>
 
           <SaveSettingsButton />

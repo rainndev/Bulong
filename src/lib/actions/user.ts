@@ -29,3 +29,17 @@ export const requireAuth = async (redirectTo = "/sign-in") => {
 
   return session;
 };
+
+export const toggleLinkAcceptance = async (
+  userId: string,
+  isDisabled: boolean,
+) => {
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      isDisabled,
+    },
+  });
+};
