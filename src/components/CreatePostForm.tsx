@@ -86,7 +86,7 @@ export default function CreatePostForm() {
       <div className="pointer-events-none absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]" />
 
       <form ref={formRef} onSubmit={handleSubmit} className="w-full max-w-3xl">
-        <div className="mb-5 flex-1 rounded-4xl bg-linear-to-r from-purple-600 to-indigo-600 p-15 text-white drop-shadow-2xl drop-shadow-purple-600/10 md:p-20">
+        <div className="mb-5 flex-1 rounded-4xl bg-linear-to-r from-purple-600 to-indigo-600 p-15 text-white ring-5 ring-violet-300 drop-shadow-2xl drop-shadow-purple-600/10 md:p-20">
           <div className="mb-5 flex items-center justify-center">
             <div className="w-fit rounded-full bg-violet-200 p-4 md:p-6">
               <Image
@@ -107,7 +107,7 @@ export default function CreatePostForm() {
           <input
             name="title"
             placeholder="Title"
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
           />
           {/* Render Title Errors */}
           {fieldErrors.title && (
@@ -121,7 +121,7 @@ export default function CreatePostForm() {
           <textarea
             name="content"
             placeholder="Content"
-            className="md:text-md h-55 w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className="md:text-md h-55 w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
           />
           {/* Render Content Errors */}
           {fieldErrors.content && (
