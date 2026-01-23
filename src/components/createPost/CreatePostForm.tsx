@@ -1,5 +1,6 @@
 "use client";
 
+import ContentInput from "@/components/createPost/ContentInput";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
 import { PostFormSchema } from "@/lib/schema";
 import Image from "next/image";
@@ -12,6 +13,8 @@ export default function CreatePostForm() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [isSuccess, setSuccess] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [resetCounter, setResetCounter] = useState(0);
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const params = useParams();
@@ -59,6 +62,7 @@ export default function CreatePostForm() {
 
     if (res.ok) {
       setSuccess(true);
+      setResetCounter((prev) => prev + 1);
     } else {
       setSuccess(false);
     }
@@ -106,7 +110,7 @@ export default function CreatePostForm() {
         <div className="mb-3">
           <input
             name="title"
-            placeholder="Title"
+            placeholder="Title of your message"
             className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
           />
           {/* Render Title Errors */}
@@ -117,19 +121,7 @@ export default function CreatePostForm() {
           )}
         </div>
 
-        <div>
-          <textarea
-            name="content"
-            placeholder="Content"
-            className="md:text-md h-55 w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
-          />
-          {/* Render Content Errors */}
-          {fieldErrors.content && (
-            <p className="mt-1 text-xs font-medium text-red-400 md:text-sm">
-              {fieldErrors.content[0]}
-            </p>
-          )}
-        </div>
+        <ContentInput fieldErrors={fieldErrors} resetSignal={resetCounter} />
 
         {formError && (
           <p className="mt-1 text-xs font-medium text-red-400 md:text-sm">

@@ -1,4 +1,4 @@
-import CreatePostForm from "@/components/CreatePostForm";
+import CreatePostForm from "@/components/createPost/CreatePostForm";
 import { playfulTitles } from "@/constants/title-message";
 import { Metadata } from "next";
 
