@@ -47,3 +47,37 @@ This project is built to demonstrate full-stack web development using modern too
 ## License
 
 Educational and portfolio use.
+
+## Preview
+
+##### Desktop
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/eb1f9aef-78c5-4fff-b364-20b25bd490e6" width="90%" />
+  <img src="https://github.com/user-attachments/assets/234016e9-8465-4190-a981-a99d68d2c2b6" width="90%" />
+  <img src="https://github.com/user-attachments/assets/2e44d8b4-6719-488d-8a72-bb003d7229d4" width="90%" />
+  <img src="https://github.com/user-attachments/assets/0e887c22-3e9f-44aa-943a-91943658a600" width="90%" />
+  <img src="https://github.com/user-attachments/assets/90460993-da8c-442c-8c56-e9c313c64425" width="90%" />
+  <img src="https://github.com/user-attachments/assets/d22a6757-992e-470b-8fa3-7e3eac4eb3af" width="90%" />
+  <img src="https://github.com/user-attachments/assets/0b589366-398d-40e0-88ac-07e9312b14dd" width="90%" />
+  <img src="https://github.com/user-attachments/assets/621c4b23-aac1-44f7-acd5-f7489e9b073c" width="90%" />
+  <img src="https://github.com/user-attachments/assets/2a0eefe9-07d4-4f80-96cd-8cf860fcbe4a" width="90%" />
+  <img src="https://github.com/user-attachments/assets/178498c3-7d52-46ef-bff7-977096f1ad3d" width="90%" />
+</p>
+
+##### Mobile
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/da327899-6b72-4d28-9e68-fb731bee41a5" width="40%" />
+  <img src="https://github.com/user-attachments/assets/1582b329-66e7-4d7f-827c-3963f849cf69" width="40%" />
+  <img src="https://github.com/user-attachments/assets/eb6ef1d8-ddd4-48d9-ae33-c2130d2446be" width="40%" />
+  <img src="https://github.com/user-attachments/assets/5f5b67d0-cd65-45c8-9a9f-34293a2ed80d" width="40%" />
+  <img src="https://github.com/user-attachments/assets/9518b310-1e23-41dc-aa02-7143d87c66a8" width="40%" />
+  <img src="https://github.com/user-attachments/assets/9ad32bb9-7faf-4bbb-8829-8dc2826f1f37" width="40%" />
+  <img src="https://github.com/user-attachments/assets/c6def804-04e9-4133-844e-e39da74d9994" width="40%" />
+  <img src="https://github.com/user-attachments/assets/ac3a0669-6515-4f45-90e5-80e7eec97d1a" width="40%" />
+  <img src="https://github.com/user-attachments/assets/4815d9dc-0df1-4eaa-8098-b971290d0548" width="40%" />
+  <img src="https://github.com/user-attachments/assets/a9ebeb61-fede-4c35-8bd5-639de32d92f7" width="40%" />
+  <img src="https://github.com/user-attachments/assets/fb818d75-66b4-4775-9ca2-9f1784d5c388" width="40%" />
+  <img src="https://github.com/user-attachments/assets/5c7b4a05-a50e-421e-9eb3-bf8151e836cd" width="40%" />
+</p>
+
+
