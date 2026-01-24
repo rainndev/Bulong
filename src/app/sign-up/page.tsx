@@ -2,6 +2,7 @@
 
 import { signUp } from "@/lib/auth/auth-client";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -92,6 +93,19 @@ export default function SignUpPage() {
             minLength={8}
             className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
           />
+
+          <p>
+            <Link
+              href="/sign-in"
+              className="text-[clamp(0.75rem,2vw,0.875rem)] text-gray-600"
+            >
+              Already have an account?{" "}
+              <span className="font-semibold text-violet-500 hover:underline">
+                Sign In
+              </span>
+            </Link>
+          </p>
+
           <button
             type="submit"
             className="md:text-md flex w-full cursor-pointer justify-center rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-all ease-in-out hover:bg-violet-400 md:p-5"
