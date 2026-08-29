@@ -31,95 +31,56 @@ const CheckSquare = ({ checked }: { checked: boolean }) => (
 const HeroPage = () => {
   return (
     <div id="hero" className="relative w-full overflow-hidden">
-      <div className="grid grid-cols-1 items-center gap-10 py-10 md:py-16 lg:grid-cols-[1.2fr_1fr]">
-        {/* LEFT */}
-        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-          <p className="mb-3 flex items-center gap-2 text-base font-bold md:text-lg">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-              className="shrink-0"
-            >
-              <path
-                d="M 3 10 L 8 15 L 17 4"
-                stroke="#22a06b"
-                strokeWidth="2.5"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Anonymous na mensahe, totoong opinyon.
-          </p>
+      <div className="flex flex-col items-center gap-8 py-10 text-center md:gap-10 md:py-24">
+        <p className="flex items-center gap-2 text-base font-bold md:text-lg">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+            className="shrink-0"
+          >
+            <path
+              d="M 3 10 L 8 15 L 17 4"
+              stroke="#22a06b"
+              strokeWidth="2.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Anonymous na mensahe, totoong opinyon.
+        </p>
 
-          <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.05] font-bold tracking-tight">
-            Sabihin mo na,
-            <br />
-            <span className="relative inline-block px-1">
-              nang anonymous.
-              <WiggleUnderline className="absolute -bottom-3 left-0 w-full" />
-            </span>
-          </h1>
+        <h1 className="text-[clamp(2.25rem,8vw,5.5rem)] leading-[1.05] font-bold tracking-tight">
+          Sabihin mo na,
+          <br />
+          <span className="relative inline-block px-1">
+            nang anonymous.
+            <WiggleUnderline className="absolute -bottom-3 left-0 w-full" />
+          </span>
+        </h1>
 
-          <p className="mt-8 max-w-md text-lg leading-relaxed md:text-xl">
-            Isang link para sa tanong, confessions, at mga hindi mo masabi nang
-            harapan. Ibulong na nila — ikaw ang magbabasa.
-          </p>
+        <p className="max-w-md px-2 text-lg leading-relaxed md:text-xl">
+          Isang link para sa tanong, confessions, at mga hindi mo masabi nang
+          harapan. Ibulong na nila — ikaw ang magbabasa.
+        </p>
 
-          <div className="mt-8 flex w-full justify-center lg:justify-start">
-            <ClaimHandle />
-          </div>
+        <ClaimHandle />
 
-          <p className="mt-6 text-base font-bold md:text-lg">
-            May account na?{" "}
-            <Link
-              href="/sign-in"
-              className="underline decoration-[#65a30d] decoration-2 underline-offset-4 hover:text-[#4d7c0f]"
-            >
-              Log in →
-            </Link>
-          </p>
-        </div>
+        <p className="text-base font-bold md:text-lg">
+          May account na?{" "}
+          <Link
+            href="/sign-in"
+            className="underline decoration-[#65a30d] decoration-2 underline-offset-4 hover:text-[#4d7c0f]"
+          >
+            Log in →
+          </Link>
+        </p>
 
-        {/* RIGHT */}
-        <div className="relative flex flex-col items-center gap-8">
-          <p className="-rotate-3 text-lg font-bold text-[#1f1c14]/70">
-            ganyan kadali lang
-          </p>
-
-          {/* sample anonymous message */}
-          <div className="relative w-full max-w-xs rotate-2 rounded-lg border-2 border-[#1f1c14] bg-[#a3e635] p-5 shadow-[8px_8px_0_#1f1c14]">
-            <p className="text-lg leading-snug font-bold">
-              &ldquo;psst… crush kita since freshman year. sana mapansin mo
-              ako.&rdquo;
-            </p>
-            <p className="mt-2 text-right text-sm font-bold text-[#1f1c14]/60">
-              — anonymous
-            </p>
-
-            <svg
-              width="36"
-              height="24"
-              viewBox="0 0 36 24"
-              aria-hidden="true"
-              focusable="false"
-              className="absolute -bottom-5 left-8"
-            >
-              <path
-                d="M 2 2 Q 14 20, 32 12 L 26 8 M 32 12 L 27 18"
-                fill="none"
-                stroke="#1f1c14"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          {/* how it works */}
-          <div className="relative w-full max-w-xs -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[8px_8px_0_#1f1c14]">
+        {/* how it works */}
+        <div className="grid w-full max-w-2xl grid-cols-1 gap-8 px-2 pt-8 sm:grid-cols-2 md:pt-10">
+          <div className="relative rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-5 text-left shadow-[8px_8px_0_#1f1c14]">
             <h2 className="mb-2 text-xl font-bold">paano gumagana</h2>
             <ul className="space-y-1.5 text-base leading-snug">
               <li className="flex items-center gap-2">
@@ -135,6 +96,16 @@ const HeroPage = () => {
                 basahin lahat sa dashboard mo
               </li>
             </ul>
+          </div>
+
+          <div className="relative -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-[#a3e635] p-5 text-left shadow-[8px_8px_0_#1f1c14]">
+            <p className="text-lg leading-snug font-bold">
+              &ldquo;psst… crush kita since freshman year. sana mapansin mo
+              ako.&rdquo;
+            </p>
+            <p className="mt-2 text-right text-sm font-bold text-[#1f1c14]/60">
+              — anonymous
+            </p>
 
             <svg
               width="80"
@@ -142,7 +113,7 @@ const HeroPage = () => {
               viewBox="0 0 80 60"
               aria-hidden="true"
               focusable="false"
-              className="absolute -right-8 -bottom-6 rotate-[20deg]"
+              className="absolute -right-6 -bottom-5 hidden rotate-[20deg] sm:block"
             >
               <path
                 d="M 10 40 Q 20 10, 60 20 L 55 14 M 60 20 L 56 28"
