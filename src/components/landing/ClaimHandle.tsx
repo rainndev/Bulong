@@ -61,7 +61,7 @@ const ClaimHandle = () => {
   const statusMessage = {
     idle: null,
     invalid: "Kailangan: 3–20 characters, letters / numbers / _ lang.",
-    checking: "Tinitingnan namin…",
+    checking: null,
     available: `@${handle} is available!`,
     taken: `@${handle} is taken — try another.`,
   }[availability];
@@ -69,7 +69,7 @@ const ClaimHandle = () => {
   const statusColor = {
     idle: "",
     invalid: "text-[#ff5e3a]",
-    checking: "text-[#1f1c14]/50",
+    checking: "",
     available: "text-[#22a06b]",
     taken: "text-[#ff5e3a]",
   }[availability];
@@ -119,9 +119,32 @@ const ClaimHandle = () => {
         <button
           type="submit"
           disabled={availability !== "available"}
-          className="shrink-0 cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2.5 text-base font-bold shadow-[3px_3px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:rotate-0 disabled:hover:scale-100 md:px-6 md:text-lg"
+          aria-busy={availability === "checking"}
+          className="flex shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2.5 text-base font-bold shadow-[3px_3px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:rotate-0 disabled:hover:scale-100 md:px-6 md:text-lg"
         >
-          Claim
+          {availability === "checking" ? (
+            <span className="flex size-5 items-center justify-center md:size-6">
+              <svg
+                className="size-full animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="#1f1c14"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray="42 14"
+                />
+              </svg>
+            </span>
+          ) : (
+            "Claim"
+          )}
         </button>
       </form>
 
