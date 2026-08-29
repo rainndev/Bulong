@@ -56,11 +56,56 @@ const PushPin = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const SafetyPin = ({ className }: { className?: string }) => (
+  <svg
+    width="34"
+    height="34"
+    viewBox="0 0 34 34"
+    aria-hidden="true"
+    focusable="false"
+    className={className}
+  >
+    {/* clasp outer loop */}
+    <path
+      d="M 22 4 Q 30 5, 29.5 12 Q 29 18, 23 21.5"
+      fill="none"
+      stroke="#1f1c14"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    {/* clasp inner loop */}
+    <path
+      d="M 24.5 8 Q 26.5 9, 26 12 Q 25.5 15, 23 17"
+      fill="none"
+      stroke="#1f1c14"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+    {/* pin body */}
+    <path
+      d="M 23 21.5 Q 14 19, 8.5 13 Q 4 8, 6 5.5 Q 8 3, 12 8 Q 17 14.5, 18.5 23.5"
+      fill="none"
+      stroke="#a3e635"
+      strokeWidth="3.5"
+      strokeLinecap="round"
+    />
+    {/* needle */}
+    <path
+      d="M 18.5 23.5 L 22 30"
+      fill="none"
+      stroke="#1f1c14"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 type PinnedMessage = {
   body: string;
   rotate: string;
   bg: string;
   pinPosition: string;
+  pin: "push" | "safety";
 };
 
 const pinnedMessages: PinnedMessage[] = [
@@ -68,25 +113,29 @@ const pinnedMessages: PinnedMessage[] = [
     body: "psst… crush kita since freshman year. sana mapansin mo ako.",
     rotate: "-rotate-2",
     bg: "bg-[#a3e635]",
-    pinPosition: "-top-4 left-6",
+    pinPosition: "-top-5 left-5",
+    pin: "safety",
   },
   {
     body: "grabe ka mag-code, sana ganun din ako kalakas mag-debug ng buhay ko.",
     rotate: "rotate-1",
     bg: "bg-white",
     pinPosition: "-top-4 right-8",
+    pin: "push",
   },
   {
     body: "to the one sa likod ng library — salamat sa tissue noong exam week.",
     rotate: "rotate-2",
     bg: "bg-white",
-    pinPosition: "-top-4 left-10",
+    pinPosition: "-top-6 right-6",
+    pin: "safety",
   },
   {
     body: "honest feedback lang: matalino ka, konting confidence na lang kulang mo.",
     rotate: "-rotate-1",
     bg: "bg-[#a3e635]",
     pinPosition: "-top-4 right-6",
+    pin: "push",
   },
 ];
 
@@ -131,7 +180,7 @@ const HeroPage = () => {
                 aria-hidden="true"
                 className={`absolute ${message.pinPosition} -rotate-12`}
               >
-                <PushPin />
+                {message.pin === "safety" ? <SafetyPin /> : <PushPin />}
               </span>
 
               <blockquote className="text-lg leading-snug font-bold">
