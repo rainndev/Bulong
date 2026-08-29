@@ -1,73 +1,140 @@
 import Image from "next/image";
-import BounceCards from "./BounceCards";
+import Link from "next/link";
+import ClaimHandle from "./landing/ClaimHandle";
 
-const images = [
-  "/sreenshots/SS-2.png",
-  "/sreenshots/SS-2.png",
-  "/sreenshots/SS-2.png",
-  "/sreenshots/SS-2.png",
-  "/sreenshots/SS-2.png",
-];
+const WiggleUnderline = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 300 20"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      d="M 4 12 Q 50 4, 100 10 T 200 10 T 296 12"
+      fill="none"
+      stroke="#65a30d"
+      strokeWidth="5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const CheckSquare = ({ checked }: { checked: boolean }) => (
+  <span
+    aria-hidden="true"
+    className={`mt-0.5 size-3.5 shrink-0 rounded-[3px] border-2 border-[#1f1c14] ${
+      checked ? "bg-[#22a06b]" : "bg-transparent"
+    }`}
+  />
+);
 
 const HeroPage = () => {
   return (
-    <div
-      id="hero"
-      className="relative min-h-dvh w-full overflow-hidden rounded-2xl bg-violet-100 p-5 ring-2 ring-violet-200 ring-offset-7 ring-offset-violet-50 backdrop-blur-lg md:rounded-3xl md:p-10 lg:rounded-4xl lg:p-20"
-    >
-      {/* top glow */}
-      <div className="pointer-events-none absolute top-20 left-5 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r from-purple-400 via-violet-500 to-violet-800 opacity-50 blur-3xl md:top-96 md:left-20 md:h-120 md:w-300" />
-
-      {/* bottom glow */}
-      <div className="pointer-events-none absolute right-0 bottom-20 h-20 w-50 rounded-full bg-linear-to-r from-purple-400 via-violet-500 to-violet-800 opacity-50 blur-3xl md:h-80 md:w-100" />
-
-      {/* CONTENT (no absolute, no h-full) */}
-      <div className="relative flex min-h-full w-full flex-col rounded-2xl bg-violet-100/60 p-4 backdrop-blur-lg md:rounded-3xl md:p-10 lg:flex-row lg:rounded-4xl">
+    <div id="hero" className="relative w-full overflow-hidden">
+      <div className="grid grid-cols-1 items-center gap-10 py-10 md:py-16 lg:grid-cols-[1.2fr_1fr]">
         {/* LEFT */}
-        <div className="md:flex-1">
-          <h1 className="mt-10 text-center text-[clamp(2rem,5vw,96rem)] font-bold text-[#242731] md:mt-20">
-            Sabihin mo na.
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <p className="mb-3 flex items-center gap-2 text-base font-bold md:text-lg">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+              className="shrink-0"
+            >
+              <path
+                d="M 3 10 L 8 15 L 17 4"
+                stroke="#22a06b"
+                strokeWidth="2.5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            Anonymous na mensahe, totoong opinyon.
+          </p>
+
+          <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.05] font-bold tracking-tight">
+            Sabihin mo na,
+            <br />
+            <span className="relative inline-block px-1">
+              nang anonymous.
+              <WiggleUnderline className="absolute -bottom-3 left-0 w-full" />
+            </span>
           </h1>
 
-          <span className="block text-center text-sm text-gray-600 md:text-lg lg:text-xl">
-            Isang link para sa tanong, confessions, at mga “di masabi” —
-            anonymous 👀
-          </span>
+          <p className="mt-8 max-w-md text-lg leading-relaxed md:text-xl">
+            Isang link para sa tanong, confessions, at mga hindi mo masabi nang
+            harapan. Ibulong na nila — ikaw ang magbabasa.
+          </p>
 
-          <div className="mt-20 flex justify-center">
-            <BounceCards
-              enableHover
-              images={images}
-              className="h-80 w-full md:mt-20 md:h-96 lg:h-112 lg:w-4/5"
-            />
+          <div className="mt-8 flex w-full justify-center lg:justify-start">
+            <ClaimHandle />
           </div>
+
+          <p className="mt-6 text-base font-bold md:text-lg">
+            May account na?{" "}
+            <Link
+              href="/sign-in"
+              className="underline decoration-[#65a30d] decoration-2 underline-offset-4 hover:text-[#4d7c0f]"
+            >
+              Log in →
+            </Link>
+          </p>
         </div>
 
         {/* RIGHT */}
-        <div className="@container relative mt-16 flex flex-1 items-center justify-center">
-          {/* glow */}
-          <div className="pointer-events-none absolute -right-10 -bottom-10 h-20 w-20 rounded-full bg-linear-to-r from-purple-400 via-violet-500 to-violet-800 opacity-50 blur-3xl md:h-40 md:w-40" />
+        <div className="relative flex flex-col items-center gap-8">
+          <p className="-rotate-3 text-lg font-bold text-[#1f1c14]/70">
+            ganyan kadali lang
+          </p>
 
-          {/* gradient  */}
-          <div className="absolute top-[30%] bottom-10 left-0 z-5 w-40 rounded-3xl bg-violet-400 ring-3 ring-violet-300 ring-offset-2 @md:w-50 @lg:w-100" />
-          <div className="absolute top-10 right-0 z-5 h-40 w-40 rounded-3xl bg-violet-400 ring-3 ring-violet-300 ring-offset-2 @md:h-50 @md:w-60 @lg:h-70 @lg:w-100" />
-
-          {/* hero */}
-          <div className="z-10 flex flex-col items-center">
+          <div className="rotate-2 rounded-lg border-2 border-[#1f1c14] bg-white p-3 shadow-[8px_8px_0_#1f1c14]">
             <Image
               src="/bulong-hero.png"
               alt="Bulong Hero Image"
               priority
               width={450}
               height={500}
-              className="drop-shadow-3xl translate-y-12 object-contain drop-shadow-violet-300"
+              className="h-auto w-full max-w-xs object-contain md:max-w-sm"
             />
+          </div>
 
-            <div className="mb-10 -rotate-3 rounded-2xl border border-violet-400 bg-violet-200 p-5 text-center text-[#242731] ring-1 ring-violet-300 md:rounded-3xl md:p-10 lg:rounded-4xl lg:p-20">
-              <p className="text-[clamp(1rem,2vw,1.5rem)]">
-                The best way to gather honest feedback from your audience.
-              </p>
-            </div>
+          <div className="relative w-full max-w-xs -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[8px_8px_0_#1f1c14]">
+            <h2 className="mb-2 text-xl font-bold">paano gumagana</h2>
+            <ul className="space-y-1.5 text-base leading-snug">
+              <li className="flex items-center gap-2">
+                <CheckSquare checked={false} />
+                i-share ang link mo
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckSquare checked={true} />
+                magpadala sila ng anonymous message
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckSquare checked={false} />
+                basahin lahat sa dashboard mo
+              </li>
+            </ul>
+
+            <svg
+              width="80"
+              height="60"
+              viewBox="0 0 80 60"
+              aria-hidden="true"
+              focusable="false"
+              className="absolute -right-8 -bottom-6 rotate-[20deg]"
+            >
+              <path
+                d="M 10 40 Q 20 10, 60 20 L 55 14 M 60 20 L 56 28"
+                stroke="#65a30d"
+                strokeWidth="2.5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
         </div>
       </div>

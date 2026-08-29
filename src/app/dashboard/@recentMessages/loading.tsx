@@ -1,34 +1,25 @@
-import LoadingAnimation from "@/components/LoadingAnimation";
-import { FaEnvelope } from "react-icons/fa";
-
 const Loading = () => {
   return (
-    <div className="h-full space-y-2 rounded-3xl border border-violet-200 bg-violet-100 p-6 text-[#242731] md:space-y-4">
-      <h1 className="lg:text-md rounded-lg bg-violet-950/10 p-2 pl-3 text-xs text-[#242731]/60 md:pl-4 md:text-sm">
-        Recent
-      </h1>
+    <section className="flex min-h-72 flex-col rounded-xl border border-[#e5e5e5] bg-white p-3.5">
+      <div className="mb-1 flex items-baseline justify-between">
+        <div className="h-3.5 w-32 animate-pulse rounded bg-[#f5f5f5]" />
+        <div className="h-3 w-16 animate-pulse rounded bg-[#f5f5f5]" />
+      </div>
 
       {[...Array(4)].map((_, i) => (
-        <div key={i} className="flex items-center gap-4 rounded-xl p-2 md:px-5">
-          <div>
-            <FaEnvelope className="rotate-30 text-sm text-violet-950/40" />
+        <div
+          key={i}
+          className="flex items-center gap-3 border-b border-[#f5f5f5] py-2.5 last:border-b-0"
+        >
+          <div className="size-7 shrink-0 animate-pulse rounded-lg bg-[#f5f5f5]" />
+          <div className="flex w-full min-w-0 flex-col gap-1.5">
+            <div className="h-3.5 w-3/5 animate-pulse rounded bg-[#f5f5f5]" />
+            <div className="h-2.5 w-4/5 animate-pulse rounded bg-[#f5f5f5]" />
           </div>
-
-          <div className="flex w-full min-w-0 flex-col text-sm">
-            <h1 className="mb-1 animate-pulse rounded-lg bg-violet-950/15 text-[clamp(1rem,2vw,1.125rem)] font-semibold antialiased">
-              <span className="invisible truncate">
-                Lorem ipsum dolor sit amet consectetur
-              </span>
-            </h1>
-            <p className="animate-pulse rounded-lg bg-violet-950/15 text-[clamp(0.75remrem,2vw,0.875rem)] text-[#949494] antialiased">
-              <span className="invisible w-full truncate">
-                Lorem ipsum dolor sit amet consectetur
-              </span>
-            </p>
-          </div>
+          <div className="ml-auto h-2.5 w-10 shrink-0 animate-pulse rounded bg-[#f5f5f5]" />
         </div>
       ))}
-    </div>
+    </section>
   );
 };
 

@@ -39,7 +39,7 @@ export default function BottomNav({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="text-[#242731] md:hidden">
+        <div className="text-[#171717] md:hidden">
           {/* Overlay */}
           <motion.div
             className="fixed inset-0 z-40 bg-black/40"
@@ -72,13 +72,13 @@ export default function BottomNav({
             {/* container message */}
 
             <div className="mb-10 flex w-full items-center justify-center">
-              <div className="flex w-fit justify-center gap-5 rounded-full bg-violet-100 p-3 px-8 text-2xl">
+              <div className="flex w-fit justify-center gap-5 rounded-full bg-[#f5f5f5] p-3 px-8 text-2xl">
                 {socmedOptions.map((data) => {
                   const Icon = data.icon;
 
                   return (
                     <Icon
-                      className={`${selectedSocmed.shortName === data.shortName && "rounded-full bg-violet-300 p-0.5 transition-all ease-in-out"}`}
+                      className={`${selectedSocmed.shortName === data.shortName && "rounded-full bg-[#a3e635] p-0.5 transition-all ease-in-out"}`}
                       onClick={() => setSelectedSocmed(data)}
                       key={data.shortName}
                     />
@@ -91,13 +91,13 @@ export default function BottomNav({
               {post?.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
-            <div className="mt-1 mb-4 flex-1 rounded-2xl bg-violet-50 p-5 wrap-break-word antialiased">
+            <div className="mt-1 mb-4 flex-1 rounded-xl bg-[#f5f5f5] p-5 wrap-break-word antialiased">
               <p className="text-sm text-gray-700">{post?.content}</p>
             </div>
 
             <div
               onClick={() => downloadOrShareImage(post, cardRef, setCapture)}
-              className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-center text-sm text-white`}
+              className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-[#65a30d] p-4 text-center text-sm text-white transition-colors hover:bg-[#4d7c0f]`}
             >
               {isCaptured ? (
                 <div className="flex items-center gap-2 font-medium">
@@ -108,7 +108,7 @@ export default function BottomNav({
                       alt="Eyes Emoji"
                       width={25}
                       height={25}
-                      className="inline-block rounded-full bg-violet-200 object-contain p-1"
+                      className="inline-block rounded-full bg-[#ecfccb] object-contain p-1"
                     />
                   </span>
                 </div>
@@ -122,10 +122,10 @@ export default function BottomNav({
             {!isCaptured && (
               <div
                 onClick={() => handlePostDelete()}
-                className="mt-2 mb-5 w-full rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-0.5 text-center text-sm text-white"
+                className="mt-2 mb-5 w-full rounded-full bg-[#65a30d] p-0.5 text-center text-sm text-white"
               >
                 <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
-                  <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text font-medium text-transparent">
+                  <span className="font-medium text-[#4d7c0f]">
                     Delete Message
                   </span>
                 </div>

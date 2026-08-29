@@ -1,16 +1,10 @@
 import AreaChartMessages from "@/components/AreaChartMessages";
-import { getMessagesThisWeekData, getTotalPost } from "@/lib/actions/post";
+import { getMessagesThisWeekData } from "@/lib/actions/post";
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 const TotalMessagesAndChart = async () => {
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("completed");
-    }, 2000);
-  });
-
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -20,20 +14,19 @@ const TotalMessagesAndChart = async () => {
   }
 
   const userId = session?.user.id;
-
-  const totalPost = await getTotalPost(userId);
   const { chartData } = await getMessagesThisWeekData(userId);
-  return (
-    <div className="relative flex h-full flex-col justify-center rounded-3xl border border-violet-200 bg-violet-50 p-6 text-[#242731]">
-      <p className="text-[clamp(0.875rem,2vw,1rem)] font-medium text-[#242731]/50">
-        Messages Received
-      </p>
-      <h1 className="mb-10 text-[clamp(2.5rem,4vw,3rem)] font-bold md:mb-8">
-        {totalPost}
-      </h1>
 
-      <AreaChartMessages data={chartData} />
-    </div>
+  return (
+    <section className="flex flex-col rounded-xl border border-[#e5e5e5] bg-white p-3.5">
+      <div className="mb-2 flex items-baseline justify-between">
+        <h2 className="text-[13px] font-bold">Messages received</h2>
+        <span className="text-[11px] text-[#737373]">Daily · last 7 days</span>
+      </div>
+
+      <div className="h-56 w-full md:h-64">
+        <AreaChartMessages data={chartData} />
+      </div>
+    </section>
   );
 };
 

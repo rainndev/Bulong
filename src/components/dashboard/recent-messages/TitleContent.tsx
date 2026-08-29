@@ -8,16 +8,16 @@ type TitleContentProps = {
 };
 
 const TitleContent = ({ data }: TitleContentProps) => {
-  const { isHideUnreadMessage, setIsHideUnreadMessage } = useSettingsContext();
+  const { isHideUnreadMessage } = useSettingsContext();
 
   return (
-    <div className="flex min-w-0 flex-col text-sm">
-      <h1 className="mb-1 truncate text-[clamp(1rem,2vw,1.125rem)] font-semibold antialiased">
+    <div className="flex min-w-0 flex-col">
+      <h1 className="mb-0.5 truncate text-sm font-semibold text-[#171717] antialiased">
         {isHideUnreadMessage
           ? hideMessage(data.title, data.isRead)
           : data.title}
       </h1>
-      <p className="truncate text-[clamp(0.75remrem,2vw,0.875rem)] text-[#949494] antialiased">
+      <p className="truncate text-xs text-[#737373] antialiased">
         {isHideUnreadMessage
           ? hideMessage(data.content, data.isRead)
           : data.content}

@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+const inputClassName =
+  "md:text-md w-full rounded-lg border-2 border-[#1f1c14] bg-[#fdfaf2] p-3 pl-4 text-sm font-bold placeholder:font-normal placeholder:text-[#1f1c14]/30 transition-all duration-200 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4";
+
 export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -38,10 +41,8 @@ export default function SignInPage() {
   }, []);
 
   return (
-    <main className="relative flex h-screen w-full items-center justify-center p-3 [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] md:p-10">
-      <div className="shadow-5xl mx-auto flex max-w-md flex-col justify-center space-y-2 rounded-3xl p-10 text-[#242731] ring-5 shadow-violet-100 ring-violet-100">
-        <div className="pointer-events-none absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]" />
-
+    <main className="sketch-grid flex h-screen w-full items-center justify-center bg-[#fdfaf2] p-3 md:p-10">
+      <div className="mx-auto flex w-full max-w-md flex-col justify-center space-y-2 rounded-lg border-2 border-[#1f1c14] bg-white p-8 shadow-[8px_8px_0_#1f1c14] md:p-10">
         <Image
           src={"/bulong-peeking.png"}
           alt="Sign In Illustration"
@@ -50,14 +51,12 @@ export default function SignInPage() {
           className="mx-auto my-4"
         />
 
-        <h1 className="text-[clamp(1.5rem,2vw,1.875rem)] font-semibold">
-          Sign In
-        </h1>
-        <p className="mb-8 text-[clamp(0.875rem,2vw,1rem)] text-gray-600">
+        <h1 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">Sign In</h1>
+        <p className="mb-6 text-[clamp(0.875rem,2vw,1rem)] text-[#1f1c14]/60">
           Welcome back! Please enter your credentials to access your account.
         </p>
 
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="font-bold text-[#ff5e3a]">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -65,30 +64,30 @@ export default function SignInPage() {
             type="email"
             placeholder="Email"
             required
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className={inputClassName}
           />
           <input
             name="password"
             type="password"
             placeholder="Password"
             required
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className={inputClassName}
           />
 
           <p>
             <Link
               href="/sign-up"
-              className="text-[clamp(0.75rem,2vw,0.875rem)] text-gray-600"
+              className="text-[clamp(0.75rem,2vw,0.875rem)] text-[#1f1c14]/60"
             >
-              Don't have an account?{" "}
-              <span className="font-semibold text-violet-500 hover:underline">
+              Don&apos;t have an account?{" "}
+              <span className="font-bold text-[#4d7c0f] hover:underline">
                 Sign Up
               </span>
             </Link>
           </p>
           <button
             type="submit"
-            className="md:text-md flex w-full cursor-pointer justify-center rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
+            className="md:text-md flex w-full -rotate-1 cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] px-4 py-3 text-sm font-bold text-[#fdfaf2] shadow-[4px_4px_0_#a3e635] transition-transform duration-100 hover:rotate-0 hover:scale-[1.01] active:translate-x-1 active:translate-y-1 active:shadow-none md:py-4"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">

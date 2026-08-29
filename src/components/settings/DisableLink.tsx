@@ -18,10 +18,10 @@ const DisableLink = ({ userId, initialValue }: DisableLinkProps) => {
   }, [initialValue]);
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow shadow-violet-100 md:gap-6 md:p-7 lg:p-10">
+    <div className="flex flex-col gap-4 rounded-xl border border-[#e5e5e5] bg-white p-5 md:gap-6 md:p-7 lg:p-10">
       <p className="text-[clamp(1rem,2vw,1.125rem)]">
         Accept Messages{" "}
-        <span className="ml-2 rounded-lg bg-violet-300 px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">
+        <span className="ml-2 rounded-lg bg-[#65a30d] px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">
           {isDisabled ? "Inactive" : "Active"}
         </span>
       </p>

@@ -61,7 +61,18 @@
 }
 
 @theme {
-  --font-fredoka: var(--font-fredoka);
+  --font-kalam: var(--font-kalam);
+}
+
+@layer utilities {
+  .sketch-grid {
+    background-image: linear-gradient(
+        rgba(31, 28, 20, 0.06) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(31, 28, 20, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
 }
 
 .recharts-wrapper *:focus {

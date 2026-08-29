@@ -1,45 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+
+const subscribe = () => () => {};
 
 const BottomBanner = ({ userName }: { userName: string }) => {
   const [isCopied, setIsCopied] = useState(false);
-  const [baseUrl, setBaseUrl] = useState("");
+  const origin = useSyncExternalStore(
+    subscribe,
+    () => window.location.origin,
+    () => "",
+  );
 
-  useEffect(() => {
-    setBaseUrl(window.location.origin);
-  }, []);
+  const fullLink = `${origin}/@${userName}`;
 
-  const handleCopy = async (textToCopy: string) => {
-    await navigator.clipboard.writeText(textToCopy);
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(fullLink);
     setIsCopied(true);
   };
 
-  const fullLink = baseUrl ? `${baseUrl}/@${userName}` : "";
-
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-[#242731] p-6 text-[clamp(0.875rem,2vw,1.125rem)] text-violet-50 antialiased">
-      <p>
-        Bulong lets you get anonymous messages from friends and followers. Share
-        your link and start receiving honest thoughts and secrets today!
-      </p>
-
-      <div className="mt-10 flex items-end gap-4">
-        <div className="flex min-w-0 flex-1 flex-col gap-2">
-          <span className="w-fit rounded-lg bg-violet-50/10 px-3 py-2 text-[clamp(0.75rem,2vw,1rem)] text-nowrap">
-            Share Own Link
-          </span>
-          <p className="truncate">{fullLink}</p>
+    <section className="rounded-xl bg-[#171717] p-4 text-[#ece8df] md:p-5">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="min-w-0">
+          <h2 className="text-base font-bold tracking-[-0.04em] text-white">
+            Share your link
+          </h2>
+          <p className="mt-1 max-w-md text-[13px] text-[#b5b0a6]">
+            Bulong lets friends and followers send you anonymous messages.
+            Share your link and start receiving honest thoughts today.
+          </p>
         </div>
 
-        <button
-          onClick={() => handleCopy(fullLink)}
-          className="cursor-pointer rounded-lg bg-white px-4 py-2 text-[clamp(0.75rem,2vw,1rem)] font-bold text-[#242731] transition-all hover:bg-gray-100 hover:px-8 hover:py-3"
-        >
-          {isCopied ? "Copied!" : "Copy Link"}
-        </button>
+        <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+          <span className="max-w-full truncate rounded-lg bg-[#365314] px-3 py-2 text-xs font-semibold text-[#ecfccb] sm:max-w-72">
+            {fullLink || `…/@${userName}`}
+          </span>
+          <button
+            onClick={handleCopy}
+            aria-live="polite"
+            className="cursor-pointer rounded-lg bg-[#65a30d] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[#4d7c0f]"
+          >
+            {isCopied ? "Copied!" : "Copy link"}
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

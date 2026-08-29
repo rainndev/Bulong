@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,38 +11,55 @@ const navigationLinks = [
   { name: "Contact", href: "/#contact" },
 ];
 
+const BrandMark = () => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    aria-hidden="true"
+    className="shrink-0"
+  >
+    <path
+      d="M 6 8 Q 5 5 9 5 L 31 5 Q 35 5 35 9 L 35 22 Q 35 26 31 26 L 16 26 L 9 33 L 10 25 Q 6 25 6 21 Z"
+      fill="#a3e635"
+      stroke="#1f1c14"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
+    />
+    <circle cx="14" cy="15" r="1.8" fill="#1f1c14" />
+    <circle cx="20" cy="15" r="1.8" fill="#1f1c14" />
+    <circle cx="26" cy="15" r="1.8" fill="#1f1c14" />
+  </svg>
+);
+
 const LandingPageNavBar = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="w-full rounded-2xl border border-violet-200/50 bg-violet-400/10 px-4 py-3 text-[#242731] md:rounded-3xl md:px-10 md:py-5 lg:rounded-4xl">
+    <nav className="relative z-10 w-full px-2 py-4 text-lg md:px-6 md:text-xl">
       <div className="flex items-center justify-between gap-5">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <Image
-            src={"/bulong-logo.png"}
-            alt="Bulong Logo"
-            width={50}
-            height={50}
-            className="rounded-full bg-violet-200 object-contain p-2 md:h-12 md:w-12 lg:h-16 lg:w-16"
-          />
+        <Link
+          href="/"
+          className="flex cursor-pointer items-center gap-3"
+          onClick={() => setMenuOpen(false)}
+        >
+          <BrandMark />
           <div>
-            <h1 className="text-xl font-bold md:text-2xl lg:text-4xl">
-              Bulong
-            </h1>
-            <p className="text-xs md:text-sm">
-              Your trusted feedback companion
+            <h1 className="text-2xl font-bold md:text-3xl">Bulong.</h1>
+            <p className="-mt-1 text-xs font-bold text-[#1f1c14]/60 md:text-sm">
+              your feedback companion
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden items-center gap-10 text-lg font-medium lg:flex">
+        <ul className="hidden items-center gap-8 font-bold lg:flex">
           {navigationLinks.map((link) => (
             <li
               key={link.name}
-              className="cursor-pointer hover:text-violet-600"
+              className="cursor-pointer transition-colors hover:text-[#4d7c0f]"
               onClick={() => {
                 router.push(link.href);
                 setMenuOpen(false);
@@ -54,18 +71,18 @@ const LandingPageNavBar = () => {
         </ul>
 
         {/* Desktop Buttons */}
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           <button
             onClick={() => router.push("/sign-in")}
-            className="md:text-md w-full cursor-pointer rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-nowrap text-white transition-colors ease-in-out hover:bg-violet-400 md:p-4 md:px-10"
+            className="cursor-pointer font-bold text-nowrap hover:text-[#4d7c0f]"
           >
             Log in
           </button>
           <button
             onClick={() => router.push("/sign-up")}
-            className="cursor-pointer text-nowrap"
+            className="-rotate-1 cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2 font-bold text-nowrap shadow-[3px_3px_0_#1f1c14] transition-transform duration-100 hover:rotate-1 hover:scale-[1.03] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
           >
-            Get Started
+            Get started →
           </button>
         </div>
 
@@ -73,16 +90,17 @@ const LandingPageNavBar = () => {
         <button
           className="flex flex-col items-center justify-center lg:hidden"
           aria-label="Open menu"
+          aria-expanded={menuOpen}
           onClick={() => setMenuOpen((prev) => !prev)}
         >
           <span
-            className={`block h-1 w-6 rounded bg-[#242731] transition-all duration-200 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+            className={`block h-1 w-6 rounded bg-[#1f1c14] transition-all duration-200 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
           ></span>
           <span
-            className={`my-1 block h-1 w-6 rounded bg-[#242731] transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`}
+            className={`my-1 block h-1 w-6 rounded bg-[#1f1c14] transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`}
           ></span>
           <span
-            className={`block h-1 w-6 rounded bg-[#242731] transition-all duration-200 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            className={`block h-1 w-6 rounded bg-[#1f1c14] transition-all duration-200 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
           ></span>
         </button>
       </div>
@@ -96,13 +114,13 @@ const LandingPageNavBar = () => {
             animate={{ height: "auto", opacity: 1 }}
             transition={{ duration: 0.3 }}
             exit={{ height: 0, opacity: 0 }}
-            className="mt-4 flex flex-col gap-4 px-2 py-5 lg:hidden"
+            className="mt-4 flex flex-col gap-4 rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[6px_6px_0_#1f1c14] lg:hidden"
           >
-            <ul className="text-md flex flex-col gap-4 font-medium">
+            <ul className="flex flex-col gap-4 font-bold">
               {navigationLinks.map((link) => (
                 <li
                   key={link.name}
-                  className="cursor-pointer hover:text-violet-600"
+                  className="cursor-pointer transition-colors hover:text-[#4d7c0f]"
                   onClick={() => {
                     router.push(link.href);
                     setMenuOpen(false);
@@ -118,7 +136,7 @@ const LandingPageNavBar = () => {
                   setMenuOpen(false);
                   router.push("/sign-in");
                 }}
-                className="w-full cursor-pointer rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-violet-400"
+                className="w-full cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#fdfaf2] px-4 py-2.5 font-bold"
               >
                 Log in
               </button>
@@ -127,9 +145,9 @@ const LandingPageNavBar = () => {
                   setMenuOpen(false);
                   router.push("/sign-up");
                 }}
-                className="cursor-pointer text-sm text-nowrap"
+                className="-rotate-1 w-full cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-4 py-2.5 font-bold shadow-[3px_3px_0_#1f1c14]"
               >
-                Get Started
+                Get started →
               </button>
             </div>
           </motion.div>

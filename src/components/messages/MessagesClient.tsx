@@ -78,12 +78,12 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
   };
 
   return (
-    <main className="flex h-dvh w-full flex-row overflow-hidden bg-gray-50 text-black">
+    <main className="flex h-dvh w-full flex-row overflow-hidden bg-[#fafafa] text-[#171717]">
       <SideBar currentPath="/messages" />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <div>
-          <h1 className="w-full p-10 pb-5 text-center text-xl font-semibold md:text-start md:text-2xl">
+          <h1 className="w-full p-6 pb-4 text-xl font-bold tracking-[-0.04em] md:p-10 md:pb-5 md:text-2xl">
             Messages
           </h1>
         </div>
@@ -101,7 +101,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search messages..."
-                className="md:text-md w-full rounded-2xl border-2 border-violet-300 p-3 pl-10 text-sm transition-colors duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-4 md:pl-9"
+                className="w-full rounded-lg border border-[#e5e5e5] bg-white p-3 pl-10 text-sm transition-colors duration-200 placeholder:text-[#a3a3a3] focus:border-[#65a30d] focus:ring-2 focus:ring-[#65a30d]/15 focus:outline-none md:p-3.5 md:pl-9"
               />
             </div>
             {/* list of messages */}
@@ -118,16 +118,16 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
           {selectedMessage?.id === "example-id" || !selectedMessage ? (
             <NoSelectedMessage />
           ) : (
-            <div className="hidden flex-1 overflow-y-auto rounded-2xl border border-violet-200 bg-white p-10 md:flex md:flex-col">
+            <div className="hidden flex-1 overflow-y-auto rounded-xl border border-[#e5e5e5] bg-white p-10 md:flex md:flex-col">
               <div className="flex w-full justify-between">
                 <div className="mb-10 flex w-full items-center justify-start">
-                  <div className="flex w-fit justify-center gap-5 rounded-full bg-violet-100 p-3 px-8 text-2xl lg:text-3xl">
+                  <div className="flex w-fit justify-center gap-5 rounded-full bg-[#f5f5f5] p-3 px-8 text-2xl lg:text-3xl">
                     {socmedOptions.map((data) => {
                       const Icon = data.icon;
 
                       return (
                         <Icon
-                          className={`${selectedSocmed.shortName === data.shortName && "cursor-pointer rounded-full bg-violet-300 p-1 transition-all ease-in-out"}`}
+                          className={`${selectedSocmed.shortName === data.shortName && "cursor-pointer rounded-full bg-[#a3e635] p-1 transition-all ease-in-out"}`}
                           onClick={() => setSelectedSocmed(data)}
                           key={data.shortName}
                         />
@@ -136,7 +136,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
                   </div>
                 </div>
 
-                <div className="mb-10 flex items-center rounded-full bg-violet-200 transition-colors ease-in-out hover:bg-violet-100 hover:text-violet-900 active:bg-violet-100 active:text-violet-900">
+                <div className="mb-10 flex items-center rounded-full bg-[#f5f5f5] transition-colors ease-in-out hover:bg-[#efefef] hover:text-[#65a30d] active:bg-[#efefef] active:text-[#4d7c0f]">
                   <motion.button
                     initial={{
                       scale: 0.9,
@@ -159,7 +159,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
               {/* basic info of sender */}
               <AnonymousInfoTags data={selectedMessage} />
 
-              <div className="text-md text-md mt-4 flex-1 rounded-2xl bg-violet-50 whitespace-pre-wrap md:p-5 md:text-lg lg:p-10">
+              <div className="mt-4 flex-1 whitespace-pre-wrap rounded-lg bg-[#f5f5f5] text-sm md:p-5 md:text-base lg:p-8">
                 <p>{selectedMessage?.content}</p>
               </div>
             </div>

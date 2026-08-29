@@ -3,12 +3,18 @@
 import { signUp } from "@/lib/auth/auth-client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-export default function SignUpPage() {
+const inputClassName =
+  "md:text-md w-full rounded-lg border-2 border-[#1f1c14] bg-[#fdfaf2] p-3 pl-4 text-sm font-bold placeholder:font-normal placeholder:text-[#1f1c14]/30 transition-all duration-200 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4";
+
+function SignUpForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const claimedHandle = searchParams.get("handle");
+
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,77 +56,118 @@ export default function SignUpPage() {
   }, []);
 
   return (
-    <main className="relative flex h-screen w-full items-center justify-center p-3 [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] md:p-10">
-      <div className="shadow-5xl mx-auto flex max-w-md flex-col justify-center space-y-2 rounded-3xl p-10 text-[#242731] ring-5 shadow-violet-100 ring-violet-100">
-        <div className="pointer-events-none absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]" />
-        <Image
-          src={"/bulong-peeking.png"}
-          alt="Sign In Illustration"
-          width={200}
-          height={100}
-          className="mx-auto my-4"
-        />
+    <div className="mx-auto flex w-full max-w-md flex-col justify-center space-y-2 rounded-lg border-2 border-[#1f1c14] bg-white p-8 shadow-[8px_8px_0_#1f1c14] md:p-10">
+      <Image
+        src={"/bulong-peeking.png"}
+        alt="Sign Up Illustration"
+        width={200}
+        height={100}
+        className="mx-auto my-4"
+      />
 
-        <h1 className="text-[clamp(1.5rem,2vw,1.875rem)] font-semibold">
-          Sign Up
-        </h1>
+      <h1 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">Sign Up</h1>
+      <p className="mb-6 text-[clamp(0.875rem,2vw,1rem)] text-[#1f1c14]/60">
+        Create your account to start receiving valuable feedback.
+      </p>
 
-        <p className="mb-8 text-[clamp(0.875rem,2vw,1rem)] text-gray-600">
-          Create your account to start receiving valuable feedback from your
-        </p>
+      {error && <p className="font-bold text-[#ff5e3a]">{error}</p>}
 
-        {error && <p className="text-red-500">{error}</p>}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
           <input
             name="username"
             placeholder="Username"
+            defaultValue={claimedHandle ?? ""}
+            readOnly={!!claimedHandle}
             required
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            aria-label="Username"
+            className={`${inputClassName} ${claimedHandle ? "cursor-not-allowed bg-[#a3e635]/15" : ""}`}
           />
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            required
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            minLength={8}
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
-          />
+          {claimedHandle && (
+            <p className="mt-1.5 flex items-center gap-1.5 text-xs font-bold text-[#22a06b]">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+                className="shrink-0"
+              >
+                <path
+                  d="M 3 10 L 8 15 L 17 4"
+                  stroke="#22a06b"
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Handle locked in from your claim: @{claimedHandle}
+            </p>
+          )}
+        </div>
 
-          <p>
-            <Link
-              href="/sign-in"
-              className="text-[clamp(0.75rem,2vw,0.875rem)] text-gray-600"
-            >
-              Already have an account?{" "}
-              <span className="font-semibold text-violet-500 hover:underline">
-                Sign In
-              </span>
-            </Link>
-          </p>
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          className={inputClassName}
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+          minLength={8}
+          className={inputClassName}
+        />
 
-          <button
-            type="submit"
-            className="md:text-md flex w-full cursor-pointer justify-center rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-all ease-in-out hover:bg-violet-400 md:p-5"
+        <p>
+          <Link
+            href="/sign-in"
+            className="text-[clamp(0.75rem,2vw,0.875rem)] text-[#1f1c14]/60"
           >
-            {isLoading ? (
-              <span className="flex items-center gap-2">
-                <AiOutlineLoading3Quarters className="animate-spin" />
-                <p>Signing Up...</p>
-              </span>
-            ) : (
-              "Sign Up"
-            )}
-          </button>
-        </form>
-      </div>
+            Already have an account?{" "}
+            <span className="font-bold text-[#4d7c0f] hover:underline">
+              Sign In
+            </span>
+          </Link>
+        </p>
+
+        <button
+          type="submit"
+          className="md:text-md flex w-full -rotate-1 cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] px-4 py-3 text-sm font-bold text-[#fdfaf2] shadow-[4px_4px_0_#a3e635] transition-transform duration-100 hover:rotate-0 hover:scale-[1.01] active:translate-x-1 active:translate-y-1 active:shadow-none md:py-4"
+        >
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <AiOutlineLoading3Quarters className="animate-spin" />
+              <p>Signing Up...</p>
+            </span>
+          ) : (
+            "Sign Up"
+          )}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <main className="sketch-grid flex h-screen w-full items-center justify-center bg-[#fdfaf2] p-3 md:p-10">
+      <Suspense
+        fallback={
+          <div
+            className="flex items-center gap-2 text-lg font-bold"
+            aria-busy="true"
+          >
+            <AiOutlineLoading3Quarters className="animate-spin" />
+            Loading sign up…
+          </div>
+        }
+      >
+        <SignUpForm />
+      </Suspense>
     </main>
   );
 }

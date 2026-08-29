@@ -4,28 +4,42 @@ const About = () => {
   return (
     <div
       id="about"
-      className="relative flex h-screen flex-col justify-center gap-6 overflow-hidden rounded-2xl border p-4 ring-2 ring-violet-200 ring-offset-7 ring-offset-violet-50 backdrop-blur-lg [background:radial-gradient(125%_125%_at_50%_10%,transparent_40%,#63e_100%)] md:rounded-3xl md:p-10 lg:rounded-4xl lg:p-20"
+      className="relative flex min-h-[70vh] flex-col items-center justify-center gap-6 overflow-hidden p-4 py-16 md:p-10"
     >
-      <div className="absolute top-0 right-0 bottom-0 left-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] bg-size-[24px_24px] md:bg-size-[30px_30px] lg:bg-size-[40px_40px]"></div>
-
       <Image
         src={"/bulong-peeking.png"}
         alt="Bulong Peeking"
         width={200}
         height={200}
-        className="absolute -bottom-10 -left-12 mx-auto md:size-48 lg:-bottom-20 lg:-left-20 lg:size-80"
+        className="absolute -bottom-6 -left-8 mx-auto md:size-48 lg:-bottom-10 lg:-left-16 lg:size-72"
       />
-      <h1 className="text-center text-[clamp(2rem,5vw,96rem)] font-bold text-pretty text-[#242731] antialiased md:mt-20">
-        About
-      </h1>
 
-      <p className="text-center text-[clamp(1rem,3vw,1.5rem)] text-gray-600 antialiased">
+      <h2 className="relative text-center text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] font-bold tracking-tight">
+        About
+        <svg
+          className="absolute -bottom-4 left-1/2 w-2/3 -translate-x-1/2"
+          viewBox="0 0 300 20"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M 4 12 Q 50 4, 100 10 T 200 10 T 296 12"
+            fill="none"
+            stroke="#65a30d"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </h2>
+
+      <p className="max-w-2xl text-center text-lg leading-relaxed text-[#1f1c14]/80 md:text-xl">
         Bulong is an anonymous confession platform designed to provide users
         with a safe and secure space to share their thoughts, feelings, and
-        experiences without revealing their identity. Whether it's a secret
-        crush, a personal struggle, or a heartfelt message, Bulong allows users
-        to express themselves freely and connect with others in a supportive
-        environment.
+        experiences without revealing their identity. Whether it&apos;s a
+        secret crush, a personal struggle, or a heartfelt message, Bulong
+        allows users to express themselves freely and connect with others in a
+        supportive environment.
       </p>
     </div>
   );
