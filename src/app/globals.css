@@ -60,8 +60,9 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
-@theme {
+@theme inline {
   --font-kalam: var(--font-kalam);
+  --font-fredoka: var(--font-fredoka);
 }
 
 @layer utilities {

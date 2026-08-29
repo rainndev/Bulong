@@ -46,7 +46,7 @@ const page = async () => {
   };
 
   return (
-    <div className="flex h-dvh w-full bg-[#fafafa] text-[#171717]">
+    <div className="flex h-dvh w-full bg-[#fafafa] font-fredoka text-[#171717]">
       <SideBar currentPath="/settings" />
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-5 md:p-10">

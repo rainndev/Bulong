@@ -1,6 +1,11 @@
 import { SettingsProvider } from "@/context/SettingsContext";
-import { Kalam } from "next/font/google";
+import { Fredoka, Kalam } from "next/font/google";
 import "./globals.css";
+
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
+  subsets: ["latin"],
+});
 
 const kalam = Kalam({
   variable: "--font-kalam",
@@ -31,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kalam.variable} font-kalam h-full text-[#1f1c14] antialiased`}
+        className={`${fredoka.variable} ${kalam.variable} font-kalam h-full text-[#1f1c14] antialiased`}
       >
         <div className="h-full bg-[#fdfaf2]">
           <SettingsProvider>{children}</SettingsProvider>
