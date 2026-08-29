@@ -94,26 +94,6 @@ const HeroPage = () => {
   return (
     <div id="hero" className="relative w-full overflow-hidden">
       <div className="flex flex-col items-center gap-8 py-10 text-center md:gap-10 md:py-24">
-        <p className="flex items-center gap-2 text-base font-bold md:text-lg">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            aria-hidden="true"
-            className="shrink-0"
-          >
-            <path
-              d="M 3 10 L 8 15 L 17 4"
-              stroke="#22a06b"
-              strokeWidth="2.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Anonymous na mensahe, totoong opinyon.
-        </p>
-
         <h1 className="text-[clamp(2.25rem,8vw,5.5rem)] leading-[1.05] font-bold tracking-tight">
           Sabihin mo na,
           <br />
