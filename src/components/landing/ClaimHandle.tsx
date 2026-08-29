@@ -59,7 +59,7 @@ const ClaimHandle = () => {
   };
 
   const statusMessage = {
-    idle: "3–20 characters — letters, numbers, at underscore.",
+    idle: null,
     invalid: "Kailangan: 3–20 characters, letters / numbers / _ lang.",
     checking: "Tinitingnan namin…",
     available: `@${handle} is available!`,
@@ -67,7 +67,7 @@ const ClaimHandle = () => {
   }[availability];
 
   const statusColor = {
-    idle: "text-[#1f1c14]/50",
+    idle: "",
     invalid: "text-[#ff5e3a]",
     checking: "text-[#1f1c14]/50",
     available: "text-[#22a06b]",
@@ -125,31 +125,33 @@ const ClaimHandle = () => {
         </button>
       </form>
 
-      <p
-        id="handle-status"
-        aria-live="polite"
-        className={`mt-2 flex items-center justify-center gap-1.5 text-center text-sm font-bold ${statusColor}`}
-      >
-        {availability === "available" && (
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 20 20"
-            aria-hidden="true"
-            className="shrink-0"
-          >
-            <path
-              d="M 3 10 L 8 15 L 17 4"
-              stroke="#22a06b"
-              strokeWidth="2.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
-        {statusMessage}
-      </p>
+      {statusMessage && (
+        <p
+          id="handle-status"
+          aria-live="polite"
+          className={`mt-2 flex items-center justify-center gap-1.5 text-center text-sm font-bold ${statusColor}`}
+        >
+          {availability === "available" && (
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+              className="shrink-0"
+            >
+              <path
+                d="M 3 10 L 8 15 L 17 4"
+                stroke="#22a06b"
+                strokeWidth="2.5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
+          {statusMessage}
+        </p>
+      )}
     </div>
   );
 };
