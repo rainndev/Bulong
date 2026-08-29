@@ -50,7 +50,7 @@ const Layout = async ({
         : "Same as yesterday";
 
   return (
-    <div className="flex h-dvh w-full overflow-hidden bg-[#fafafa] font-fredoka text-[#171717]">
+    <div className="font-fredoka flex h-dvh w-full overflow-hidden bg-transparent text-[#171717]">
       <SideBar currentPath="/dashboard" />
 
       <div className="flex min-w-0 flex-1 flex-col">

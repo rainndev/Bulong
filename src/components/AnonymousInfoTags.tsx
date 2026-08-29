@@ -12,27 +12,27 @@ type AnonymousInfoTagsProps = {
 const AnonymousInfoTags = ({ data }: AnonymousInfoTagsProps) => {
   return (
     <div className="mb-1 flex w-full flex-wrap gap-2 text-xs md:text-sm">
-      <span className="flex w-fit items-center gap-2 rounded-full bg-[#f5f5f5] px-3 py-1 md:px-4 md:py-2">
+      <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <IoIosBrowsers />
         {data.browser}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-[#f5f5f5] px-3 py-1 md:px-4 md:py-2">
+      <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <FaLocationDot />
         {data.country}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-[#f5f5f5] px-3 py-1 md:px-4 md:py-2">
+      <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <MdDevices />
         {data.device}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-[#f5f5f5] px-3 py-1 md:px-4 md:py-2">
+      <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <IoHardwareChip />
         {data.OS}
       </span>
 
-      <span className="flex w-fit items-center gap-2 rounded-full bg-[#f5f5f5] px-3 py-1 md:px-4 md:py-2">
+      <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <FaCity />
         {data.region}
       </span>

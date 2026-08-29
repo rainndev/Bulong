@@ -11,7 +11,7 @@ import { Dispatch, SetStateAction, useRef, useState } from "react";
 type BottomNavProps = {
   isOpen: boolean;
   onClose: () => void;
-  post: PostType;
+  post: PostType | null;
   setDisplayedPosts: Dispatch<SetStateAction<PostType[]>>;
 };
 
@@ -29,30 +29,35 @@ export default function BottomNav({
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handlePostDelete = async () => {
-    const isSuccess = await deletePost(post?.id);
+    if (!post) return;
+
+    const isSuccess = await deletePost(post.id);
     if (isSuccess) {
       onClose();
-      setDisplayedPosts((prev) => prev.filter((data) => data.id != post?.id));
+      setDisplayedPosts((prev) => prev.filter((data) => data.id != post.id));
     }
   };
 
   return (
     <AnimatePresence>
-      {isOpen && (
-        <div className="text-[#171717] md:hidden">
+      {isOpen && post && (
+        <div className="text-[#171717]">
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 z-40 bg-black/40"
+            className="fixed inset-0 z-40 bg-[#1f1c14]/40"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           />
 
-          {/* Bottom Sheet */}
+          {/* Bottom sheet (mobile) / centered modal (desktop) */}
           <motion.div
             ref={cardRef}
-            className="fixed right-0 bottom-0 left-0 z-50 flex h-[95%] flex-col rounded-t-3xl bg-white p-5"
+            role="dialog"
+            aria-modal="true"
+            aria-label={post.title || "Message"}
+            className="fixed right-0 bottom-0 left-0 z-50 flex h-[92%] flex-col rounded-t-3xl border-t-2 border-[#1f1c14] bg-[#fdfaf2] p-5 md:top-1/2 md:bottom-auto md:left-1/2 md:h-auto md:max-h-[85vh] md:w-full md:max-w-lg md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-2xl md:border-2 md:shadow-[8px_8px_0_#1f1c14]"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -67,18 +72,17 @@ export default function BottomNav({
             }}
           >
             {/* drag handle */}
-            <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-gray-300" />
+            <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-[#1f1c14]/20" />
 
-            {/* container message */}
-
-            <div className="mb-10 flex w-full items-center justify-center">
-              <div className="flex w-fit justify-center gap-5 rounded-full bg-[#f5f5f5] p-3 px-8 text-2xl">
+            {/* share target picker */}
+            <div className="mb-6 flex w-full items-center justify-center">
+              <div className="flex w-fit justify-center gap-5 rounded-full border-2 border-[#1f1c14] bg-white p-3 px-8 text-2xl">
                 {socmedOptions.map((data) => {
                   const Icon = data.icon;
 
                   return (
                     <Icon
-                      className={`${selectedSocmed.shortName === data.shortName && "rounded-full bg-[#a3e635] p-0.5 transition-all ease-in-out"}`}
+                      className={`${selectedSocmed.shortName === data.shortName && "cursor-pointer rounded-full bg-[#a3e635] p-0.5 transition-all ease-in-out"}`}
                       onClick={() => setSelectedSocmed(data)}
                       key={data.shortName}
                     />
@@ -87,20 +91,22 @@ export default function BottomNav({
               </div>
             </div>
 
-            <p className="mb-10 text-center text-xl font-semibold antialiased">
-              {post?.title || "No title"}
+            <p className="mb-6 text-center text-xl font-bold antialiased">
+              {post.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
-            <div className="mt-1 mb-4 flex-1 rounded-xl bg-[#f5f5f5] p-5 wrap-break-word antialiased">
-              <p className="text-sm text-gray-700">{post?.content}</p>
+            <div className="mt-1 mb-4 flex-1 overflow-y-auto rounded-lg border-2 border-[#1f1c14] bg-white p-5 wrap-break-word antialiased">
+              <p className="text-sm leading-relaxed font-medium text-[#1f1c14]/80">
+                {post.content}
+              </p>
             </div>
 
             <div
               onClick={() => downloadOrShareImage(post, cardRef, setCapture)}
-              className={`mt-3 ${isCaptured && "mb-10"} flex w-full items-center justify-center gap-2 rounded-full bg-[#65a30d] p-4 text-center text-sm text-white transition-colors hover:bg-[#4d7c0f]`}
+              className={`mt-3 ${isCaptured && "mb-6"} flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-[#1f1c14] bg-[#a3e635] p-4 text-center text-sm font-bold shadow-[4px_4px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none`}
             >
               {isCaptured ? (
-                <div className="flex items-center gap-2 font-medium">
+                <div className="flex items-center gap-2 font-bold">
                   <p>You got a new message!</p>
                   <span className="inline-block rounded-full bg-[#ecfccb] p-0.5">
                     <BrandMark size={22} />
@@ -108,7 +114,7 @@ export default function BottomNav({
                 </div>
               ) : (
                 <>
-                  <span className="font-medium">Share to</span>
+                  <span>Share to</span>
                   <selectedSocmed.icon className="text-xl" />
                 </>
               )}
@@ -116,13 +122,9 @@ export default function BottomNav({
             {!isCaptured && (
               <div
                 onClick={() => handlePostDelete()}
-                className="mt-2 mb-5 w-full rounded-full bg-[#65a30d] p-0.5 text-center text-sm text-white"
+                className="mt-2 mb-5 w-full cursor-pointer rounded-full border-2 border-[#1f1c14] bg-white p-3 text-center text-sm font-bold transition-colors hover:bg-[#ff5e3a] hover:text-white active:translate-y-0.5"
               >
-                <div className="item-c flex w-full justify-center gap-2 rounded-full bg-white p-3">
-                  <span className="font-medium text-[#4d7c0f]">
-                    Delete Message
-                  </span>
-                </div>
+                Delete Message
               </div>
             )}
           </motion.div>
