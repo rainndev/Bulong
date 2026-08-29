@@ -1,5 +1,6 @@
 "use client";
 
+import BrandMark from "@/components/BrandMark";
 import { signOut } from "@/lib/actions/post";
 import Link from "next/link";
 import { BiMessageSquareDots } from "react-icons/bi";
@@ -40,9 +41,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
           href="/"
           className="flex items-center gap-2.5 px-2 pb-2.5 text-base font-bold tracking-[-0.04em] text-[#ece8df]"
         >
-          <span className="grid size-7 shrink-0 place-items-center rounded-[7px] bg-[#65a30d] text-xs font-extrabold text-white">
-            B
-          </span>
+          <BrandMark size={28} className="shrink-0" />
           Bulong
         </Link>
 
