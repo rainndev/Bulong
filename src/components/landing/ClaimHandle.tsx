@@ -3,11 +3,17 @@
 import { useDebounce } from "@/hooks/useDebounce";
 import { isHandleAvailable } from "@/lib/actions/user";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 type Availability = "idle" | "invalid" | "checking" | "available" | "taken";
 
 const HANDLE_REGEX = /^[a-z0-9_]{3,20}$/;
+
+const subscribe = () => () => {};
 
 const ClaimHandle = () => {
   const router = useRouter();
@@ -16,6 +22,12 @@ const ClaimHandle = () => {
     handle: string;
     available: boolean;
   } | null>(null);
+
+  const host = useSyncExternalStore(
+    subscribe,
+    () => window.location.host,
+    () => "bulong.app",
+  );
 
   const debouncedHandle = useDebounce(handle, 500);
 
@@ -63,28 +75,24 @@ const ClaimHandle = () => {
   }[availability];
 
   return (
-    <div className="w-full max-w-lg rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[8px_8px_0_#1f1c14] md:p-6">
-      <h2 className="text-center text-2xl font-bold md:text-3xl">
-        Claim your handle
-      </h2>
-
+    <div className="w-full max-w-md">
       <form
         onSubmit={(event) => {
           event.preventDefault();
           claimHandle();
         }}
-        className="mx-auto mt-4 flex w-full max-w-md flex-col gap-3"
+        className="flex items-stretch gap-2 sm:gap-3"
       >
         <label htmlFor="handle" className="sr-only">
           Username handle
         </label>
 
-        <div className="relative">
+        <div className="flex min-w-0 flex-1 items-center rounded-full border-2 border-[#1f1c14] bg-white py-2.5 pr-4 pl-4 focus-within:ring-4 focus-within:ring-[#a3e635]/50 md:py-2">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-lg font-bold text-[#1f1c14]/40"
+            className="shrink-0 text-base font-bold text-[#1f1c14]/40 md:text-lg"
           >
-            @
+            {host}/@
           </span>
           <input
             id="handle"
@@ -104,28 +112,28 @@ const ClaimHandle = () => {
             placeholder="username"
             aria-describedby="handle-status"
             aria-invalid={availability === "invalid" || availability === "taken"}
-            className="w-full rounded-lg border-2 border-[#1f1c14] bg-[#fdfaf2] py-3 pr-3 pl-8 text-center text-lg font-bold placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none sm:text-xl"
+            className="min-w-0 flex-1 bg-transparent pl-1 text-base font-bold placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:outline-none md:text-lg"
           />
         </div>
 
         <button
           type="submit"
           disabled={availability !== "available"}
-          className="cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-6 py-3 text-lg font-bold shadow-[5px_5px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 hover:scale-[1.02] active:translate-x-1 active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:rotate-0 disabled:hover:scale-100 sm:text-xl"
+          className="shrink-0 cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2.5 text-base font-bold shadow-[3px_3px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:rotate-0 disabled:hover:scale-100 md:px-6 md:text-lg"
         >
-          Claim @{handle || "your handle"} →
+          Claim
         </button>
       </form>
 
       <p
         id="handle-status"
         aria-live="polite"
-        className={`mt-3 flex items-center justify-center gap-1.5 text-center text-sm font-bold ${statusColor}`}
+        className={`mt-2 flex items-center justify-center gap-1.5 text-center text-sm font-bold ${statusColor}`}
       >
         {availability === "available" && (
           <svg
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             viewBox="0 0 20 20"
             aria-hidden="true"
             className="shrink-0"
