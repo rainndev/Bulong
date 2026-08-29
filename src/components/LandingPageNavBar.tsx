@@ -1,5 +1,6 @@
 "use client";
 
+import BrandMark from "@/components/BrandMark";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,27 +11,6 @@ const navigationLinks = [
   { name: "About", href: "/#about" },
   { name: "Contact", href: "/#contact" },
 ];
-
-const BrandMark = () => (
-  <svg
-    width="40"
-    height="40"
-    viewBox="0 0 40 40"
-    aria-hidden="true"
-    className="shrink-0"
-  >
-    <path
-      d="M 6 8 Q 5 5 9 5 L 31 5 Q 35 5 35 9 L 35 22 Q 35 26 31 26 L 16 26 L 9 33 L 10 25 Q 6 25 6 21 Z"
-      fill="#a3e635"
-      stroke="#1f1c14"
-      strokeWidth="2.5"
-      strokeLinejoin="round"
-    />
-    <circle cx="14" cy="15" r="1.8" fill="#1f1c14" />
-    <circle cx="20" cy="15" r="1.8" fill="#1f1c14" />
-    <circle cx="26" cy="15" r="1.8" fill="#1f1c14" />
-  </svg>
-);
 
 const LandingPageNavBar = () => {
   const router = useRouter();
@@ -45,7 +25,7 @@ const LandingPageNavBar = () => {
           className="flex cursor-pointer items-center gap-3"
           onClick={() => setMenuOpen(false)}
         >
-          <BrandMark />
+          <BrandMark size={40} className="shrink-0" />
           <div>
             <h1 className="text-2xl font-bold md:text-3xl">Bulong.</h1>
             <p className="-mt-1 text-xs font-bold text-[#1f1c14]/60 md:text-sm">

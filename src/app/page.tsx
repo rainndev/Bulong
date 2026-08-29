@@ -8,10 +8,12 @@ import LenisPageWrapper from "@/components/LenisPageWrapper";
 export default function Home() {
   return (
     <LenisPageWrapper>
-      <main className="sketch-grid flex h-full flex-col items-center gap-10 overflow-auto bg-[#fdfaf2] p-4 text-[#1f1c14] md:gap-16 md:p-6 lg:p-10">
-        <LandingPageNavBar />
-        <HeroPage />
-        <About />
+      <main className="sketch-grid flex h-full flex-col items-center overflow-auto bg-[#fdfaf2] p-4 text-[#1f1c14] md:p-6 lg:p-10">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 md:gap-16">
+          <LandingPageNavBar />
+          <HeroPage />
+          <About />
+        </div>
       </main>
     </LenisPageWrapper>
   );

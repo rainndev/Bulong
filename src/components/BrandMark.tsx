@@ -1,0 +1,28 @@
+type BrandMarkProps = {
+  size?: number;
+  className?: string;
+};
+
+const BrandMark = ({ size = 40, className }: BrandMarkProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 40 40"
+    aria-hidden="true"
+    focusable="false"
+    className={className}
+  >
+    <path
+      d="M 6 8 Q 5 5 9 5 L 31 5 Q 35 5 35 9 L 35 22 Q 35 26 31 26 L 16 26 L 9 33 L 10 25 Q 6 25 6 21 Z"
+      fill="#a3e635"
+      stroke="#1f1c14"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
+    />
+    <circle cx="14" cy="15" r="1.8" fill="#1f1c14" />
+    <circle cx="20" cy="15" r="1.8" fill="#1f1c14" />
+    <circle cx="26" cy="15" r="1.8" fill="#1f1c14" />
+  </svg>
+);
+
+export default BrandMark;

@@ -81,7 +81,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
     <main className="flex h-dvh w-full flex-row overflow-hidden bg-[#fafafa] text-[#171717]">
       <SideBar currentPath="/messages" />
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="mx-auto flex h-full w-full max-w-7xl min-w-0 flex-1 flex-col">
         <div>
           <h1 className="w-full p-6 pb-4 text-xl font-bold tracking-[-0.04em] md:p-10 md:pb-5 md:text-2xl">
             Messages

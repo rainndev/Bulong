@@ -1,11 +1,11 @@
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
+import BrandMark from "@/components/BrandMark";
 import { socmedOptions } from "@/constants/socmed-options";
 import { deletePost } from "@/lib/actions/post";
 import { downloadOrShareImage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
 import { SocmedTypes } from "@/types/socmed.types";
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 
 type BottomNavProps = {
@@ -102,14 +102,8 @@ export default function BottomNav({
               {isCaptured ? (
                 <div className="flex items-center gap-2 font-medium">
                   <p>You got a new message!</p>
-                  <span>
-                    <Image
-                      src={"/bulong-logo.png"}
-                      alt="Eyes Emoji"
-                      width={25}
-                      height={25}
-                      className="inline-block rounded-full bg-[#ecfccb] object-contain p-1"
-                    />
+                  <span className="inline-block rounded-full bg-[#ecfccb] p-0.5">
+                    <BrandMark size={22} />
                   </span>
                 </div>
               ) : (

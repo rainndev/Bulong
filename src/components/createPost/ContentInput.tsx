@@ -25,7 +25,7 @@ export default function ContentInput({
   return (
     <div className="relative">
       {showPlaceholder && (
-        <div className="md:text-md pointer-events-none absolute top-4 left-4 text-sm text-gray-400 md:top-5 md:left-5">
+        <div className="md:text-md pointer-events-none absolute top-4 left-4 text-sm text-[#1f1c14]/40 md:top-5 md:left-5">
           <TypeAnimation
             sequence={contentInput}
             speed={50}
@@ -41,11 +41,11 @@ export default function ContentInput({
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="md:text-md h-55 w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+        className="md:text-md h-55 w-full rounded-lg border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm transition-all duration-200 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-5"
       />
 
       {fieldErrors?.content && (
-        <p className="mt-1 text-xs font-medium text-red-400 md:text-sm">
+        <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
           {fieldErrors.content[0]}
         </p>
       )}

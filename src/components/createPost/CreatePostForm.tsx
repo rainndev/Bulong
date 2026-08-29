@@ -1,9 +1,9 @@
 "use client";
 
+import BrandMark from "@/components/BrandMark";
 import ContentInput from "@/components/createPost/ContentInput";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
 import { PostFormSchema } from "@/lib/schema";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -86,23 +86,17 @@ export default function CreatePostForm() {
     setIsLoading(false);
   };
   return (
-    <div className="relative flex h-dvh w-full flex-col items-center justify-center overflow-y-auto p-5 [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] md:p-10">
-      <div className="pointer-events-none absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]" />
-
-      <form ref={formRef} onSubmit={handleSubmit} className="w-full max-w-3xl">
-        <div className="mb-5 flex-1 rounded-4xl bg-linear-to-r from-purple-600 to-indigo-600 p-15 text-white ring-5 ring-violet-300 drop-shadow-2xl drop-shadow-purple-600/10 md:p-20">
-          <div className="mb-5 flex items-center justify-center">
-            <div className="w-fit rounded-full bg-violet-200 p-4 md:p-6">
-              <Image
-                src={"/bulong-logo.png"}
-                alt="Bulong Logo"
-                width={50}
-                height={50}
-                className="rounded-full bg-violet-200 object-contain"
-              />
-            </div>
+    <div className="sketch-grid relative flex h-dvh w-full flex-col items-center justify-center overflow-y-auto bg-[#fdfaf2] p-5 md:p-10">
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        className="w-full max-w-3xl"
+      >
+        <div className="mb-5 -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-8 text-center shadow-[8px_8px_0_#1f1c14] md:p-10">
+          <div className="mb-4 flex justify-center">
+            <BrandMark size={56} />
           </div>
-          <p className="text-md w-full text-center md:text-lg lg:text-xl">
+          <p className="text-md w-full md:text-lg lg:text-xl">
             {randomTitle}
           </p>
         </div>
@@ -111,11 +105,11 @@ export default function CreatePostForm() {
           <input
             name="title"
             placeholder="Title of your message"
-            className="md:text-md w-full rounded-2xl border-2 border-violet-400 p-3 pl-4 text-sm transition-all duration-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 focus:ring-offset-2 focus:ring-offset-white focus:outline-none md:p-5"
+            className="md:text-md w-full rounded-lg border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm font-bold transition-all duration-200 placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4"
           />
           {/* Render Title Errors */}
           {fieldErrors.title && (
-            <p className="mt-1 text-xs font-medium text-red-400 md:text-sm">
+            <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
               {fieldErrors.title[0]}
             </p>
           )}
@@ -124,14 +118,14 @@ export default function CreatePostForm() {
         <ContentInput fieldErrors={fieldErrors} resetSignal={resetCounter} />
 
         {formError && (
-          <p className="mt-1 text-xs font-medium text-red-400 md:text-sm">
+          <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
             {formError}
           </p>
         )}
 
         <button
           type="submit"
-          className="ring-offset mt-3 w-full cursor-pointer rounded-full bg-linear-to-r from-purple-600 to-indigo-600 p-4 text-xs font-medium text-violet-50 antialiased transition-all ease-in-out hover:from-indigo-600 hover:to-purple-600 hover:ring hover:ring-purple-600 hover:ring-offset-3 md:text-lg"
+          className="mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] p-4 text-xs font-bold text-[#fdfaf2] transition-transform duration-100 hover:-rotate-1 md:text-lg"
         >
           {isLoading ? (
             <span className="flex items-center justify-center gap-2 md:gap-3">

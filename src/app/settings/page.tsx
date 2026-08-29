@@ -49,7 +49,7 @@ const page = async () => {
     <div className="flex h-dvh w-full bg-[#fafafa] text-[#171717]">
       <SideBar currentPath="/settings" />
 
-      <div className="flex flex-1 flex-col gap-6 p-5 md:p-10 lg:p-20">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-5 md:p-10">
         <h1 className="text-[clamp(1.25rem,2vw,2.25rem)] font-bold tracking-[-0.04em]">
           Settings Page
         </h1>

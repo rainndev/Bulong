@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "@/lib/auth/auth-client";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,14 +42,6 @@ export default function SignInPage() {
   return (
     <main className="sketch-grid flex h-screen w-full items-center justify-center bg-[#fdfaf2] p-3 md:p-10">
       <div className="mx-auto flex w-full max-w-md flex-col justify-center space-y-2 rounded-lg border-2 border-[#1f1c14] bg-white p-8 shadow-[8px_8px_0_#1f1c14] md:p-10">
-        <Image
-          src={"/bulong-peeking.png"}
-          alt="Sign In Illustration"
-          width={200}
-          height={100}
-          className="mx-auto my-4"
-        />
-
         <h1 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">Sign In</h1>
         <p className="mb-6 text-[clamp(0.875rem,2vw,1rem)] text-[#1f1c14]/60">
           Welcome back! Please enter your credentials to access your account.

@@ -1,19 +1,9 @@
-import Image from "next/image";
-
 const About = () => {
   return (
     <div
       id="about"
       className="relative flex min-h-[70vh] flex-col items-center justify-center gap-6 overflow-hidden p-4 py-16 md:p-10"
     >
-      <Image
-        src={"/bulong-peeking.png"}
-        alt="Bulong Peeking"
-        width={200}
-        height={200}
-        className="absolute -bottom-6 -left-8 mx-auto md:size-48 lg:-bottom-10 lg:-left-16 lg:size-72"
-      />
-
       <h2 className="relative text-center text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] font-bold tracking-tight">
         About
         <svg

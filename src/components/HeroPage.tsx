@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import ClaimHandle from "./landing/ClaimHandle";
 
@@ -90,17 +89,36 @@ const HeroPage = () => {
             ganyan kadali lang
           </p>
 
-          <div className="rotate-2 rounded-lg border-2 border-[#1f1c14] bg-white p-3 shadow-[8px_8px_0_#1f1c14]">
-            <Image
-              src="/bulong-hero.png"
-              alt="Bulong Hero Image"
-              priority
-              width={450}
-              height={500}
-              className="h-auto w-full max-w-xs object-contain md:max-w-sm"
-            />
+          {/* sample anonymous message */}
+          <div className="relative w-full max-w-xs rotate-2 rounded-lg border-2 border-[#1f1c14] bg-[#a3e635] p-5 shadow-[8px_8px_0_#1f1c14]">
+            <p className="text-lg leading-snug font-bold">
+              &ldquo;psst… crush kita since freshman year. sana mapansin mo
+              ako.&rdquo;
+            </p>
+            <p className="mt-2 text-right text-sm font-bold text-[#1f1c14]/60">
+              — anonymous
+            </p>
+
+            <svg
+              width="36"
+              height="24"
+              viewBox="0 0 36 24"
+              aria-hidden="true"
+              focusable="false"
+              className="absolute -bottom-5 left-8"
+            >
+              <path
+                d="M 2 2 Q 14 20, 32 12 L 26 8 M 32 12 L 27 18"
+                fill="none"
+                stroke="#1f1c14"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
 
+          {/* how it works */}
           <div className="relative w-full max-w-xs -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[8px_8px_0_#1f1c14]">
             <h2 className="mb-2 text-xl font-bold">paano gumagana</h2>
             <ul className="space-y-1.5 text-base leading-snug">
