@@ -38,20 +38,20 @@ const PageLoadingGate = () => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="sketch-grid fixed inset-0 z-[100] flex flex-col items-center justify-center gap-4 bg-[#fdfaf2]"
+          className="sketch-grid fixed inset-0 z-100 flex flex-col items-center justify-center gap-4 bg-[#fdfaf2]"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
           aria-live="polite"
           aria-busy="true"
         >
-          <p className="font-kalam flex items-center gap-1 text-xl font-bold text-[#1f1c14]">
+          <p className="font-kalam flex flex-wrap items-center justify-center gap-1 text-xl font-bold text-[#1f1c14] sm:text-3xl">
             loading
             {[0, 1, 2].map((i) => (
               <motion.span
                 key={i}
-                className="inline-block size-1.5 rounded-full bg-[#1f1c14]"
-                animate={{ y: [0, -6, 0], opacity: [0.3, 1, 0.3] }}
+                className="inline-block size-1.5 rounded-xs bg-[#1f1c14] sm:size-2"
+                animate={{ opacity: [0.2, 1, 0.2] }}
                 transition={{
                   duration: 0.9,
                   repeat: Infinity,
@@ -61,20 +61,6 @@ const PageLoadingGate = () => {
               />
             ))}
           </p>
-
-          <svg
-            viewBox="0 0 300 16"
-            aria-hidden="true"
-            className="h-3.5 w-44"
-          >
-            <path
-              d="M 4 10 Q 50 2, 100 8 T 200 8 T 296 10"
-              fill="none"
-              stroke="#65a30d"
-              strokeWidth="4"
-              strokeLinecap="round"
-            />
-          </svg>
         </motion.div>
       )}
     </AnimatePresence>
