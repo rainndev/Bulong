@@ -19,7 +19,7 @@ const TotalMessagesAndChart = async () => {
   return (
     <section className="flex flex-col rounded-lg border-2 border-[#1f1c14] bg-white p-3.5 shadow-[6px_6px_0_#1f1c14]">
       <div className="mb-2 flex items-baseline justify-between">
-        <h2 className="text-[13px] font-bold">Messages received</h2>
+        <h2 className="text-[13px] font-semibold">Messages received</h2>
         <span className="text-[11px] font-bold text-[#1f1c14]/50">
           Daily · last 7 days
         </span>
