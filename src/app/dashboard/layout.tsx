@@ -10,11 +10,11 @@ import {
 import { requireAuth } from "@/lib/actions/user";
 import { Metadata } from "next";
 import {
-  LuCalendarDays,
-  LuCalendarRange,
-  LuMail,
-  LuTrendingUp,
-} from "react-icons/lu";
+  FaCalendarDay,
+  FaCalendarWeek,
+  FaChartLine,
+  FaEnvelope,
+} from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Dashboard | Bulong",
@@ -77,7 +77,7 @@ const Layout = async ({
                   value={totalMessages}
                   delta="All time"
                   spark={spark}
-                  icon={<LuMail size={14} />}
+                  icon={<FaEnvelope size={11} />}
                 />
                 <KpiCard
                   label="New today"
@@ -86,20 +86,20 @@ const Layout = async ({
                   deltaTone={
                     dayDiff > 0 ? "up" : dayDiff < 0 ? "down" : "neutral"
                   }
-                  icon={<LuCalendarDays size={14} />}
+                  icon={<FaCalendarDay size={11} />}
                 />
                 <KpiCard
                   label="This week"
                   value={totalThisWeek}
                   delta="Last 7 days"
                   spark={spark}
-                  icon={<LuCalendarRange size={14} />}
+                  icon={<FaCalendarWeek size={11} />}
                 />
                 <KpiCard
                   label="Avg / day"
                   value={avgMessagePerDay}
                   delta="Lifetime average"
-                  icon={<LuTrendingUp size={14} />}
+                  icon={<FaChartLine size={11} />}
                 />
               </div>
 
