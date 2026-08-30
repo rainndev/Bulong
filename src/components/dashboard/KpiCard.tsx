@@ -27,7 +27,7 @@ const KpiCard = ({
         : "text-[#737373]";
 
   return (
-    <div className="min-w-0 -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-3 shadow-[4px_4px_0_#1f1c14] transition-transform duration-100 hover:rotate-0 md:p-3.5">
+    <div className="min-w-0 -rotate-1 rounded-xl border-2 border-[#1f1c14] bg-white p-3 shadow-[4px_4px_0_#1f1c14] transition-transform duration-100 hover:rotate-0 md:p-3.5">
       <div className="flex items-center gap-1.5">
         {icon && (
           <span className="grid size-6 shrink-0 place-items-center rounded-lg border-2 border-[#1f1c14] bg-[#a3e635] text-[#1f1c14]">
@@ -42,9 +42,7 @@ const KpiCard = ({
             {value}
           </p>
           {delta && (
-            <p className={`text-[11px] font-semibold ${deltaColor}`}>
-              {delta}
-            </p>
+            <p className={`text-[11px] font-semibold ${deltaColor}`}>{delta}</p>
           )}
         </div>
         {spark && (

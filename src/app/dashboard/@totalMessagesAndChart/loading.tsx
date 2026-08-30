@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <section className="flex flex-col rounded-lg border-2 border-[#e5e5e5] bg-white p-3.5">
+    <section className="flex flex-col rounded-xl border-2 border-[#e5e5e5] bg-white p-3.5">
       <div className="mb-2 flex items-baseline justify-between">
         <div className="h-3.5 w-32 animate-pulse rounded bg-[#f5f5f5]" />
         <div className="h-3 w-24 animate-pulse rounded bg-[#f5f5f5]" />

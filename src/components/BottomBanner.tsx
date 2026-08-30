@@ -107,7 +107,7 @@ const BottomBanner = ({ userName }: { userName: string }) => {
   };
 
   return (
-    <section className="relative mt-4 overflow-hidden rounded-lg border-2 border-[#1f1c14] shadow-[6px_6px_0_#1f1c14]">
+    <section className="relative mt-4 overflow-hidden rounded-xl border-2 border-[#1f1c14] shadow-[6px_6px_0_#1f1c14]">
       {/* ticket backgrounds: squiggle seam matching each layout */}
       <TicketBg className="absolute inset-0 hidden h-full w-full md:block" />
       <TicketBg vertical className="absolute inset-0 h-full w-full md:hidden" />

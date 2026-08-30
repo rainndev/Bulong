@@ -19,7 +19,7 @@ const RecentMessages = async () => {
   const recentPost = await getRecentPost(userId, 4);
 
   return (
-    <section className="flex min-h-72 rotate-1 flex-col rounded-lg border-2 border-[#1f1c14] bg-white p-3.5 shadow-[6px_6px_0_#1f1c14]">
+    <section className="flex min-h-72 rotate-1 flex-col rounded-xl border-2 border-[#1f1c14] bg-white p-3.5 shadow-[6px_6px_0_#1f1c14]">
       <div className="mb-1 flex items-baseline justify-between">
         <h2 className="text-[13px] font-semibold">Recent messages</h2>
         <Link
