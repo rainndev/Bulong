@@ -1,8 +1,14 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, Tooltip, XAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Tooltip,
+  XAxis,
+} from "recharts";
 
-type AreaChartProps = {
+type BarChartProps = {
   data: {
     date: string;
     messagesCount: number;
@@ -28,13 +34,39 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   );
 };
 
+type BarShapeProps = {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  fill?: string;
+};
+
+const PillBar = ({ x, y, width, height, fill }: BarShapeProps) => {
+  if (!height || height <= 0 || !width) return null;
+
+  const radius = Math.min(width / 2, height / 2);
+
+  return (
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      rx={radius}
+      ry={radius}
+      fill={fill ?? "#65a30d"}
+    />
+  );
+};
+
 const AreaChartMessages = ({
   data,
   isAnimationActive = true,
   className,
-}: AreaChartProps) => {
+}: BarChartProps) => {
   return (
-    <AreaChart
+    <BarChart
       style={{
         width: "100%",
         height: "100%",
@@ -45,13 +77,6 @@ const AreaChartMessages = ({
       data={data}
       margin={{ top: 6, right: 6, left: 0, bottom: 0 }}
     >
-      <defs>
-        <linearGradient id="messageFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#65a30d" stopOpacity={0.28} />
-          <stop offset="100%" stopColor="#65a30d" stopOpacity={0} />
-        </linearGradient>
-      </defs>
-
       <CartesianGrid horizontal vertical={false} stroke="#ececec" />
 
       <XAxis
@@ -63,19 +88,20 @@ const AreaChartMessages = ({
         tick={{ fontSize: 10, fill: "#a3a3a3" }}
       />
 
-      <Tooltip content={<CustomTooltip />} cursor={{ stroke: "#d4d4d4" }} />
+      <Tooltip
+        content={<CustomTooltip />}
+        cursor={{ fill: "rgba(163, 230, 53, 0.15)" }}
+      />
 
-      <Area
-        type="monotone"
+      <Bar
         dataKey="messagesCount"
         name="Messages"
-        stroke="#65a30d"
-        strokeWidth={2.3}
-        fillOpacity={1}
-        fill="url(#messageFill)"
+        fill="#65a30d"
+        shape={<PillBar />}
+        maxBarSize={48}
         isAnimationActive={isAnimationActive}
       />
-    </AreaChart>
+    </BarChart>
   );
 };
 

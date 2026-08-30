@@ -7,6 +7,7 @@ type KpiCardProps = {
   deltaTone?: "up" | "down" | "neutral";
   spark?: number[];
   sparkColor?: string;
+  icon?: React.ReactNode;
 };
 
 const KpiCard = ({
@@ -16,6 +17,7 @@ const KpiCard = ({
   deltaTone = "neutral",
   spark,
   sparkColor = "#65a30d",
+  icon,
 }: KpiCardProps) => {
   const deltaColor =
     deltaTone === "up"
@@ -26,7 +28,14 @@ const KpiCard = ({
 
   return (
     <div className="min-w-0 rounded-xl border border-[#e5e5e5] bg-white p-3 md:p-3.5">
-      <p className="text-[11px] text-[#737373]">{label}</p>
+      <div className="flex items-center gap-1.5">
+        {icon && (
+          <span className="shrink-0 text-[#65a30d]" aria-hidden="true">
+            {icon}
+          </span>
+        )}
+        <p className="text-[11px] text-[#737373]">{label}</p>
+      </div>
       <div className="flex items-end justify-between gap-2">
         <div className="min-w-0">
           <p className="my-0.5 text-2xl font-extrabold tracking-[-0.05em]">
