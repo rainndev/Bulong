@@ -20,6 +20,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
+    "filipino-badwords-list": "^1.1.2",
     "gsap": "^3.13.0",
     "html-to-image": "^1.11.13",
     "lucide-react": "^0.562.0",

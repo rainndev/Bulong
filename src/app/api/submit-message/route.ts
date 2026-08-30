@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { findProfanity } from "@/lib/profanity";
 import { PostSchema } from "@/lib/schema";
 import { NextResponse } from "next/server";
 
@@ -71,6 +72,18 @@ export const POST = async (request: Request) => {
         JSON.stringify({
           errors: validatedFields.error.flatten().fieldErrors,
         }),
+        { status: 400 },
+      );
+    }
+
+    // PROFANITY CHECK — reject before anything is stored or forwarded
+    if (
+      findProfanity(validatedFields.data.title, validatedFields.data.content)
+    ) {
+      return NextResponse.json(
+        {
+          error: "Please rewrite your message without offensive words.",
+        },
         { status: 400 },
       );
     }
