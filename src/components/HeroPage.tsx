@@ -3,7 +3,6 @@
 import ClaimHandle from "@/components/landing/ClaimHandle";
 import { PushPin, SafetyPin } from "@/components/pins";
 import { motion, MotionConfig, type Variants } from "motion/react";
-import Link from "next/link";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -117,29 +116,21 @@ const HeroPage = () => {
             <ClaimHandle />
           </motion.div>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-base font-bold md:text-lg"
-          >
-            May account na?{" "}
-            <Link
-              href="/sign-in"
-              className="underline decoration-[#65a30d] decoration-2 underline-offset-4 hover:text-[#4d7c0f]"
-            >
-              Log in →
-            </Link>
-          </motion.p>
-
-          {/* pinned anonymous messages */}
+          {/* pinned anonymous messages — overlapping stack on mobile, grid on desktop */}
           <motion.div
             variants={cardsContainerVariants}
-            className="grid w-full max-w-3xl grid-cols-1 gap-10 px-2 pt-14 sm:grid-cols-2 md:pt-16"
+            className="w-full max-w-3xl px-2 pt-14 md:grid md:grid-cols-2 md:gap-10 md:pt-16"
           >
-            {pinnedMessages.map((message) => (
+            {pinnedMessages.map((message, index) => (
               <motion.figure
                 key={message.body}
                 variants={cardVariants}
-                className={`relative rounded-lg border-2 border-[#1f1c14] ${message.bg} ${message.rotate} p-5 pt-7 text-left shadow-[8px_8px_0_#1f1c14]`}
+                style={{ zIndex: pinnedMessages.length - index }}
+                className={`relative rounded-lg border-2 border-[#1f1c14] ${message.bg} ${message.rotate} p-5 pt-7 text-left shadow-[8px_8px_0_#1f1c14] ${
+                  index > 0 ? "-mt-24 md:mt-0" : ""
+                } ${index > 0 ? "ml-4 md:ml-0" : ""} ${
+                  index > 0 ? "mr-4 md:mr-0" : ""
+                }`}
               >
                 <span
                   aria-hidden="true"
