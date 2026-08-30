@@ -20,9 +20,7 @@ const LandingPageNavBar = () => {
           <BrandMark size={32} className="shrink-0 md:hidden" />
           <BrandMark size={40} className="hidden shrink-0 md:block" />
           <div className="min-w-0">
-            <h1 className="font-fredoka text-xl font-bold md:text-3xl">
-              Bulong
-            </h1>
+            <h1 className="text-xl font-bold md:text-3xl">Bulong</h1>
             <p className="-mt-0.5 hidden text-xs font-bold text-[#1f1c14]/60 md:block md:text-sm">
               your feedback companion
             </p>

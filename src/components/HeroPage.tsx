@@ -81,20 +81,6 @@ const pinnedMessages: PinnedMessage[] = [
     pinPosition: "-top-4 right-8",
     pin: "push",
   },
-  {
-    body: "to the one sa likod ng library — salamat sa tissue noong exam week.",
-    rotate: "rotate-2",
-    bg: "bg-white",
-    pinPosition: "-top-6 right-6",
-    pin: "safety",
-  },
-  {
-    body: "honest feedback lang: matalino ka, konting confidence na lang kulang mo.",
-    rotate: "-rotate-1",
-    bg: "bg-[#a3e635]",
-    pinPosition: "-top-4 right-6",
-    pin: "push",
-  },
 ];
 
 const HeroPage = () => {
