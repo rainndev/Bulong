@@ -92,7 +92,8 @@ const ClaimHandle = () => {
             aria-hidden="true"
             className="shrink-0 text-base font-bold text-[#1f1c14]/40 md:text-lg"
           >
-            {host}/@
+            <span className="md:hidden">@</span>
+            <span className="hidden md:inline">{host}/@</span>
           </span>
           <input
             id="handle"
