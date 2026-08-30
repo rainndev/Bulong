@@ -96,8 +96,17 @@ export default function BottomNav({
             </p>
             <AnonymousInfoTags data={post} />
             <div className="mt-1 mb-4 flex-1 overflow-y-auto rounded-lg border-2 border-[#1f1c14] bg-white p-5 wrap-break-word antialiased">
-              <p className="font-kalam text-sm leading-relaxed font-medium text-[#1f1c14]/80">
+              <span
+                aria-hidden="true"
+                className="font-kalam mb-2 block text-4xl leading-none font-bold text-[#65a30d]"
+              >
+                &ldquo;
+              </span>
+              <p className="font-kalam -mt-4 pl-6 text-sm leading-relaxed font-medium text-[#1f1c14]/80">
                 {post.content}
+              </p>
+              <p className="font-kalam mt-3 text-right text-xs font-bold text-[#1f1c14]/50">
+                — anonymous
               </p>
             </div>
 
