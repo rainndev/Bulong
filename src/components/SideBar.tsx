@@ -36,10 +36,10 @@ interface SideBarProps {
 const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
   return (
     <>
-      <aside className="hidden h-dvh w-60 shrink-0 flex-col border-r border-[#262626] bg-[#171717] px-3 pb-3.5 pt-5 text-[13px] md:flex">
+      <aside className="hidden h-dvh w-60 shrink-0 flex-col border-r border-[#262626] bg-[#171717] px-3 pt-5 pb-3.5 text-[13px] md:flex">
         <Link
           href="/"
-          className="flex items-center gap-2.5 px-2 pb-2.5 text-base font-bold tracking-[-0.04em] text-[#ece8df]"
+          className="flex items-center gap-2.5 px-2 pb-2.5 text-base font-semibold tracking-[-0.04em] text-[#ece8df]"
         >
           <BrandMark size={28} className="shrink-0" />
           Bulong
@@ -52,7 +52,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
         <nav aria-label="Primary" className="flex flex-col">
           {groups.map((group) => (
             <div key={group.label} className="mb-3.5">
-              <p className="px-2 py-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-[#a3a3a3]">
+              <p className="px-2 py-1.5 text-[10px] font-medium tracking-[0.12em] text-[#a3a3a3] uppercase">
                 {group.label}
               </p>
               {group.items.map((item) => {
