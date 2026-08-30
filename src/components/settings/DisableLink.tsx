@@ -18,10 +18,14 @@ const DisableLink = ({ userId, initialValue }: DisableLinkProps) => {
   }, [initialValue]);
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl border border-[#e5e5e5] bg-white p-5 md:gap-6 md:p-7 lg:p-10">
-      <p className="text-[clamp(1rem,2vw,1.125rem)]">
+    <div className="flex flex-col gap-4 rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[6px_6px_0_#1f1c14] transition-transform duration-100 hover:rotate-0 md:p-6">
+      <p className="text-base font-bold">
         Accept Messages{" "}
-        <span className="ml-2 rounded-lg bg-[#65a30d] px-2 py-1 text-[clamp(.75rem,2vw,.9rem)] text-white">
+        <span
+          className={`ml-2 rounded-full border-2 border-[#1f1c14] px-2 py-0.5 text-xs font-bold text-[#1f1c14] ${
+            isDisabled ? "bg-white" : "bg-[#a3e635]"
+          }`}
+        >
           {isDisabled ? "Inactive" : "Active"}
         </span>
       </p>
@@ -38,6 +42,9 @@ const DisableLink = ({ userId, initialValue }: DisableLinkProps) => {
         }}
         id="disable-link"
       />
+      <p className="text-xs font-bold text-[#1f1c14]/50">
+        Turn off to pause receiving new messages
+      </p>
     </div>
   );
 };

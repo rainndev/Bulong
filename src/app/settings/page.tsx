@@ -30,8 +30,6 @@ const page = async () => {
     "use server";
     const dailyLimit = parseInt(form.get("dailyLimit") as string, 10) || 0;
 
-    console.log("Daily Limit to be set:", dailyLimit);
-
     // Update daily limit in the database
     await prisma.user.update({
       where: {
@@ -46,24 +44,34 @@ const page = async () => {
   };
 
   return (
-    <div className="flex h-dvh w-full bg-[#fafafa] font-fredoka text-[#171717]">
+    <div className="sketch-grid font-fredoka flex h-dvh w-full overflow-hidden bg-[#fdfaf2] text-[#1f1c14]">
       <SideBar currentPath="/settings" />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-5 md:p-10">
-        <h1 className="text-[clamp(1.25rem,2vw,2.25rem)] font-bold tracking-[-0.04em]">
-          Settings Page
-        </h1>
+      <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex-1 overflow-y-auto pt-6 pb-24 md:pb-4">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 md:px-5">
+            <div>
+              <h1 className="text-xl font-bold tracking-[-0.04em] md:text-2xl">
+                Settings
+              </h1>
+              <p className="mt-0.5 text-xs font-bold text-[#1f1c14]/50">
+                Manage how your anonymous inbox behaves
+              </p>
+            </div>
 
-        <form action={saveSettings}>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-            <LimitMessage dailyLimit={user?.dailyLimit ?? null} />
+            <form action={saveSettings}>
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+                <LimitMessage dailyLimit={user?.dailyLimit ?? null} />
+                <SpoilUnreadMessages />
+                <DisableLink initialValue={user?.isDisabled} userId={userId} />
+              </div>
 
-            <SpoilUnreadMessages />
-            <DisableLink initialValue={user?.isDisabled} userId={userId} />
+              <div className="mt-8 max-w-md">
+                <SaveSettingsButton />
+              </div>
+            </form>
           </div>
-
-          <SaveSettingsButton />
-        </form>
+        </div>
       </div>
     </div>
   );
