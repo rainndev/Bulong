@@ -162,7 +162,7 @@ const ClaimHandle = () => {
         <p
           id="handle-status"
           aria-live="polite"
-          className={`mt-2 flex items-center justify-center gap-1.5 text-center text-sm font-bold ${statusColor}`}
+          className={`nd:text-sm mt-2 flex items-center justify-center gap-1.5 text-center text-xs font-semibold ${statusColor}`}
         >
           {availability === "available" && (
             <svg
