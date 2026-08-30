@@ -40,8 +40,8 @@ export default function SignInPage() {
   }, []);
 
   return (
-    <main className="sketch-grid flex h-screen w-full items-center justify-center bg-[#fdfaf2] p-3 md:p-10">
-      <div className="mx-auto flex w-full max-w-md flex-col justify-center space-y-2 rounded-lg border-2 border-[#1f1c14] bg-white p-8 shadow-[8px_8px_0_#1f1c14] md:p-10">
+    <main className="sketch-grid font-fredoka flex h-screen w-full items-center justify-center bg-[#fdfaf2] p-3 md:p-10">
+      <div className="mx-auto flex w-full max-w-md flex-col justify-center space-y-2 rounded-xl border-2 border-[#1f1c14] bg-white p-8 shadow-[8px_8px_0_#1f1c14] md:p-10">
         <h1 className="text-[clamp(1.5rem,2vw,1.875rem)] font-bold">Sign In</h1>
         <p className="mb-6 text-[clamp(0.875rem,2vw,1rem)] text-[#1f1c14]/60">
           Welcome back! Please enter your credentials to access your account.
@@ -78,7 +78,7 @@ export default function SignInPage() {
           </p>
           <button
             type="submit"
-            className="md:text-md flex w-full -rotate-1 cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] px-4 py-3 text-sm font-bold text-[#fdfaf2] shadow-[4px_4px_0_#a3e635] transition-transform duration-100 hover:rotate-0 hover:scale-[1.01] active:translate-x-1 active:translate-y-1 active:shadow-none md:py-4"
+            className="md:text-md flex w-full -rotate-1 cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] px-4 py-3 text-sm font-semibold text-[#fdfaf2] shadow-[4px_4px_0_#a3e635] transition-transform duration-100 hover:scale-[1.01] hover:rotate-0 active:translate-x-1 active:translate-y-1 active:shadow-none md:py-4"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">

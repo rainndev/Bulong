@@ -20,7 +20,9 @@ const LandingPageNavBar = () => {
           <BrandMark size={32} className="shrink-0 md:hidden" />
           <BrandMark size={40} className="hidden shrink-0 md:block" />
           <div className="min-w-0">
-            <h1 className="text-xl font-bold md:text-3xl">Bulong.</h1>
+            <h1 className="font-fredoka text-xl font-bold md:text-3xl">
+              Bulong
+            </h1>
             <p className="-mt-0.5 hidden text-xs font-bold text-[#1f1c14]/60 md:block md:text-sm">
               your feedback companion
             </p>
@@ -37,7 +39,7 @@ const LandingPageNavBar = () => {
           </Link>
           <Link
             href="/sign-up"
-            className="-rotate-1 cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2 font-bold text-nowrap shadow-[3px_3px_0_#1f1c14] transition-transform duration-100 hover:rotate-1 hover:scale-[1.03] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+            className="-rotate-1 cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2 font-bold text-nowrap shadow-[3px_3px_0_#1f1c14] transition-transform duration-100 hover:scale-[1.03] hover:rotate-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
           >
             Get started →
           </Link>
@@ -89,7 +91,7 @@ const LandingPageNavBar = () => {
               <Link
                 href="/sign-up"
                 onClick={() => setMenuOpen(false)}
-                className="-rotate-1 w-full cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-4 py-2.5 text-center text-base font-bold shadow-[4px_4px_0_#1f1c14] transition-transform duration-100 hover:rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none"
+                className="w-full -rotate-1 cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-4 py-2.5 text-center text-base font-bold shadow-[4px_4px_0_#1f1c14] transition-transform duration-100 hover:rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none"
               >
                 Get started →
               </Link>
