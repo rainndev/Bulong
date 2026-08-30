@@ -27,7 +27,7 @@ const KpiCard = ({
         : "text-[#737373]";
 
   return (
-    <div className="min-w-0 rounded-xl border border-[#e5e5e5] bg-white p-3 md:p-3.5">
+    <div className="min-w-0 -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-3 shadow-[4px_4px_0_#1f1c14] transition-transform duration-100 hover:rotate-0 md:p-3.5">
       <div className="flex items-center gap-1.5">
         {icon && (
           <span className="shrink-0 text-[#65a30d]" aria-hidden="true">

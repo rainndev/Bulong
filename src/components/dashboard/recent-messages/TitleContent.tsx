@@ -12,12 +12,12 @@ const TitleContent = ({ data }: TitleContentProps) => {
 
   return (
     <div className="flex min-w-0 flex-col">
-      <h1 className="mb-0.5 truncate text-sm font-semibold text-[#171717] antialiased">
+      <h1 className="font-kalam mb-0.5 truncate text-sm font-bold text-[#171717] antialiased">
         {isHideUnreadMessage
           ? hideMessage(data.title, data.isRead)
           : data.title}
       </h1>
-      <p className="truncate text-xs text-[#737373] antialiased">
+      <p className="font-kalam truncate text-xs font-medium text-[#1f1c14]/50 antialiased">
         {isHideUnreadMessage
           ? hideMessage(data.content, data.isRead)
           : data.content}

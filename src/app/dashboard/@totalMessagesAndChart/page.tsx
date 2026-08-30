@@ -17,10 +17,12 @@ const TotalMessagesAndChart = async () => {
   const { chartData } = await getMessagesThisWeekData(userId);
 
   return (
-    <section className="flex flex-col rounded-xl border border-[#e5e5e5] bg-white p-3.5">
+    <section className="flex flex-col rounded-lg border-2 border-[#1f1c14] bg-white p-3.5 shadow-[6px_6px_0_#1f1c14]">
       <div className="mb-2 flex items-baseline justify-between">
-        <h2 className="text-[13px] font-semibold">Messages received</h2>
-        <span className="text-[11px] text-[#737373]">Daily · last 7 days</span>
+        <h2 className="text-[13px] font-bold">Messages received</h2>
+        <span className="text-[11px] font-bold text-[#1f1c14]/50">
+          Daily · last 7 days
+        </span>
       </div>
 
       <div className="h-56 w-full md:h-64">
