@@ -17,7 +17,7 @@ const Loading = () => {
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-44 animate-pulse rounded-lg border-2 border-[#e5e5e5] bg-white"
+                  className="h-44 animate-pulse rounded-xl border-2 border-[#e5e5e5] bg-white"
                 />
               ))}
             </div>

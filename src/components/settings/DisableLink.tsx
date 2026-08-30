@@ -18,7 +18,7 @@ const DisableLink = ({ userId, initialValue }: DisableLinkProps) => {
   }, [initialValue]);
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border-2 border-[#1f1c14] bg-white p-5 shadow-[6px_6px_0_#1f1c14] transition-transform duration-100 hover:rotate-0 md:p-6">
+    <div className="flex flex-col gap-4 rounded-xl border-2 border-[#1f1c14] bg-white p-5 shadow-[6px_6px_0_#1f1c14] transition-transform duration-100 hover:rotate-0 md:p-6">
       <p className="text-base font-bold">
         Accept Messages{" "}
         <span

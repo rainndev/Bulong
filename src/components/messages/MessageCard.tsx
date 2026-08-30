@@ -25,7 +25,7 @@ const MessageCard = ({ post, index, onOpen }: MessageCardProps) => {
     <button
       type="button"
       onClick={() => onOpen(post)}
-      className={`relative block w-full cursor-pointer rounded-lg border-2 border-[#1f1c14] ${
+      className={`relative block w-full cursor-pointer rounded-xl border-2 border-[#1f1c14] ${
         isUnread ? "bg-[#a3e635]" : "bg-white"
       } ${rotations[index % rotations.length]} p-5 pt-7 text-left shadow-[6px_6px_0_#1f1c14] transition-transform duration-100 hover:scale-[1.02] hover:rotate-0 focus-visible:ring-4 focus-visible:ring-[#a3e635]/60 focus-visible:outline-none`}
     >
