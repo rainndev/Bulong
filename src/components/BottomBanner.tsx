@@ -24,24 +24,24 @@ const TicketBg = ({
       focusable="false"
       viewBox="0 0 400 800"
     >
-      {/* dark body (top) */}
-      <rect width="400" height="160" fill="#1f1c14" />
-      {/* lime stub (bottom) */}
-      <rect y="160" width="400" height="640" fill="#a3e635" />
+      {/* dark body (top ~85%) */}
+      <rect width="400" height="680" fill="#1f1c14" />
+      {/* lime stub (bottom ~15%) */}
+      <rect y="680" width="400" height="120" fill="#a3e635" />
       {/* scalloped seam */}
       <g fill="#1f1c14">
         {[-40, 0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440].map(
           (x) => (
-            <circle key={x} cx={x} cy="160" r="16" />
+            <circle key={x} cx={x} cy="680" r="16" />
           ),
         )}
       </g>
       {/* dashed perforation */}
       <line
         x1="0"
-        y1="160"
+        y1="680"
         x2="400"
-        y2="160"
+        y2="680"
         stroke="#1f1c14"
         strokeWidth="4"
         strokeDasharray="2 14"
@@ -49,9 +49,8 @@ const TicketBg = ({
       />
       {/* subtle diagonal hatch on stub */}
       <g stroke="#1f1c14" strokeWidth="2" opacity="0.18">
-        <line x1="0" y1="240" x2="400" y2="560" />
-        <line x1="0" y1="400" x2="400" y2="720" />
-        <line x1="-100" y1="320" x2="300" y2="720" />
+        <line x1="0" y1="696" x2="400" y2="800" />
+        <line x1="-100" y1="760" x2="300" y2="800" />
       </g>
     </svg>
   ) : (
@@ -64,29 +63,12 @@ const TicketBg = ({
     >
       {/* ticket body */}
       <path
-        d="M 0 0
-           L 560 0
-           A 14 14 0 0 0 560 40
-           A 14 14 0 0 0 560 80
-           A 14 14 0 0 0 560 120
-           A 14 14 0 0 0 560 160
-           A 14 14 0 0 0 560 200
-           L 0 200
-           Z"
+        d="M 0 0 L 560 0 A 14 14 0 0 0 560 40 A 14 14 0 0 0 560 80 A 14 14 0 0 0 560 120 A 14 14 0 0 0 560 160 A 14 14 0 0 0 560 200 L 0 200 Z"
         fill="#1f1c14"
       />
       {/* lime stub */}
       <path
-        d="M 560 0
-           L 800 0
-           L 800 200
-           L 560 200
-           A 14 14 0 0 1 560 160
-           A 14 14 0 0 1 560 120
-           A 14 14 0 0 1 560 80
-           A 14 14 0 0 1 560 40
-           A 14 14 0 0 1 560 0
-           Z"
+        d="M 560 0 L 800 0 L 800 200 L 560 200 A 14 14 0 0 1 560 160 A 14 14 0 0 1 560 120 A 14 14 0 0 1 560 80 A 14 14 0 0 1 560 40 A 14 14 0 0 1 560 0 Z"
         fill="#a3e635"
       />
       {/* perforation line */}
@@ -150,7 +132,7 @@ const BottomBanner = ({ userName }: { userName: string }) => {
           <button
             onClick={handleCopy}
             aria-live="polite"
-            className="cursor-pointer rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] px-4 py-2 text-xs font-bold text-[#a3e635] transition-transform duration-100 hover:-rotate-1 active:translate-x-0.5 active:translate-y-0.5 md:shadow-[3px_3px_0_#1f1c14] md:active:shadow-none"
+            className="cursor-pointer rounded-full border-2 border-[#a3e635] bg-[#1f1c14] px-4 py-2 text-xs font-bold text-[#a3e635] shadow-[3px_3px_0_#a3e635] transition-transform duration-100 hover:-rotate-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none md:border-[#1f1c14] md:text-[#a3e635] md:shadow-[3px_3px_0_#1f1c14] md:active:shadow-none"
           >
             {isCopied ? "Copied!" : "Copy link"}
           </button>
