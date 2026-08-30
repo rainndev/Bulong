@@ -2,14 +2,17 @@
 
 import { useDebounce } from "@/hooks/useDebounce";
 import { isHandleAvailable } from "@/lib/actions/user";
+import { containsProfanity } from "@/lib/profanity";
 import { useRouter } from "next/navigation";
-import {
-  useEffect,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
-type Availability = "idle" | "invalid" | "checking" | "available" | "taken";
+type Availability =
+  | "idle"
+  | "invalid"
+  | "profane"
+  | "checking"
+  | "available"
+  | "taken";
 
 const HANDLE_REGEX = /^[a-z0-9_]{3,20}$/;
 
@@ -49,6 +52,8 @@ const ClaimHandle = () => {
   const availability: Availability = (() => {
     if (!handle) return "idle";
     if (!HANDLE_REGEX.test(handle)) return "invalid";
+    // Instant client-side profanity check — no server round-trip needed
+    if (containsProfanity(handle)) return "profane";
     if (serverState?.handle !== handle) return "checking";
     return serverState.available ? "available" : "taken";
   })();
@@ -61,6 +66,7 @@ const ClaimHandle = () => {
   const statusMessage = {
     idle: null,
     invalid: "Kailangan: 3–20 characters, letters / numbers / _ lang.",
+    profane: "Not allowed in handles — pick another.",
     checking: null,
     available: `@${handle} is available!`,
     taken: `@${handle} is taken — try another.`,
@@ -69,6 +75,7 @@ const ClaimHandle = () => {
   const statusColor = {
     idle: "",
     invalid: "text-[#ff5e3a]",
+    profane: "text-[#ff5e3a]",
     checking: "",
     available: "text-[#22a06b]",
     taken: "text-[#ff5e3a]",
@@ -105,14 +112,16 @@ const ClaimHandle = () => {
             value={handle}
             onChange={(event) =>
               setHandle(
-                event.target.value
-                  .replace(/[^a-zA-Z0-9_]/g, "")
-                  .toLowerCase(),
+                event.target.value.replace(/[^a-zA-Z0-9_]/g, "").toLowerCase(),
               )
             }
             placeholder="username"
             aria-describedby="handle-status"
-            aria-invalid={availability === "invalid" || availability === "taken"}
+            aria-invalid={
+              availability === "invalid" ||
+              availability === "taken" ||
+              availability === "profane"
+            }
             className="min-w-0 flex-1 bg-transparent pl-1 text-base font-bold placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:outline-none md:text-lg"
           />
         </div>
@@ -121,7 +130,7 @@ const ClaimHandle = () => {
           type="submit"
           disabled={availability !== "available"}
           aria-busy={availability === "checking"}
-          className="flex shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2.5 text-base font-bold shadow-[3px_3px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 hover:scale-[1.02] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:rotate-0 disabled:hover:scale-100 md:px-6 md:text-lg"
+          className="flex shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-5 py-2.5 text-base font-bold shadow-[3px_3px_0_#1f1c14] transition-all duration-100 hover:scale-[1.02] hover:-rotate-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100 disabled:hover:rotate-0 md:px-6 md:text-lg"
         >
           {availability === "checking" ? (
             <span className="flex size-5 items-center justify-center md:size-6">

@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth/auth";
+import { containsProfanity } from "@/lib/profanity";
 import { UserType } from "@/types/user.types";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -22,6 +23,11 @@ export const isHandleAvailable = async (handle: string): Promise<boolean> => {
   const normalized = handle.trim().toLowerCase();
 
   if (!/^[a-z0-9_]{3,20}$/.test(normalized)) {
+    return false;
+  }
+
+  // Profane handles are never available — rejected server-side too
+  if (containsProfanity(normalized)) {
     return false;
   }
 
