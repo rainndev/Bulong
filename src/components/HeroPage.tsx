@@ -1,8 +1,10 @@
 "use client";
 
+import Animated3DIcons from "@/components/landing/Animated3DIcons";
 import ClaimHandle from "@/components/landing/ClaimHandle";
 import { PushPin, SafetyPin } from "@/components/pins";
 import { motion, MotionConfig, type Variants } from "motion/react";
+import Link from "next/link";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -86,11 +88,15 @@ const HeroPage = () => {
   return (
     <MotionConfig reducedMotion="user">
       <div id="hero" className="relative w-full overflow-hidden">
+        {/* floating 3D emoji decorations (desktop only) */}
+        <Animated3DIcons side="left" />
+        <Animated3DIcons side="right" />
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="flex flex-col items-center gap-8 py-10 text-center md:gap-10 md:py-24"
+          className="relative z-10 flex flex-col items-center gap-8 py-10 text-center md:gap-10 md:py-24"
         >
           <motion.h1
             variants={itemVariants}
