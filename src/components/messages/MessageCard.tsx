@@ -37,12 +37,12 @@ const MessageCard = ({ post, index, onOpen }: MessageCardProps) => {
         </span>
       )}
 
-      <h3 className="mb-1 line-clamp-1 pr-10 text-lg leading-snug font-bold">
+      <h3 className="font-kalam mb-1 line-clamp-1 pr-10 text-lg leading-snug font-bold">
         {isHideUnreadMessage
           ? hideMessage(post.title, post.isRead)
           : post.title}
       </h3>
-      <p className="line-clamp-3 text-sm leading-snug font-medium text-[#1f1c14]/70">
+      <p className="font-kalam line-clamp-3 text-sm leading-snug font-medium text-[#1f1c14]/70">
         {isHideUnreadMessage
           ? hideMessage(post.content, post.isRead)
           : post.content}

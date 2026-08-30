@@ -91,12 +91,12 @@ export default function BottomNav({
               </div>
             </div>
 
-            <p className="mb-6 text-center text-xl font-bold antialiased">
+            <p className="font-kalam mb-6 text-center text-xl font-bold antialiased">
               {post.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
             <div className="mt-1 mb-4 flex-1 overflow-y-auto rounded-lg border-2 border-[#1f1c14] bg-white p-5 wrap-break-word antialiased">
-              <p className="text-sm leading-relaxed font-medium text-[#1f1c14]/80">
+              <p className="font-kalam text-sm leading-relaxed font-medium text-[#1f1c14]/80">
                 {post.content}
               </p>
             </div>
