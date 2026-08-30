@@ -1,7 +1,7 @@
+import { PushPin, SafetyPin } from "@/components/pins";
 import { useSettingsContext } from "@/context/SettingsContext";
 import { hideMessage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
-import { PushPin, SafetyPin } from "@/components/pins";
 
 type MessageCardProps = {
   post: PostType;
@@ -10,7 +10,12 @@ type MessageCardProps = {
 };
 
 const rotations = ["-rotate-1", "rotate-1", "-rotate-2", "rotate-2"];
-const pinPositions = ["-top-4 left-6", "-top-4 right-8", "-top-5 left-10", "-top-4 right-6"];
+const pinPositions = [
+  "-top-4 left-6",
+  "-top-4 right-8",
+  "-top-5 left-10",
+  "-top-4 right-6",
+];
 
 const MessageCard = ({ post, index, onOpen }: MessageCardProps) => {
   const { isHideUnreadMessage } = useSettingsContext();
@@ -37,15 +42,17 @@ const MessageCard = ({ post, index, onOpen }: MessageCardProps) => {
         </span>
       )}
 
-      <h3 className="font-kalam mb-1 line-clamp-1 pr-10 text-lg leading-snug font-bold">
+      <h3 className="font-fredoka mb-1 line-clamp-1 pr-10 text-xl leading-snug font-semibold text-[#171717] antialiased">
         {isHideUnreadMessage
           ? hideMessage(post.title, post.isRead)
           : post.title}
       </h3>
       <p className="font-kalam line-clamp-3 text-sm leading-snug font-medium text-[#1f1c14]/70">
+        &quot;
         {isHideUnreadMessage
           ? hideMessage(post.content, post.isRead)
           : post.content}
+        &quot;
       </p>
       <p className="mt-3 text-right text-xs font-bold text-[#1f1c14]/50">
         {new Date(post.createdAt).toLocaleDateString("en-US", {
