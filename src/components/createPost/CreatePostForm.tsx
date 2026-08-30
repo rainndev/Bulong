@@ -3,16 +3,21 @@
 import BrandMark from "@/components/BrandMark";
 import ContentInput from "@/components/createPost/ContentInput";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
+import { findProfanity } from "@/lib/profanity";
 import { PostFormSchema } from "@/lib/schema";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
+const PROFANITY_MESSAGE =
+  "Please rewrite your message without offensive words.";
 
 export default function CreatePostForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [isSuccess, setSuccess] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [hasProfanity, setHasProfanity] = useState(false);
   const [resetCounter, setResetCounter] = useState(0);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -25,6 +30,15 @@ export default function CreatePostForm() {
     : username;
 
   const randomTitle = useRandomTitle(username);
+
+  // Live client-side profanity check on every keystroke
+  const handleFormInput = (e: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const title = (formData.get("title") as string) ?? "";
+    const content = (formData.get("content") as string) ?? "";
+
+    setHasProfanity(findProfanity(title, content));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +53,14 @@ export default function CreatePostForm() {
       title: formData.get("title"),
       content: formData.get("content"),
     };
+
+    // Block submission client-side before hitting the API
+    if (findProfanity(String(rawData.title), String(rawData.content))) {
+      setHasProfanity(true);
+      setFormError(PROFANITY_MESSAGE);
+      setIsLoading(false);
+      return;
+    }
 
     const validatedFields = PostFormSchema.safeParse(rawData);
 
@@ -83,6 +105,9 @@ export default function CreatePostForm() {
       formRef.current.reset();
     }
 
+    // Programmatic reset doesn't fire onInput — clear the warning manually
+    setHasProfanity(false);
+
     setIsLoading(false);
   };
   return (
@@ -90,15 +115,14 @@ export default function CreatePostForm() {
       <form
         ref={formRef}
         onSubmit={handleSubmit}
+        onInput={handleFormInput}
         className="w-full max-w-3xl"
       >
         <div className="mb-5 -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-8 text-center shadow-[8px_8px_0_#1f1c14] md:p-10">
           <div className="mb-4 flex justify-center">
             <BrandMark size={56} />
           </div>
-          <p className="text-md w-full md:text-lg lg:text-xl">
-            {randomTitle}
-          </p>
+          <p className="text-md w-full md:text-lg lg:text-xl">{randomTitle}</p>
         </div>
 
         <div className="mb-3">
@@ -117,7 +141,13 @@ export default function CreatePostForm() {
 
         <ContentInput fieldErrors={fieldErrors} resetSignal={resetCounter} />
 
-        {formError && (
+        {hasProfanity && (
+          <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
+            {PROFANITY_MESSAGE}
+          </p>
+        )}
+
+        {formError && !hasProfanity && (
           <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
             {formError}
           </p>
@@ -125,7 +155,8 @@ export default function CreatePostForm() {
 
         <button
           type="submit"
-          className="mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] p-4 text-xs font-bold text-[#fdfaf2] transition-transform duration-100 hover:-rotate-1 md:text-lg"
+          disabled={hasProfanity || isLoading}
+          className="mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] p-4 text-xs font-bold text-[#fdfaf2] transition-transform duration-100 hover:-rotate-1 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
         >
           {isLoading ? (
             <span className="flex items-center justify-center gap-2 md:gap-3">
