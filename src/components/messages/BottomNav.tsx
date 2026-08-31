@@ -107,7 +107,7 @@ export default function BottomNav({
               {post.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
-            <div className="mt-1 mb-4 min-h-0 flex-1 overflow-y-auto rounded-lg border-2 border-[#1f1c14] bg-white p-5 break-words antialiased">
+            <div className="mt-1 mb-4 min-h-0 flex-1 overflow-y-auto rounded-xl border-2 border-[#1f1c14] bg-white p-5 break-words antialiased">
               <span
                 aria-hidden="true"
                 className="font-kalam mb-2 block text-4xl leading-none font-bold text-[#65a30d]"
