@@ -19,7 +19,7 @@ const ShareCard = ({ post, socmed, origin }: ShareCardProps) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BrandMark size={30} className="shrink-0" />
-          <span className="text-lg font-bold">Bulong.</span>
+          <span className="text-lg font-bold">Bulong</span>
         </div>
         <SocmedIcon className="text-2xl text-[#1f1c14]" />
       </div>
