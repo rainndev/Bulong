@@ -42,19 +42,19 @@ const MessageCard = ({ post, index, onOpen }: MessageCardProps) => {
         </span>
       )}
 
-      <h3 className="font-fredoka mb-1 line-clamp-1 pr-10 text-xl leading-snug font-semibold text-[#171717] antialiased">
+      <h3 className="font-fredoka mb-1 line-clamp-1 pr-10 text-[clamp(1rem,2.5vw,1.25rem)] leading-snug font-semibold text-[#171717] antialiased">
         {isHideUnreadMessage
           ? hideMessage(post.title, post.isRead)
           : post.title}
       </h3>
-      <p className="font-kalam line-clamp-3 text-sm leading-snug font-medium text-[#1f1c14]/70">
+      <p className="font-kalam line-clamp-3 text-[clamp(0.8rem,1.8vw,0.95rem)] leading-snug font-medium text-[#1f1c14]/70">
         &quot;
         {isHideUnreadMessage
           ? hideMessage(post.content, post.isRead)
           : post.content}
         &quot;
       </p>
-      <p className="mt-3 text-right text-xs font-bold text-[#1f1c14]/50">
+      <p className="mt-3 text-right text-[clamp(0.7rem,1.5vw,0.8rem)] font-bold text-[#1f1c14]/50">
         {new Date(post.createdAt).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
