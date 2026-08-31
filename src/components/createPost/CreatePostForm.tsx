@@ -177,7 +177,7 @@ export default function CreatePostForm() {
       </div>
 
       {/* full-width decorative wavy footer pinned to the bottom */}
-      <div className="w-full shrink-0">
+      <div className="mt-4 w-full shrink-0">
         <WavyFooterDecoration />
       </div>
     </div>
