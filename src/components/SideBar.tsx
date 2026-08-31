@@ -36,7 +36,7 @@ interface SideBarProps {
 const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
   return (
     <>
-      <aside className="hidden h-dvh w-60 shrink-0 flex-col border-r border-[#262626] bg-[#171717] px-3 pt-5 pb-3.5 text-[13px] md:flex">
+      <aside className="md hidden h-dvh w-60 shrink-0 flex-col border-r border-[#262626] bg-[#171717] px-3 pt-5 pb-3.5 text-[13px] md:flex md:rounded-tr-xl md:rounded-br-xl">
         <Link
           href="/"
           className="flex items-center gap-2.5 px-2 pb-2.5 text-base font-semibold tracking-[-0.04em] text-[#ece8df]"
