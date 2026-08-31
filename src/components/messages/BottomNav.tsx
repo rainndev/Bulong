@@ -1,12 +1,20 @@
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
-import BrandMark from "@/components/BrandMark";
+import ShareCard from "@/components/messages/ShareCard";
 import { socmedOptions } from "@/constants/socmed-options";
 import { deletePost } from "@/lib/actions/post";
-import { downloadOrShareImage } from "@/lib/utils";
+import { downloadImage } from "@/lib/utils";
 import { PostType } from "@/types/post.types";
 import { SocmedTypes } from "@/types/socmed.types";
 import { AnimatePresence, motion } from "motion/react";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+
+const subscribe = () => () => {};
 
 type BottomNavProps = {
   isOpen: boolean;
@@ -25,8 +33,13 @@ export default function BottomNav({
     socmedOptions[0],
   );
 
-  const [isCaptured, setCapture] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const origin = useSyncExternalStore(
+    subscribe,
+    () => window.location.origin,
+    () => "",
+  );
 
   const handlePostDelete = async () => {
     if (!post) return;
@@ -53,7 +66,6 @@ export default function BottomNav({
 
           {/* Bottom sheet (mobile) / centered modal (desktop) */}
           <motion.div
-            ref={cardRef}
             role="dialog"
             aria-modal="true"
             aria-label={post.title || "Message"}
@@ -91,18 +103,18 @@ export default function BottomNav({
               </div>
             </div>
 
-            <p className="font-kalam mb-6 text-center text-xl font-bold break-words antialiased">
+            <p className="font-kalam mb-6 line-clamp-2 text-center text-lg leading-snug font-bold break-words antialiased md:text-xl">
               {post.title || "No title"}
             </p>
             <AnonymousInfoTags data={post} />
-            <div className="mt-1 mb-4 flex-1 overflow-y-auto rounded-lg border-2 border-[#1f1c14] bg-white p-5 wrap-break-word antialiased">
+            <div className="mt-1 mb-4 min-h-0 flex-1 overflow-y-auto rounded-lg border-2 border-[#1f1c14] bg-white p-5 break-words antialiased">
               <span
                 aria-hidden="true"
                 className="font-kalam mb-2 block text-4xl leading-none font-bold text-[#65a30d]"
               >
                 &ldquo;
               </span>
-              <p className="font-kalam -mt-4 pl-6 text-sm leading-relaxed font-medium text-[#1f1c14]/80">
+              <p className="font-kalam -mt-4 pl-6 text-sm leading-relaxed font-medium break-words text-[#1f1c14]/80">
                 {post.content}
               </p>
               <p className="font-kalam mt-3 text-right text-xs font-bold text-[#1f1c14]/50">
@@ -110,33 +122,38 @@ export default function BottomNav({
               </p>
             </div>
 
-            <div
-              onClick={() => downloadOrShareImage(post, cardRef, setCapture)}
-              className={`mt-3 ${isCaptured && "mb-6"} flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-[#1f1c14] bg-[#a3e635] p-4 text-center text-sm font-bold shadow-[4px_4px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none`}
+            <button
+              type="button"
+              onClick={() => downloadImage(post, cardRef)}
+              className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-[#1f1c14] bg-[#a3e635] p-4 text-center text-sm font-bold shadow-[4px_4px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none"
             >
-              {isCaptured ? (
-                <div className="flex items-center gap-2 font-bold">
-                  <p>You got a new message!</p>
-                  <span className="inline-block rounded-full bg-[#ecfccb] p-0.5">
-                    <BrandMark size={22} />
-                  </span>
-                </div>
-              ) : (
-                <>
-                  <span>Share to</span>
-                  <selectedSocmed.icon className="text-xl" />
-                </>
+              <span>Download Image</span>
+              <selectedSocmed.icon className="text-xl" />
+            </button>
+            <div
+              onClick={() => handlePostDelete()}
+              className="mt-2 mb-5 w-full cursor-pointer rounded-full border-2 border-[#1f1c14] bg-white p-3 text-center text-sm font-bold transition-colors hover:bg-[#ff5e3a] hover:text-white active:translate-y-0.5"
+            >
+              Delete Message
+            </div>
+          </motion.div>
+
+          {/* Off-screen share card — captured for download.
+              Fixed design, identical on mobile and desktop. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none fixed top-0 left-0 -translate-x-[9999px]"
+          >
+            <div ref={cardRef}>
+              {isOpen && post && (
+                <ShareCard
+                  post={post}
+                  socmed={selectedSocmed}
+                  origin={origin}
+                />
               )}
             </div>
-            {!isCaptured && (
-              <div
-                onClick={() => handlePostDelete()}
-                className="mt-2 mb-5 w-full cursor-pointer rounded-full border-2 border-[#1f1c14] bg-white p-3 text-center text-sm font-bold transition-colors hover:bg-[#ff5e3a] hover:text-white active:translate-y-0.5"
-              >
-                Delete Message
-              </div>
-            )}
-          </motion.div>
+          </div>
         </div>
       )}
     </AnimatePresence>

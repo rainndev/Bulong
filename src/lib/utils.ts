@@ -16,16 +16,11 @@ export const hideMessage = (text: string | null, revealed: boolean) => {
   return revealed ? text : firstWord + " " + "*".repeat(rest.length);
 };
 
-export const downloadOrShareImage = async (
+export const downloadImage = async (
   post: PostType | undefined,
   cardRef: React.RefObject<HTMLDivElement | null>,
-  setCapture: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   if (!post || !cardRef.current) return;
-
-  setCapture(true);
-
-  await new Promise((r) => requestAnimationFrame(r));
 
   try {
     const dataUrl = await toPng(cardRef.current, {
@@ -34,30 +29,11 @@ export const downloadOrShareImage = async (
       cacheBust: true,
     });
 
-    const res = await fetch(dataUrl);
-    const blob = await res.blob();
-    const file = new File([blob], "message.png", { type: "image/png" });
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          files: [file],
-          title: "Share Image",
-          text: "Check out this post!",
-        });
-      } catch (err) {
-        console.error("Share failed", err);
-      }
-    } else {
-      // Desktop fallback: download
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = "message.png";
-      link.click();
-    }
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "message.png";
+    link.click();
   } catch (err) {
-    console.error("Failed to convert/share image", err);
-  } finally {
-    setCapture(false);
+    console.error("Failed to download image", err);
   }
 };
