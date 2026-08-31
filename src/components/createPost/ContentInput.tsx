@@ -41,7 +41,7 @@ export default function ContentInput({
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="md:text-md h-55 w-full rounded-lg border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm transition-all duration-200 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-5"
+        className="md:text-md h-55 w-full rounded-xl border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm transition-all duration-200 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-5"
       />
 
       {fieldErrors?.content && (

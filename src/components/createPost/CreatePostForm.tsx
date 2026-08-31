@@ -118,7 +118,7 @@ export default function CreatePostForm() {
         onInput={handleFormInput}
         className="w-full max-w-3xl"
       >
-        <div className="mb-5 -rotate-1 rounded-lg border-2 border-[#1f1c14] bg-white p-8 text-center shadow-[8px_8px_0_#1f1c14] md:p-10">
+        <div className="mb-5 -rotate-1 rounded-xl border-2 border-[#1f1c14] bg-white p-8 text-center shadow-[8px_8px_0_#1f1c14] md:p-10">
           <div className="mb-4 flex justify-center">
             <BrandMark size={56} />
           </div>
@@ -129,7 +129,7 @@ export default function CreatePostForm() {
           <input
             name="title"
             placeholder="Title of your message"
-            className="md:text-md w-full rounded-lg border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm font-bold transition-all duration-200 placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4"
+            className="md:text-md w-full rounded-xl border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm font-bold transition-all duration-200 placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4"
           />
           {/* Render Title Errors */}
           {fieldErrors.title && (
@@ -156,7 +156,7 @@ export default function CreatePostForm() {
         <button
           type="submit"
           disabled={hasProfanity || isLoading}
-          className="mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] p-4 text-xs font-bold text-[#fdfaf2] transition-transform duration-100 hover:-rotate-1 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
+          className="font-fredoka mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] p-4 text-xs font-medium text-[#fdfaf2] transition-transform duration-100 hover:-rotate-1 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
         >
           {isLoading ? (
             <span className="flex items-center justify-center gap-2 md:gap-3">
