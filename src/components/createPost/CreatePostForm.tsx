@@ -2,6 +2,7 @@
 
 import BrandMark from "@/components/BrandMark";
 import ContentInput from "@/components/createPost/ContentInput";
+import WavyFooterDecoration from "@/components/createPost/WavyFooterDecoration";
 import { useRandomTitle } from "@/hooks/useRandomTitle";
 import { findProfanity } from "@/lib/profanity";
 import { PostFormSchema } from "@/lib/schema";
@@ -111,65 +112,74 @@ export default function CreatePostForm() {
     setIsLoading(false);
   };
   return (
-    <div className="sketch-grid relative flex h-dvh w-full flex-col items-center justify-center overflow-y-auto bg-[#fdfaf2] p-5 md:p-10">
-      <form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        onInput={handleFormInput}
-        className="w-full max-w-3xl"
-      >
-        <div className="mb-5 -rotate-1 rounded-xl border-2 border-[#1f1c14] bg-white p-8 text-center shadow-[8px_8px_0_#1f1c14] md:p-10">
-          <div className="mb-4 flex justify-center">
-            <BrandMark size={56} />
+    <div className="sketch-grid relative flex h-dvh w-full flex-col overflow-y-auto bg-[#fdfaf2] text-[#1f1c14]">
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-5 pt-10 md:px-0">
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          onInput={handleFormInput}
+          className="w-full"
+        >
+          <div className="mb-5 -rotate-1 rounded-xl border-2 border-[#1f1c14] bg-white p-8 text-center shadow-[8px_8px_0_#1f1c14] md:p-10">
+            <div className="mb-4 flex justify-center">
+              <BrandMark size={56} />
+            </div>
+            <p className="text-md w-full md:text-lg lg:text-xl">
+              {randomTitle}
+            </p>
           </div>
-          <p className="text-md w-full md:text-lg lg:text-xl">{randomTitle}</p>
-        </div>
 
-        <div className="mb-3">
-          <input
-            name="title"
-            placeholder="Title of your message"
-            className="md:text-md w-full rounded-xl border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm font-bold transition-all duration-200 placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4"
-          />
-          {/* Render Title Errors */}
-          {fieldErrors.title && (
+          <div className="mb-3">
+            <input
+              name="title"
+              placeholder="Title of your message"
+              className="md:text-md w-full rounded-xl border-2 border-[#1f1c14] bg-white p-3 pl-4 text-sm font-bold transition-all duration-200 placeholder:font-normal placeholder:text-[#1f1c14]/30 focus:ring-4 focus:ring-[#a3e635]/50 focus:outline-none md:p-4"
+            />
+            {/* Render Title Errors */}
+            {fieldErrors.title && (
+              <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
+                {fieldErrors.title[0]}
+              </p>
+            )}
+          </div>
+
+          <ContentInput fieldErrors={fieldErrors} resetSignal={resetCounter} />
+
+          {hasProfanity && (
             <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
-              {fieldErrors.title[0]}
+              {PROFANITY_MESSAGE}
             </p>
           )}
-        </div>
 
-        <ContentInput fieldErrors={fieldErrors} resetSignal={resetCounter} />
-
-        {hasProfanity && (
-          <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
-            {PROFANITY_MESSAGE}
-          </p>
-        )}
-
-        {formError && !hasProfanity && (
-          <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
-            {formError}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          disabled={hasProfanity || isLoading}
-          className="font-fredoka mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#a3e635] bg-[#1f1c14] p-4 text-xs font-medium text-[#fdfaf2] shadow-[6px_6px_0_#a3e635] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
-        >
-          {isLoading ? (
-            <span className="flex items-center justify-center gap-2 md:gap-3">
-              <AiOutlineLoading3Quarters className="animate-spin" />
-              <p>Submitting...</p>
-            </span>
-          ) : isSuccess ? (
-            "Message Submitted!"
-          ) : (
-            "Submit Message"
+          {formError && !hasProfanity && (
+            <p className="mt-1 text-xs font-bold text-[#ff5e3a] md:text-sm">
+              {formError}
+            </p>
           )}
-        </button>
-      </form>
+
+          <button
+            type="submit"
+            disabled={hasProfanity || isLoading}
+            className="font-fredoka mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#a3e635] bg-[#1f1c14] p-4 text-xs font-medium text-[#fdfaf2] shadow-[6px_6px_0_#a3e635] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
+          >
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2 md:gap-3">
+                <AiOutlineLoading3Quarters className="animate-spin" />
+                <p>Submitting...</p>
+              </span>
+            ) : isSuccess ? (
+              "Message Submitted!"
+            ) : (
+              "Submit Message"
+            )}
+          </button>
+        </form>
+      </div>
+
+      {/* full-width decorative wavy footer pinned to the bottom */}
+      <div className="w-full shrink-0">
+        <WavyFooterDecoration />
+      </div>
     </div>
   );
 }
