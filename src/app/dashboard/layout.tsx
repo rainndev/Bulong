@@ -66,8 +66,7 @@ const Layout = async ({
                   Dashboard
                 </h1>
                 <p className="mt-0.5 text-xs font-semibold text-[#1f1c14]/50">
-                  Welcome back, {user?.name || "User"} · anonymous messages at a
-                  glance
+                  Welcome back, {user?.name || "User"}
                 </p>
               </div>
 
