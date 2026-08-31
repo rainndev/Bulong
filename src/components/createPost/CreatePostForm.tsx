@@ -156,7 +156,7 @@ export default function CreatePostForm() {
         <button
           type="submit"
           disabled={hasProfanity || isLoading}
-          className="font-fredoka mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#1f1c14] bg-[#1f1c14] p-4 text-xs font-medium text-[#fdfaf2] transition-transform duration-100 hover:-rotate-1 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
+          className="font-fredoka mt-3 flex w-full cursor-pointer justify-center rounded-full border-2 border-[#a3e635] bg-[#1f1c14] p-4 text-xs font-medium text-[#fdfaf2] shadow-[6px_6px_0_#a3e635] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:rotate-0 md:text-lg"
         >
           {isLoading ? (
             <span className="flex items-center justify-center gap-2 md:gap-3">
