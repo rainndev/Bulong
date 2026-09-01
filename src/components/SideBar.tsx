@@ -95,7 +95,7 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
 
       <nav
         aria-label="Primary"
-        className="fixed inset-x-3 bottom-3 z-20 flex items-center justify-between gap-1 rounded-2xl border border-[#262626] bg-[#171717] p-1.5 md:hidden"
+        className="fixed inset-x-3 bottom-3 z-20 flex items-center justify-between gap-1.5 rounded-3xl border-2 border-white/10 bg-[#1f1c14] p-1.5 shadow-[4px_4px_0_#a3e635] md:hidden"
       >
         {allItems.map((item) => {
           const Icon = item.icon;
@@ -107,22 +107,22 @@ const SideBar = ({ currentPath = "/dashboard" }: SideBarProps) => {
               href={item.path}
               aria-label={item.name}
               aria-current={isActive ? "page" : undefined}
-              className={`grid size-10 flex-1 place-items-center rounded-xl transition-colors ${
+              className={`grid size-11 flex-1 place-items-center rounded-full transition-all duration-100 ${
                 isActive
-                  ? "bg-[#365314] text-[#ecfccb]"
-                  : "text-[#b5b0a6] hover:text-[#ece8df]"
+                  ? "bg-[#a3e635] text-[#1f1c14]"
+                  : "text-[#b5b0a6] active:translate-y-0.5"
               }`}
             >
-              <Icon className="text-lg" />
+              <Icon className="text-xl" />
             </Link>
           );
         })}
         <button
           onClick={signOut}
           aria-label="Sign out"
-          className="grid size-10 flex-1 cursor-pointer place-items-center rounded-xl text-[#b5b0a6] transition-colors hover:text-[#ece8df]"
+          className="grid size-11 flex-1 cursor-pointer place-items-center rounded-full text-[#b5b0a6] transition-colors hover:text-[#ff5e3a] active:translate-y-0.5"
         >
-          <IoExitOutline className="text-lg" />
+          <IoExitOutline className="text-xl" />
         </button>
       </nav>
     </>

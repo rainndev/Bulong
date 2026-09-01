@@ -4,7 +4,6 @@ import Animated3DIcons from "@/components/landing/Animated3DIcons";
 import ClaimHandle from "@/components/landing/ClaimHandle";
 import { PushPin, SafetyPin } from "@/components/pins";
 import { motion, MotionConfig, type Variants } from "motion/react";
-import Link from "next/link";
 
 const containerVariants: Variants = {
   hidden: {},
