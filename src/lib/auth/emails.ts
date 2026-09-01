@@ -52,7 +52,7 @@ export const renderVerificationEmail = (url: string): string => `
       .body-copy { font-size: clamp(13px, 3.4vw, 14px); }
       .cta a { font-size: clamp(13px, 3.4vw, 14px); }
       .footnote { font-size: clamp(11px, 3vw, 12px); }
-      .eyebrow { font-size: clamp(10px, 2.7vw, 11px); }
+      .eyebrow { font-size: clamp(9px, 2.5vw, 11px); }
 
       /* Mobile: tighten the card and footer padding */
       @media only screen and (max-width: 600px) {
@@ -85,11 +85,17 @@ export const renderVerificationEmail = (url: string): string => `
                   <tr>
                     <td class="card-pad" style="padding:44px 40px;">
 
-                      <!-- eyebrow as a lime pill badge -->
-                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;">
+                      <!-- eyebrow as a lime pill badge with offset shadow -->
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 17px 0;">
                         <tr>
-                          <td class="eyebrow" style="background-color:${ACCENT};border:1.5px solid ${BORDER};border-radius:999px;padding:5px 14px;font-family:${FONT};font-size:11px;font-weight:600;color:${INK};letter-spacing:0.08em;text-transform:uppercase;">
-                            Email verification
+                          <td style="background-color:${INK};border-radius:999px;padding:0 3px 3px 0;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-radius:999px;overflow:hidden;">
+                              <tr>
+                                <td class="eyebrow" style="background-color:${ACCENT};border:1.5px solid ${BORDER};border-radius:999px;padding:5px 14px;font-family:${FONT};font-size:9px;font-weight:700;color:${INK};letter-spacing:0.08em;text-transform:uppercase;">
+                                  Email verification
+                                </td>
+                              </tr>
+                            </table>
                           </td>
                         </tr>
                       </table>
