@@ -1,8 +1,10 @@
 import BottomBanner from "@/components/BottomBanner";
 import KpiCard from "@/components/dashboard/KpiCard";
+import MessagesMap from "@/components/dashboard/MessagesMap";
 import SideBar from "@/components/SideBar";
 import {
   getAverageMessagesPerDaySQL,
+  getMessageCountries,
   getMessagesCountToday,
   getMessagesThisWeekData,
   getTotalPost,
@@ -33,12 +35,13 @@ const Layout = async ({
   const userId = user.id;
   const userName = user.name;
 
-  const [totalMessages, messagesToday, weekData, avgMessagePerDay] =
+  const [totalMessages, messagesToday, weekData, avgMessagePerDay, countries] =
     await Promise.all([
       getTotalPost(userId),
       getMessagesCountToday(userId),
       getMessagesThisWeekData(userId),
       getAverageMessagesPerDaySQL(userId),
+      getMessageCountries(userId),
     ]);
 
   const { totalThisWeek, chartData } = weekData;
@@ -101,6 +104,8 @@ const Layout = async ({
                   icon={<FaChartLine size={11} />}
                 />
               </div>
+
+              <MessagesMap countries={countries} />
 
               <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-[1.5fr_1fr]">
                 {totalMessagesAndChart}

@@ -63,6 +63,31 @@ export const getTotalPost = async (userId: string): Promise<number> => {
   });
 };
 
+export const getMessageCountries = async (
+  userId: string,
+): Promise<{ country: string; count: number }[]> => {
+  const grouped = await prisma.post.groupBy({
+    by: ["country"],
+    where: {
+      authorId: userId,
+      country: { not: null },
+    },
+    _count: {
+      country: true,
+    },
+    orderBy: {
+      _count: {
+        country: "desc",
+      },
+    },
+  });
+
+  return grouped.map((row) => ({
+    country: row.country ?? "Unknown",
+    count: row._count.country,
+  }));
+};
+
 export const getRecentPost = async (
   userId: string,
   count: number = 2,
