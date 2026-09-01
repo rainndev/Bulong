@@ -38,7 +38,7 @@ const KpiCard = ({
       </div>
       <div className="flex items-end justify-between gap-2">
         <div className="min-w-0">
-          <p className="my-0.5 text-2xl font-extrabold tracking-[-0.05em]">
+          <p className="my-0.5 text-2xl font-bold tracking-[-0.05em]">
             {value}
           </p>
           {delta && (
