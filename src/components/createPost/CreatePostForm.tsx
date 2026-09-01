@@ -78,6 +78,7 @@ export default function CreatePostForm() {
         username: cleanUsername,
         title: formData.get("title"),
         content: formData.get("content"),
+        honeypot: formData.get("company"),
       }),
     });
 
@@ -130,6 +131,15 @@ export default function CreatePostForm() {
           </div>
 
           <div className="mb-3">
+            {/* honeypot*/}
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="pointer-events-none absolute h-0 w-0 opacity-0"
+            />
             <input
               name="title"
               placeholder="Title of your message"

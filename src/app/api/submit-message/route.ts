@@ -1,5 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { findProfanity } from "@/lib/profanity";
+import {
+  checkInboxCooldown,
+  checkRateLimit,
+  getIpForCooldown,
+  honeypotPassed,
+  isBodyTooLarge,
+  isBotUserAgent,
+} from "@/lib/rateLimit";
 import { PostSchema } from "@/lib/schema";
 import { NextResponse } from "next/server";
 
@@ -7,7 +15,7 @@ const isNewDay = (lastReset: Date) => {
   return new Date().toDateString() !== new Date(lastReset).toDateString();
 };
 
-const getAnonymousInfo = async (userAgent: string, request: Request) => {
+const getAnonymousInfo = async (userAgent: string) => {
   const isMobile = /Mobi|Android/i.test(userAgent);
 
   let os = "Unknown";
@@ -21,11 +29,11 @@ const getAnonymousInfo = async (userAgent: string, request: Request) => {
   else if (/Safari/i.test(userAgent)) browser = "Safari";
   else if (/Firefox/i.test(userAgent)) browser = "Firefox";
 
-  let geoJsData: any = { region: "Unknown", country_code: "Unknown" };
+  let geoJsData: { region?: string; country?: string } = {};
 
   try {
     const res = await fetch("https://get.geojs.io/v1/ip/geo.json");
-    geoJsData = await res.json();
+    geoJsData = (await res.json()) as { region?: string; country?: string };
   } catch (error) {
     console.log("fetch failed:", error);
   }
@@ -41,16 +49,58 @@ const getAnonymousInfo = async (userAgent: string, request: Request) => {
 
 export const POST = async (request: Request) => {
   const userAgent = request.headers.get("user-agent") || "";
-  const basicInfo = await getAnonymousInfo(userAgent, request);
 
-  const req = await request.json();
+  if (isBotUserAgent(userAgent)) {
+    return NextResponse.json({ error: "Message rejected." }, { status: 403 });
+  }
 
-  const { username, title, content } = req;
+  const rawBody = await request.text();
+
+  if (isBodyTooLarge(rawBody)) {
+    return NextResponse.json(
+      { error: "Message is too long." },
+      { status: 413 },
+    );
+  }
+
+  const req = JSON.parse(rawBody);
+  const { username, title, content, honeypot } = req;
+
+  if (!honeypotPassed(honeypot)) {
+    return NextResponse.json({ success: true }, { status: 200 });
+  }
+
+  // 4. IP rate limit (sliding window + escalating block)
+  const rateLimit = checkRateLimit(request);
+
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: rateLimit.error },
+      {
+        status: rateLimit.status,
+        headers: { "Retry-After": String(rateLimit.retryAfterSec) },
+      },
+    );
+  }
+
+  const basicInfo = await getAnonymousInfo(userAgent);
 
   if (!username || !title || !content) {
     return new Response(JSON.stringify({ error: "Missing required fields" }), {
       status: 400,
     });
+  }
+
+  const inboxCooldown = checkInboxCooldown(getIpForCooldown(request), username);
+
+  if (!inboxCooldown.allowed) {
+    return NextResponse.json(
+      { error: inboxCooldown.error },
+      {
+        status: inboxCooldown.status,
+        headers: { "Retry-After": String(inboxCooldown.retryAfterSec) },
+      },
+    );
   }
 
   try {
