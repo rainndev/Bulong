@@ -1,6 +1,7 @@
 "use client";
 
 import { signUp } from "@/lib/auth/auth-client";
+import PasswordInput from "@/components/PasswordInput";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -107,13 +108,10 @@ function SignUpForm() {
           required
           className={inputClassName}
         />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          minLength={8}
+        <PasswordInput
           className={inputClassName}
+          minLength={8}
+          autoComplete="new-password"
         />
 
         <p>

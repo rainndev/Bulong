@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "@/lib/auth/auth-client";
+import PasswordInput from "@/components/PasswordInput";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -85,13 +86,7 @@ export default function SignInPage() {
             onChange={(e) => setEmail(e.target.value)}
             className={inputClassName}
           />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            className={inputClassName}
-          />
+          <PasswordInput className={inputClassName} />
 
           <p>
             <Link
