@@ -52,7 +52,7 @@ const ShareCard = ({ post, socmed, origin }: ShareCardProps) => {
             year: "numeric",
           })}
         </span>
-        <span className="rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-3 py-1 text-xs font-bold">
+        <span className="rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-3 py-1 text-[9px] font-bold">
           {host}
         </span>
       </div>
