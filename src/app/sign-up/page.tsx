@@ -46,7 +46,10 @@ function SignUpForm() {
       return;
     }
 
-    router.push("/dashboard");
+    // Account created — verification email sent; go to the check-email page
+    router.push(
+      `/verify-email?email=${encodeURIComponent(formData.get("email") as string)}`,
+    );
   }
 
   // Clear loading state on unmount

@@ -13,6 +13,7 @@ export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     setIsLoading(true);
@@ -28,6 +29,19 @@ export default function SignInPage() {
 
     if (res.error) {
       setIsLoading(false);
+
+      if (
+        res.error.code === "INVALID_EMAIL_OR_PASSWORD" ||
+        res.error.code === "EMAIL_NOT_VERIFIED"
+      ) {
+        setError(
+          res.error.code === "EMAIL_NOT_VERIFIED"
+            ? "Verify your email first — check your inbox for the link."
+            : "Wrong email or password.",
+        );
+        return;
+      }
+
       setError(res.error.message || "Something went wrong.");
     } else {
       router.push("/dashboard");
@@ -47,7 +61,19 @@ export default function SignInPage() {
           Welcome back! Please enter your credentials to access your account.
         </p>
 
-        {error && <p className="font-bold text-[#ff5e3a]">{error}</p>}
+        {error && (
+          <div className="rounded-lg border-2 border-[#ff5e3a] bg-[#ff5e3a]/10 px-4 py-3">
+            <p className="text-sm font-bold text-[#ff5e3a]">{error}</p>
+            {error.toLowerCase().includes("verify") && (
+              <Link
+                href={`/verify-email?email=${encodeURIComponent(email)}`}
+                className="mt-1 inline-block text-xs font-bold text-[#1f1c14]/60 underline decoration-[#65a30d] decoration-2 underline-offset-4 hover:text-[#1f1c14]"
+              >
+                Resend verification email →
+              </Link>
+            )}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -55,6 +81,8 @@ export default function SignInPage() {
             type="email"
             placeholder="Email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className={inputClassName}
           />
           <input
