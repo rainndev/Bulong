@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { renderVerificationEmail } from "@/lib/auth/emails";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "../prisma";
 
@@ -61,48 +62,6 @@ const sendViaBrevo = async (
   }
 };
 
-const renderVerificationEmail = (url: string) => `
-<!DOCTYPE html>
-<html>
-  <body style="margin:0;padding:0;background-color:#fdfaf2;font-family:Georgia,'Times New Roman',serif;">
-    <div style="max-width:480px;margin:0 auto;padding:40px 24px;">
-      <div style="text-align:center;margin-bottom:32px;">
-        <span style="display:inline-block;background-color:#a3e635;color:#1f1c14;border:2px solid #1f1c14;border-radius:12px;padding:10px 18px;font-size:20px;font-weight:bold;">
-          Bulong.
-        </span>
-      </div>
-
-      <div style="background-color:#ffffff;border:2px solid #1f1c14;border-radius:12px;padding:32px;box-shadow:6px 6px 0 #1f1c14;">
-        <h1 style="margin:0 0 12px;font-size:22px;color:#1f1c14;">
-          Kumpirmahin ang email mo
-        </h1>
-        <p style="margin:0 0 8px;font-size:15px;line-height:1.6;color:#1f1c14;">
-          Welcome sa Bulong! I-click ang button below para i-verify ang email
-          address mo at makapagsimula ng pagtanggap ng anonymous messages.
-        </p>
-        <p style="margin:0 0 24px;font-size:13px;color:#1f1c14;opacity:0.6;">
-          This link expires in 24 hours.
-        </p>
-
-        <a href="${url}"
-           style="display:inline-block;background-color:#a3e635;color:#1f1c14;border:2px solid #1f1c14;border-radius:999px;padding:12px 28px;font-size:15px;font-weight:bold;text-decoration:none;box-shadow:4px 4px 0 #1f1c14;">
-          Verify Email
-        </a>
-
-        <p style="margin:24px 0 0;font-size:12px;color:#1f1c14;opacity:0.6;line-height:1.6;">
-          Kung hindi mo na-click ang button, pwede mo ring buksan ang link na
-          ito:<br>
-          <a href="${url}" style="color:#65a30d;word-break:break-all;">${url}</a>
-        </p>
-      </div>
-
-      <p style="text-align:center;font-size:12px;color:#1f1c14;opacity:0.4;margin-top:24px;">
-        © ${new Date().getFullYear()} Bulong · anonymous na mensahe, totoong opinyon
-      </p>
-    </div>
-  </body>
-</html>
-`;
 
 const sendVerificationEmailFn = async ({
   user,
