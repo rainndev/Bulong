@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -76,6 +77,8 @@ const geoUrl =
   "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const MessagesMap = ({ countries }: MessagesMapProps) => {
+  const [hovered, setHovered] = useState<string | null>(null);
+
   const markers = countries
     .map((entry) => {
       const coords = COUNTRY_COORDS[entry.country];
@@ -145,13 +148,52 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
                 fill={LIME}
                 stroke={INK}
                 strokeWidth={1.5}
+                onMouseEnter={() => setHovered(marker.country)}
+                onMouseLeave={() => setHovered(null)}
+                aria-label={`${marker.country}: ${marker.count} messages`}
+                style={{ cursor: "pointer" }}
               />
-              <title>
-                {marker.country}: {marker.count}{" "}
-                {marker.count === 1 ? "message" : "messages"}
-              </title>
             </Marker>
           ))}
+
+          {/* hover label rendered as SVG text (no DOM title hoisting) */}
+          {hovered &&
+            markers
+              .filter((marker) => marker.country === hovered)
+              .map((marker) => {
+                const [x, y] = marker.coordinates;
+
+                return (
+                  <Marker key={`label-${marker.country}`} coordinates={[x, y]}>
+                    <g
+                      transform="translate(12, -6)"
+                      style={{ pointerEvents: "none" }}
+                    >
+                      <rect
+                        x={0}
+                        y={-14}
+                        rx={6}
+                        width={marker.country.length * 7 + 44}
+                        height={22}
+                        fill={INK}
+                        stroke={INK}
+                        strokeWidth={1}
+                      />
+                      <text
+                        x={8}
+                        y={1}
+                        textAnchor="start"
+                        fontSize={10}
+                        fontWeight={700}
+                        fill={LIME}
+                        style={{ fontFamily: "inherit" }}
+                      >
+                        {marker.country} · {marker.count}
+                      </text>
+                    </g>
+                  </Marker>
+                );
+              })}
         </ComposableMap>
       </div>
 
