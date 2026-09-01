@@ -1,30 +1,41 @@
-"use client";
-
-import Image from "next/image";
+import Link from "next/link";
 
 const NotFoundUI = () => {
   return (
-    <div className="flex h-dvh flex-col items-center justify-center bg-violet-50 p-5 md:p-10">
-      <Image
-        src={"/not-found.png"}
-        alt="Not found image"
-        height={300}
-        width={300}
-      />
-      <h1 className="mt-5 text-center text-xl font-semibold md:text-3xl">
-        Oops! We couldn't find that page.
-      </h1>
-      <p className="mt-2 text-center text-sm text-gray-600 md:text-base">
-        The page you're looking for might have been removed or is temporarily
-        unavailable.
-      </p>
+    <div className="sketch-grid flex min-h-dvh w-full flex-col items-center justify-center gap-8 bg-[#fdfaf2] p-5 text-center text-[#1f1c14]">
+      <div className="relative -rotate-1 rounded-xl border-2 border-[#1f1c14] bg-white px-10 py-8 shadow-[8px_8px_0_#1f1c14] md:px-16 md:py-10">
+        <h1 className="text-[clamp(3.5rem,12vw,7rem)] leading-none font-bold tracking-tight">
+          404
+        </h1>
+        <svg
+          viewBox="0 0 300 16"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+          className="mt-2 h-4 w-full"
+        >
+          <path
+            d="M 4 10 Q 50 2, 100 8 T 200 8 T 296 10"
+            fill="none"
+            stroke="#65a30d"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
 
-      <button
-        onClick={() => window.location.replace("/")}
-        className="md:text-md md:text-md mt-10 cursor-pointer rounded-2xl bg-violet-500 px-4 py-3 text-sm font-medium text-white transition-colors ease-in-out hover:bg-violet-400 md:p-5"
+      <div className="max-w-md">
+        <h2 className="font-kalam text-xl leading-snug font-bold md:text-2xl">
+          Hindi mahanap.
+        </h2>
+      </div>
+
+      <Link
+        href="/"
+        className="rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-6 py-3 text-sm font-bold shadow-[4px_4px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none md:text-base"
       >
-        Go to Home
-      </button>
+        Home →
+      </Link>
     </div>
   );
 };
