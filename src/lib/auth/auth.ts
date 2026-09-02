@@ -70,15 +70,21 @@ const sendVerificationEmailFn = async ({
   user: { email: string };
   url: string;
 }) => {
+  // Point the post-verification redirect at our success page
+  const verifyUrl = new URL(url);
+  verifyUrl.searchParams.set("callbackURL", "/email-verified");
+
   const result = await sendViaBrevo(
     user.email,
     `Verify your ${APP_NAME} email`,
-    renderVerificationEmail(url),
+    renderVerificationEmail(verifyUrl.toString()),
   );
 
   if (result === null) {
     // Dev without key: log the link so verification is still testable
-    console.log(`[dev] Verification email for ${user.email}: ${url}`);
+    console.log(
+      `[dev] Verification email for ${user.email}: ${verifyUrl.toString()}`,
+    );
     return;
   }
 
