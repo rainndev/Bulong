@@ -26,7 +26,7 @@ const isPrivateIp = (ip: string): boolean =>
   ip.toLowerCase().startsWith("fc") ||
   ip.toLowerCase().startsWith("fe80");
 
-type GeoData = { city?: string; region?: string; country?: string };
+type GeoData = { region?: string; country?: string };
 
 const fetchGeo = async (url: string): Promise<GeoData> => {
   const res = await fetch(url, { signal: AbortSignal.timeout(3500) });
@@ -58,17 +58,11 @@ const getAnonymousInfo = async (userAgent: string, ip: string) => {
     console.log("geo lookup failed:", error);
   }
 
-  // Store the most specific place available: "City, Region" / "City" / "Region"
-  const place = [geoData.city, geoData.region]
-    .map((part) => part?.trim())
-    .filter(Boolean)
-    .join(", ");
-
   return {
     device: isMobile ? "Mobile" : "Desktop",
     os,
     browser,
-    region: place || "Unknown",
+    region: geoData.region || "Unknown",
     country: geoData.country || "Unknown",
   };
 };

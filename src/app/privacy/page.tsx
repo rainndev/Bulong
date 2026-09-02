@@ -11,7 +11,7 @@ const sections = [
     title: "What we collect",
     body: [
       "Account data: your email, username, and password (hashed). Your email is only used for login and verification — never shown to anyone.",
-      "Message metadata: when someone sends you an anonymous message, we store their approximate country and city/region (from IP geolocation), device type, OS, and browser. We never see or store their identity.",
+      "Message metadata: when someone sends you an anonymous message, we store their country and region (from IP geolocation), device type, OS, and browser. We never see or store their identity.",
       "Message content: the messages themselves, stored exactly as sent. Profanity-filtered — abusive messages are rejected before storage.",
       "Technical logs: standard server logs (IP address, timestamps) used for rate limiting and abuse prevention.",
     ],
@@ -29,7 +29,7 @@ const sections = [
     body: [
       "Neon (neon.tech) — hosts our PostgreSQL database. Your account and messages live here.",
       "Brevo (brevo.com) — sends verification emails. They receive your email address solely for that send. Nothing else.",
-      "GeoJS (geojs.io) — converts a sender's IP into country/city at submission time. We send them an IP address, not any message content.",
+      "GeoJS (geojs.io) — converts a sender's IP into a country at submission time. We send them an IP address, not any message content.",
       "Vercel (vercel.com) — hosts the app itself. Their standard request logs process IPs for routing and DDoS protection.",
     ],
   },
