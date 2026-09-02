@@ -73,8 +73,7 @@ type MessagesMapProps = {
   countries: { country: string; count: number }[];
 };
 
-const geoUrl =
-  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const MessagesMap = ({ countries }: MessagesMapProps) => {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -85,6 +84,34 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
   useEffect(() => {
     const timer = window.setTimeout(() => setIsMounted(true), 0);
     return () => window.clearTimeout(timer);
+  }, []);
+
+  /** ISO numeric id -> country name for hover matching. */
+  const [geoNames, setGeoNames] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    fetch(geoUrl)
+      .then((res) => res.json())
+      .then(
+        (topo: {
+          objects: {
+            countries: {
+              geometries: { id: string; properties?: { name?: string } }[];
+            };
+          };
+        }) => {
+          const names: Record<string, string> = {};
+
+          for (const geometry of topo.objects.countries.geometries) {
+            if (geometry.properties?.name) {
+              names[geometry.id] = geometry.properties.name;
+            }
+          }
+
+          setGeoNames(names);
+        },
+      )
+      .catch(() => {});
   }, []);
 
   const markers = countries
@@ -112,98 +139,143 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
         </span>
       </div>
 
-      <div className="w-full overflow-hidden rounded-lg border-2 border-[#1f1c14] bg-[#fdfaf2]">
+      <div className="w-full overflow-hidden rounded-lg">
         {isMounted ? (
           <ComposableMap
-          projection="geoEqualEarth"
-          projectionConfig={{ scale: 140 }}
-          width={600}
-          height={300}
-          style={{ width: "100%", height: "auto" }}
-        >
-          <Geographies geography={geoUrl}>
-            {({ geographies }: { geographies: unknown[] }) =>
-              geographies.map((geo, index) => {
-                const feature = geo as {
-                  rsmKey?: string;
-                  id?: string | number;
-                };
+            projection="geoEqualEarth"
+            projectionConfig={{ scale: 140 }}
+            width={600}
+            height={300}
+            style={{ width: "100%", height: "auto" }}
+          >
+            {/* neubrutalist lift shadow: hard offset ink drop */}
+            <defs>
+              <filter
+                id="countryLift"
+                x="-20%"
+                y="-20%"
+                width="150%"
+                height="150%"
+              >
+                <feDropShadow
+                  dx="2.5"
+                  dy="2.5"
+                  stdDeviation="0"
+                  floodColor={INK}
+                  floodOpacity="1"
+                />
+              </filter>
+            </defs>
 
-                return (
-                  <Geography
-                    key={feature.rsmKey ?? `geo-${index}`}
-                    geography={geo as never}
-                    fill="#fdfaf2"
+            <Geographies geography={geoUrl}>
+              {({ geographies }: { geographies: unknown[] }) =>
+                geographies.map((geo, index) => {
+                  const feature = geo as {
+                    rsmKey?: string;
+                    id?: string | number;
+                  };
+
+                  const countryName =
+                    feature.id != null
+                      ? geoNames[String(feature.id)]
+                      : undefined;
+                  const isHovered =
+                    countryName != null && countryName === hovered;
+
+                  return (
+                    <Geography
+                      key={feature.rsmKey ?? `geo-${index}`}
+                      geography={geo as never}
+                      fill={isHovered ? LIME : "#fdfaf2"}
+                      stroke={INK}
+                      strokeWidth={isHovered ? 0.9 : 0.4}
+                      onMouseEnter={() =>
+                        countryName && setHovered(countryName)
+                      }
+                      onMouseLeave={() => setHovered(null)}
+                      style={{
+                        default: {
+                          outline: "none",
+                          // lift + shadow when hovered
+                          ...(isHovered
+                            ? {
+                                filter: "url(#countryLift)",
+                                transform: "translate(-2px, -2px)",
+                                transition:
+                                  "transform 150ms ease, filter 150ms ease",
+                              }
+                            : {
+                                transition:
+                                  "transform 150ms ease, filter 150ms ease",
+                              }),
+                        },
+                        hover: { outline: "none" },
+                        pressed: { outline: "none" },
+                      }}
+                    />
+                  );
+                })
+              }
+            </Geographies>
+
+            {markers.map((marker) => (
+              <Marker key={marker.country} coordinates={marker.coordinates}>
+                <circle
+                  r={4 + (marker.count / maxCount) * 6}
+                  fill={LIME}
+                  stroke={INK}
+                  strokeWidth={1.5}
+                  onMouseEnter={() => setHovered(marker.country)}
+                  onMouseLeave={() => setHovered(null)}
+                  aria-label={`${marker.country}: ${marker.count} messages`}
+                  style={{ cursor: "pointer" }}
+                />
+              </Marker>
+            ))}
+
+            {/* hover label rendered as SVG text (no DOM title hoisting) */}
+            {hovered && (
+              <Marker
+                key={`label-${hovered}`}
+                coordinates={
+                  (markers.find((m) => m.country === hovered)?.coordinates ??
+                    COUNTRY_COORDS[hovered] ?? [0, 0]) as [number, number]
+                }
+              >
+                <g
+                  transform="translate(12, -6)"
+                  style={{ pointerEvents: "none" }}
+                >
+                  <rect
+                    x={0}
+                    y={-14}
+                    rx={6}
+                    width={
+                      hovered.length * 7 +
+                      (markers.find((m) => m.country === hovered) ? 44 : 16)
+                    }
+                    height={22}
+                    fill={INK}
                     stroke={INK}
-                    strokeWidth={0.4}
-                    style={{
-                      default: { outline: "none" },
-                      hover: { outline: "none", fill: "#f5f2e8" },
-                      pressed: { outline: "none" },
-                    }}
+                    strokeWidth={1}
                   />
-                );
-              })
-            }
-          </Geographies>
-
-          {markers.map((marker) => (
-            <Marker
-              key={marker.country}
-              coordinates={marker.coordinates}
-            >
-              <circle
-                r={4 + (marker.count / maxCount) * 6}
-                fill={LIME}
-                stroke={INK}
-                strokeWidth={1.5}
-                onMouseEnter={() => setHovered(marker.country)}
-                onMouseLeave={() => setHovered(null)}
-                aria-label={`${marker.country}: ${marker.count} messages`}
-                style={{ cursor: "pointer" }}
-              />
-            </Marker>
-          ))}
-
-          {/* hover label rendered as SVG text (no DOM title hoisting) */}
-          {hovered &&
-            markers
-              .filter((marker) => marker.country === hovered)
-              .map((marker) => {
-                const [x, y] = marker.coordinates;
-
-                return (
-                  <Marker key={`label-${marker.country}`} coordinates={[x, y]}>
-                    <g
-                      transform="translate(12, -6)"
-                      style={{ pointerEvents: "none" }}
-                    >
-                      <rect
-                        x={0}
-                        y={-14}
-                        rx={6}
-                        width={marker.country.length * 7 + 44}
-                        height={22}
-                        fill={INK}
-                        stroke={INK}
-                        strokeWidth={1}
-                      />
-                      <text
-                        x={8}
-                        y={1}
-                        textAnchor="start"
-                        fontSize={10}
-                        fontWeight={700}
-                        fill={LIME}
-                        style={{ fontFamily: "inherit" }}
-                      >
-                        {marker.country} · {marker.count}
-                      </text>
-                    </g>
-                  </Marker>
-                );
-              })}
-        </ComposableMap>
+                  <text
+                    x={8}
+                    y={1}
+                    textAnchor="start"
+                    fontSize={10}
+                    fontWeight={700}
+                    fill={LIME}
+                    style={{ fontFamily: "inherit" }}
+                  >
+                    {markers.find((m) => m.country === hovered)
+                      ? `${hovered} · ${markers.find((m) => m.country === hovered)?.count}`
+                      : hovered}
+                  </text>
+                </g>
+              </Marker>
+            )}
+          </ComposableMap>
         ) : (
           <div
             className="animate-pulse bg-[#f5f2e8]"
