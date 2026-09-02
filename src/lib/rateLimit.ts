@@ -125,7 +125,7 @@ export const checkInboxCooldown = (
   return { allowed: true };
 };
 
-export const getIpForCooldown = getClientIp;
+export { getClientIp };
 
 /** Reject oversized payloads before parsing. */
 export const isBodyTooLarge = (raw: string): boolean =>

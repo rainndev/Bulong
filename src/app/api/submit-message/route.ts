@@ -3,7 +3,7 @@ import { findProfanity } from "@/lib/profanity";
 import {
   checkInboxCooldown,
   checkRateLimit,
-  getIpForCooldown,
+  getClientIp,
   honeypotPassed,
   isBodyTooLarge,
   isBotUserAgent,
@@ -15,7 +15,25 @@ const isNewDay = (lastReset: Date) => {
   return new Date().toDateString() !== new Date(lastReset).toDateString();
 };
 
-const getAnonymousInfo = async (userAgent: string) => {
+/** Private/reserved ranges can't be geolocated — fall back to self-lookup (dev). */
+const isPrivateIp = (ip: string): boolean =>
+  ip === "unknown" ||
+  ip === "::1" ||
+  ip.startsWith("127.") ||
+  ip.startsWith("10.") ||
+  ip.startsWith("192.168.") ||
+  /^172\.(1[6-9]|2\d|3[01])\./.test(ip) ||
+  ip.toLowerCase().startsWith("fc") ||
+  ip.toLowerCase().startsWith("fe80");
+
+type GeoData = { city?: string; region?: string; country?: string };
+
+const fetchGeo = async (url: string): Promise<GeoData> => {
+  const res = await fetch(url, { signal: AbortSignal.timeout(3500) });
+  return (await res.json()) as GeoData;
+};
+
+const getAnonymousInfo = async (userAgent: string, ip: string) => {
   const isMobile = /Mobi|Android/i.test(userAgent);
 
   let os = "Unknown";
@@ -29,26 +47,35 @@ const getAnonymousInfo = async (userAgent: string) => {
   else if (/Safari/i.test(userAgent)) browser = "Safari";
   else if (/Firefox/i.test(userAgent)) browser = "Firefox";
 
-  let geoJsData: { region?: string; country?: string } = {};
+  // Look up the VISITOR's IP (from proxy headers), not the server's.
+  let geoData: GeoData = {};
 
   try {
-    const res = await fetch("https://get.geojs.io/v1/ip/geo.json");
-    geoJsData = (await res.json()) as { region?: string; country?: string };
+    geoData = isPrivateIp(ip)
+      ? await fetchGeo("https://get.geojs.io/v1/ip/geo.json")
+      : await fetchGeo(`https://get.geojs.io/v1/ip/geo/${encodeURIComponent(ip)}.json`);
   } catch (error) {
-    console.log("fetch failed:", error);
+    console.log("geo lookup failed:", error);
   }
+
+  // Store the most specific place available: "City, Region" / "City" / "Region"
+  const place = [geoData.city, geoData.region]
+    .map((part) => part?.trim())
+    .filter(Boolean)
+    .join(", ");
 
   return {
     device: isMobile ? "Mobile" : "Desktop",
     os,
     browser,
-    region: geoJsData.region,
-    country: geoJsData.country,
+    region: place || "Unknown",
+    country: geoData.country || "Unknown",
   };
 };
 
 export const POST = async (request: Request) => {
   const userAgent = request.headers.get("user-agent") || "";
+  const clientIp = getClientIp(request);
 
   if (isBotUserAgent(userAgent)) {
     return NextResponse.json({ error: "Message rejected." }, { status: 403 });
@@ -83,7 +110,7 @@ export const POST = async (request: Request) => {
     );
   }
 
-  const basicInfo = await getAnonymousInfo(userAgent);
+  const basicInfo = await getAnonymousInfo(userAgent, clientIp);
 
   if (!username || !title || !content) {
     return new Response(JSON.stringify({ error: "Missing required fields" }), {
@@ -91,7 +118,7 @@ export const POST = async (request: Request) => {
     });
   }
 
-  const inboxCooldown = checkInboxCooldown(getIpForCooldown(request), username);
+  const inboxCooldown = checkInboxCooldown(clientIp, username);
 
   if (!inboxCooldown.allowed) {
     return NextResponse.json(

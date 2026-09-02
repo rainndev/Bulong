@@ -19,7 +19,7 @@ const AnonymousInfoTags = ({ data }: AnonymousInfoTagsProps) => {
 
       <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <FaLocationDot />
-        {data.country}
+        {data.country ?? "Somewhere"}
       </span>
 
       <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
@@ -34,7 +34,7 @@ const AnonymousInfoTags = ({ data }: AnonymousInfoTagsProps) => {
 
       <span className="flex w-fit items-center gap-2 rounded-full border-2 border-[#1f1c14] bg-white px-3 py-1 font-bold md:px-4 md:py-2">
         <FaCity />
-        {data.region}
+        {data.region ?? "Unknown"}
       </span>
     </div>
   );
