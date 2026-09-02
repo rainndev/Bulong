@@ -277,19 +277,63 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
             )}
           </ComposableMap>
         ) : (
-          <div
-            className="animate-pulse bg-[#f5f2e8]"
-            style={{ width: "100%", aspectRatio: "600 / 300" }}
-          />
+          /* Skeleton mirrors the rendered map 1:1 — same viewBox,
+             same aspect, ghost blobs where continents land */
+          <svg
+            viewBox="0 0 600 300"
+            style={{ width: "100%", height: "auto", display: "block" }}
+            aria-hidden="true"
+            focusable="false"
+          >
+            <rect width="600" height="300" fill="#fdfaf2" />
+            <g
+              fill="#e8e4d8"
+              className="animate-pulse"
+              stroke="#d8d3c4"
+              strokeWidth="1"
+            >
+              {/* North America */}
+              <path d="M 60 55 Q 95 35 130 50 L 150 45 Q 165 55 155 75 Q 140 95 120 90 L 100 100 Q 85 85 75 80 Q 55 70 60 55 Z" />
+              {/* South America */}
+              <path d="M 150 130 Q 175 120 185 145 Q 190 175 178 200 Q 168 220 158 210 Q 148 185 145 160 Q 142 140 150 130 Z" />
+              {/* Europe */}
+              <path d="M 285 60 Q 310 50 330 60 L 345 70 Q 340 85 325 88 L 300 90 Q 285 80 285 60 Z" />
+              {/* Africa */}
+              <path d="M 290 110 Q 320 100 345 115 L 355 140 Q 348 175 330 200 Q 315 215 305 195 Q 295 165 290 140 Z" />
+              {/* Asia */}
+              <path d="M 360 55 Q 420 35 490 55 Q 540 65 555 90 L 540 110 Q 505 120 480 105 L 440 115 Q 405 105 390 90 Q 365 75 360 55 Z" />
+              {/* Southeast Asia / PH area */}
+              <path d="M 505 140 Q 520 132 530 142 Q 525 155 512 152 Q 502 148 505 140 Z" />
+              {/* Australia */}
+              <path d="M 480 190 Q 510 180 535 195 Q 545 210 528 220 L 495 218 Q 478 205 480 190 Z" />
+            </g>
+            {/* ghost message dots */}
+            <g className="animate-pulse">
+              <circle cx={505} cy={148} r={8} fill="#dcf3b0" stroke="#c8e88f" strokeWidth="1.5" />
+              <circle cx={100} cy={65} r={6} fill="#dcf3b0" stroke="#c8e88f" strokeWidth="1.5" />
+              <circle cx={320} cy={70} r={5} fill="#dcf3b0" stroke="#c8e88f" strokeWidth="1.5" />
+            </g>
+          </svg>
         )}
       </div>
 
-      {markers.length === 0 ? (
+      {/* chips row — ghost pills while the map skeleton is showing */}
+      {!isMounted ? (
+        <div className="mx-3.5 mb-3.5 mt-2.5 flex flex-wrap gap-1.5">
+          {[72, 58, 64].map((width, i) => (
+            <span
+              key={i}
+              className="animate-pulse rounded-full border-2 border-[#1f1c14]/20 bg-[#f5f2e8] px-2.5 py-0.5"
+              style={{ width, height: 24 }}
+            />
+          ))}
+        </div>
+      ) : markers.length === 0 ? (
         <p className="mt-2 text-center text-xs font-bold text-[#1f1c14]/50">
           No location data yet — share your link to start receiving messages.
         </p>
       ) : (
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
+        <div className="mx-3.5 mb-3.5 mt-2.5 flex flex-wrap gap-1.5">
           {markers.slice(0, 6).map((marker) => (
             <span
               key={marker.country}
