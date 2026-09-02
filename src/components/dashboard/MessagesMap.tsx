@@ -6,7 +6,10 @@ import {
   Geographies,
   Geography,
   Marker,
+  ZoomableGroup,
 } from "react-simple-maps";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { FaMinus, FaPlus, FaRotateLeft } from "react-icons/fa6";
 
 const INK = "#1f1c14";
 const LIME = "#a3e635";
@@ -139,143 +142,206 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
         </span>
       </div>
 
-      <div className="w-full overflow-hidden rounded-lg">
+      {/* zoomable + pannable map — buttons styled as sketch pills */}
+      <div className="relative w-full overflow-hidden rounded-lg">
         {isMounted ? (
-          <ComposableMap
-            projection="geoEqualEarth"
-            projectionConfig={{ scale: 140 }}
-            width={600}
-            height={300}
-            style={{ width: "100%", height: "auto" }}
+          <TransformWrapper
+            initialScale={1}
+            minScale={1}
+            maxScale={8}
+            limitToBounds
+            centerOnInit
+            doubleClick={{ disabled: true }}
+            wheel={{ step: 0.5 }}
+            panning={{ velocityDisabled: true }}
           >
-            {/* neubrutalist lift shadow: hard offset ink drop */}
-            <defs>
-              <filter
-                id="countryLift"
-                x="-20%"
-                y="-20%"
-                width="150%"
-                height="150%"
-              >
-                <feDropShadow
-                  dx="2.5"
-                  dy="2.5"
-                  stdDeviation="0"
-                  floodColor={INK}
-                  floodOpacity="1"
-                />
-              </filter>
-            </defs>
-
-            <Geographies geography={geoUrl}>
-              {({ geographies }: { geographies: unknown[] }) =>
-                geographies.map((geo, index) => {
-                  const feature = geo as {
-                    rsmKey?: string;
-                    id?: string | number;
-                  };
-
-                  const countryName =
-                    feature.id != null
-                      ? geoNames[String(feature.id)]
-                      : undefined;
-                  const isHovered =
-                    countryName != null && countryName === hovered;
-
-                  return (
-                    <Geography
-                      key={feature.rsmKey ?? `geo-${index}`}
-                      geography={geo as never}
-                      fill={isHovered ? LIME : "#fdfaf2"}
-                      stroke={INK}
-                      strokeWidth={isHovered ? 0.9 : 0.4}
-                      onMouseEnter={() =>
-                        countryName && setHovered(countryName)
-                      }
-                      onMouseLeave={() => setHovered(null)}
-                      style={{
-                        default: {
-                          outline: "none",
-                          // lift + shadow when hovered
-                          ...(isHovered
-                            ? {
-                                filter: "url(#countryLift)",
-                                transform: "translate(-2px, -2px)",
-                                transition:
-                                  "transform 150ms ease, filter 150ms ease",
-                              }
-                            : {
-                                transition:
-                                  "transform 150ms ease, filter 150ms ease",
-                              }),
-                        },
-                        hover: { outline: "none" },
-                        pressed: { outline: "none" },
-                      }}
-                    />
-                  );
-                })
-              }
-            </Geographies>
-
-            {markers.map((marker) => (
-              <Marker key={marker.country} coordinates={marker.coordinates}>
-                <circle
-                  r={4 + (marker.count / maxCount) * 6}
-                  fill={LIME}
-                  stroke={INK}
-                  strokeWidth={1.5}
-                  onMouseEnter={() => setHovered(marker.country)}
-                  onMouseLeave={() => setHovered(null)}
-                  aria-label={`${marker.country}: ${marker.count} messages`}
-                  style={{ cursor: "pointer" }}
-                />
-              </Marker>
-            ))}
-
-            {/* hover label rendered as SVG text (no DOM title hoisting) */}
-            {hovered && (
-              <Marker
-                key={`label-${hovered}`}
-                coordinates={
-                  (markers.find((m) => m.country === hovered)?.coordinates ??
-                    COUNTRY_COORDS[hovered] ?? [0, 0]) as [number, number]
-                }
-              >
-                <g
-                  transform="translate(12, -6)"
-                  style={{ pointerEvents: "none" }}
+            {({ zoomIn, zoomOut, resetTransform }) => (
+              <>
+                <TransformComponent
+                  wrapperStyle={{
+                    width: "100%",
+                    aspectRatio: "600 / 300",
+                  }}
+                  contentStyle={{ width: "100%", aspectRatio: "600 / 300" }}
                 >
-                  <rect
-                    x={0}
-                    y={-14}
-                    rx={6}
-                    width={
-                      hovered.length * 7 +
-                      (markers.find((m) => m.country === hovered) ? 44 : 16)
-                    }
-                    height={22}
-                    fill={INK}
-                    stroke={INK}
-                    strokeWidth={1}
-                  />
-                  <text
-                    x={8}
-                    y={1}
-                    textAnchor="start"
-                    fontSize={10}
-                    fontWeight={700}
-                    fill={LIME}
-                    style={{ fontFamily: "inherit" }}
+                  <ComposableMap
+                    projection="geoEqualEarth"
+                    projectionConfig={{ scale: 140 }}
+                    width={600}
+                    height={300}
+                    style={{ width: "100%", height: "auto" }}
                   >
-                    {markers.find((m) => m.country === hovered)
-                      ? `${hovered} · ${markers.find((m) => m.country === hovered)?.count}`
-                      : hovered}
-                  </text>
-                </g>
-              </Marker>
+                    {/* neubrutalist lift shadow: hard offset ink drop */}
+                    <defs>
+                      <filter
+                        id="countryLift"
+                        x="-20%"
+                        y="-20%"
+                        width="150%"
+                        height="150%"
+                      >
+                        <feDropShadow
+                          dx="2.5"
+                          dy="2.5"
+                          stdDeviation="0"
+                          floodColor={INK}
+                          floodOpacity="1"
+                        />
+                      </filter>
+                    </defs>
+
+                    <ZoomableGroup>
+                      <Geographies geography={geoUrl}>
+                        {({ geographies }: { geographies: unknown[] }) =>
+                          geographies.map((geo, index) => {
+                            const feature = geo as {
+                              rsmKey?: string;
+                              id?: string | number;
+                            };
+
+                            const countryName =
+                              feature.id != null
+                                ? geoNames[String(feature.id)]
+                                : undefined;
+                            const isHovered =
+                              countryName != null && countryName === hovered;
+
+                            return (
+                              <Geography
+                                key={feature.rsmKey ?? `geo-${index}`}
+                                geography={geo as never}
+                                fill={isHovered ? LIME : "#fdfaf2"}
+                                stroke={INK}
+                                strokeWidth={isHovered ? 0.9 : 0.4}
+                                onMouseEnter={() =>
+                                  countryName && setHovered(countryName)
+                                }
+                                onMouseLeave={() => setHovered(null)}
+                                style={{
+                                  default: {
+                                    outline: "none",
+                                    // lift + shadow when hovered
+                                    ...(isHovered
+                                      ? {
+                                          filter: "url(#countryLift)",
+                                          transform: "translate(-2px, -2px)",
+                                          transition:
+                                            "transform 150ms ease, filter 150ms ease",
+                                        }
+                                      : {
+                                          transition:
+                                            "transform 150ms ease, filter 150ms ease",
+                                        }),
+                                  },
+                                  hover: { outline: "none" },
+                                  pressed: { outline: "none" },
+                                }}
+                              />
+                            );
+                          })
+                        }
+                      </Geographies>
+
+                      {markers.map((marker) => (
+                        <Marker
+                          key={marker.country}
+                          coordinates={marker.coordinates}
+                        >
+                          <circle
+                            r={4 + (marker.count / maxCount) * 6}
+                            fill={LIME}
+                            stroke={INK}
+                            strokeWidth={1.5}
+                            onMouseEnter={() => setHovered(marker.country)}
+                            onMouseLeave={() => setHovered(null)}
+                            aria-label={`${marker.country}: ${marker.count} messages`}
+                            style={{ cursor: "pointer" }}
+                          />
+                        </Marker>
+                      ))}
+
+                      {/* hover label rendered as SVG text (no DOM title hoisting) */}
+                      {hovered && (
+                        <Marker
+                          key={`label-${hovered}`}
+                          coordinates={
+                            (markers.find((m) => m.country === hovered)
+                              ?.coordinates ??
+                              COUNTRY_COORDS[hovered] ?? [0, 0]) as [
+                              number,
+                              number,
+                            ]
+                          }
+                        >
+                          <g
+                            transform="translate(12, -6)"
+                            style={{ pointerEvents: "none" }}
+                          >
+                            <rect
+                              x={0}
+                              y={-14}
+                              rx={6}
+                              width={
+                                hovered.length * 7 +
+                                (markers.find((m) => m.country === hovered)
+                                  ? 44
+                                  : 16)
+                              }
+                              height={22}
+                              fill={INK}
+                              stroke={INK}
+                              strokeWidth={1}
+                            />
+                            <text
+                              x={8}
+                              y={1}
+                              textAnchor="start"
+                              fontSize={10}
+                              fontWeight={700}
+                              fill={LIME}
+                              style={{ fontFamily: "inherit" }}
+                            >
+                              {markers.find((m) => m.country === hovered)
+                                ? `${hovered} · ${markers.find((m) => m.country === hovered)?.count}`
+                                : hovered}
+                            </text>
+                          </g>
+                        </Marker>
+                      )}
+                    </ZoomableGroup>
+                  </ComposableMap>
+                </TransformComponent>
+
+                {/* zoom controls */}
+                <div className="absolute top-2 right-2 z-10 flex flex-col gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => zoomIn(0.5)}
+                    aria-label="Zoom in"
+                    className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                  >
+                    <FaPlus />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => zoomOut(0.5)}
+                    aria-label="Zoom out"
+                    className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                  >
+                    <FaMinus />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => resetTransform()}
+                    aria-label="Reset view"
+                    className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                  >
+                    <FaRotateLeft />
+                  </button>
+                </div>
+              </>
             )}
-          </ComposableMap>
+          </TransformWrapper>
         ) : (
           /* Skeleton mirrors the rendered map 1:1 — same viewBox,
              same aspect, ghost blobs where continents land */
@@ -309,9 +375,30 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
             </g>
             {/* ghost message dots */}
             <g className="animate-pulse">
-              <circle cx={505} cy={148} r={8} fill="#dcf3b0" stroke="#c8e88f" strokeWidth="1.5" />
-              <circle cx={100} cy={65} r={6} fill="#dcf3b0" stroke="#c8e88f" strokeWidth="1.5" />
-              <circle cx={320} cy={70} r={5} fill="#dcf3b0" stroke="#c8e88f" strokeWidth="1.5" />
+              <circle
+                cx={505}
+                cy={148}
+                r={8}
+                fill="#dcf3b0"
+                stroke="#c8e88f"
+                strokeWidth="1.5"
+              />
+              <circle
+                cx={100}
+                cy={65}
+                r={6}
+                fill="#dcf3b0"
+                stroke="#c8e88f"
+                strokeWidth="1.5"
+              />
+              <circle
+                cx={320}
+                cy={70}
+                r={5}
+                fill="#dcf3b0"
+                stroke="#c8e88f"
+                strokeWidth="1.5"
+              />
             </g>
           </svg>
         )}
@@ -319,7 +406,7 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
 
       {/* chips row — ghost pills while the map skeleton is showing */}
       {!isMounted ? (
-        <div className="mx-3.5 mb-3.5 mt-2.5 flex flex-wrap gap-1.5">
+        <div className="mx-3.5 mt-2.5 mb-3.5 flex flex-wrap gap-1.5">
           {[72, 58, 64].map((width, i) => (
             <span
               key={i}
@@ -333,7 +420,7 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
           No location data yet — share your link to start receiving messages.
         </p>
       ) : (
-        <div className="mx-3.5 mb-3.5 mt-2.5 flex flex-wrap gap-1.5">
+        <div className="mx-3.5 mt-2.5 mb-3.5 flex flex-wrap gap-1.5">
           {markers.slice(0, 6).map((marker) => (
             <span
               key={marker.country}
