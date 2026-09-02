@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -78,6 +78,14 @@ const geoUrl =
 
 const MessagesMap = ({ countries }: MessagesMapProps) => {
   const [hovered, setHovered] = useState<string | null>(null);
+  // d3-geo projection math differs in floating-point between Node and the
+  // browser, which breaks hydration — render the map client-side only.
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsMounted(true), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const markers = countries
     .map((entry) => {
@@ -105,7 +113,8 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
       </div>
 
       <div className="w-full overflow-hidden rounded-lg border-2 border-[#1f1c14] bg-[#fdfaf2]">
-        <ComposableMap
+        {isMounted ? (
+          <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 140 }}
           width={600}
@@ -195,6 +204,12 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
                 );
               })}
         </ComposableMap>
+        ) : (
+          <div
+            className="animate-pulse bg-[#f5f2e8]"
+            style={{ width: "100%", aspectRatio: "600 / 300" }}
+          />
+        )}
       </div>
 
       {markers.length === 0 ? (

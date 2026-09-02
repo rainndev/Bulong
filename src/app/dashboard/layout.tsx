@@ -105,10 +105,12 @@ const Layout = async ({
                 />
               </div>
 
-              <MessagesMap countries={countries} />
+              {/* chart full width for easy reading */}
+              {totalMessagesAndChart}
 
+              {/* recent messages + map share a row on desktop */}
               <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-[1.5fr_1fr]">
-                {totalMessagesAndChart}
+                <MessagesMap countries={countries} />
                 {recentMessages}
               </div>
 
