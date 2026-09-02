@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
-  ZoomableGroup,
 } from "react-simple-maps";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FaMinus, FaPlus, FaRotateLeft } from "react-icons/fa6";
@@ -78,15 +77,79 @@ type MessagesMapProps = {
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
+/** Zoom sensitivity: scale multiplier = exp(-deltaPx * SENSITIVITY). */
+const WHEEL_SENSITIVITY = 0.0018;
+const MIN_SCALE = 1;
+const MAX_SCALE = 8;
+
+type TransformContext = {
+  state: { scale: number; positionX: number; positionY: number };
+  zoomToPoint: (
+    scale: number,
+    clientX: number,
+    clientY: number,
+    animationTime?: number,
+  ) => void;
+  zoomIn: (step?: number) => void;
+  zoomOut: (step?: number) => void;
+  resetTransform: () => void;
+};
+
 const MessagesMap = ({ countries }: MessagesMapProps) => {
   const [hovered, setHovered] = useState<string | null>(null);
   // d3-geo projection math differs in floating-point between Node and the
   // browser, which breaks hydration — render the map client-side only.
   const [isMounted, setIsMounted] = useState(false);
 
+  const mapAreaRef = useRef<HTMLDivElement>(null);
+  const ctxRef = useRef<TransformContext | null>(null);
+
   useEffect(() => {
     const timer = window.setTimeout(() => setIsMounted(true), 0);
     return () => window.clearTimeout(timer);
+  }, []);
+
+  /**
+   * Custom wheel zoom: the library's built-in wheel adds a flat step per
+   * event, so smooth-scrolling / high-resolution wheels fire dozens of
+   * events and slam straight to max zoom. This handler normalizes deltaY
+   * across deltaModes and zooms proportionally (exponential), anchored at
+   * the cursor via the library's zoomToPoint.
+   */
+  useEffect(() => {
+    const element = mapAreaRef.current;
+    if (!element) return;
+
+    const onWheel = (event: WheelEvent) => {
+      const ctx = ctxRef.current;
+      if (!ctx) return;
+
+      event.preventDefault();
+
+      // Normalize: pixels as-is, lines ~40px, pages ~400px
+      const deltaPx =
+        event.deltaMode === 1
+          ? event.deltaY * 40
+          : event.deltaMode === 2
+            ? event.deltaY * 400
+            : event.deltaY;
+
+      const target = Math.min(
+        Math.max(
+          ctx.state.scale * Math.exp(-deltaPx * WHEEL_SENSITIVITY),
+          MIN_SCALE,
+        ),
+        MAX_SCALE,
+      );
+
+      if (target === ctx.state.scale) return;
+
+      ctx.zoomToPoint(target, event.clientX, event.clientY);
+    };
+
+    element.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => element.removeEventListener("wheel", onWheel);
   }, []);
 
   /** ISO numeric id -> country name for hover matching. */
@@ -143,7 +206,10 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
       </div>
 
       {/* zoomable + pannable map — buttons styled as sketch pills */}
-      <div className="relative w-full overflow-hidden rounded-lg">
+      <div
+        ref={mapAreaRef}
+        className="relative w-full overflow-hidden rounded-lg"
+      >
         {isMounted ? (
           <TransformWrapper
             initialScale={1}
@@ -152,45 +218,47 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
             limitToBounds
             centerOnInit
             doubleClick={{ disabled: true }}
-            wheel={{ step: 0.5 }}
+            wheel={{ disabled: true }}
             panning={{ velocityDisabled: true }}
           >
-            {({ zoomIn, zoomOut, resetTransform }) => (
-              <>
-                <TransformComponent
-                  wrapperStyle={{
-                    width: "100%",
-                    aspectRatio: "600 / 300",
-                  }}
-                  contentStyle={{ width: "100%", aspectRatio: "600 / 300" }}
-                >
-                  <ComposableMap
-                    projection="geoEqualEarth"
-                    projectionConfig={{ scale: 140 }}
-                    width={600}
-                    height={300}
-                    style={{ width: "100%", height: "auto" }}
-                  >
-                    {/* neubrutalist lift shadow: hard offset ink drop */}
-                    <defs>
-                      <filter
-                        id="countryLift"
-                        x="-20%"
-                        y="-20%"
-                        width="150%"
-                        height="150%"
-                      >
-                        <feDropShadow
-                          dx="2.5"
-                          dy="2.5"
-                          stdDeviation="0"
-                          floodColor={INK}
-                          floodOpacity="1"
-                        />
-                      </filter>
-                    </defs>
+            {(ctx) => {
+              ctxRef.current = ctx;
 
-                    <ZoomableGroup>
+              return (
+                <>
+                  <TransformComponent
+                    wrapperStyle={{
+                      width: "100%",
+                      aspectRatio: "600 / 300",
+                    }}
+                    contentStyle={{ width: "100%", aspectRatio: "600 / 300" }}
+                  >
+                    <ComposableMap
+                      projection="geoEqualEarth"
+                      projectionConfig={{ scale: 140 }}
+                      width={600}
+                      height={300}
+                      style={{ width: "100%", height: "auto" }}
+                    >
+                      {/* neubrutalist lift shadow: hard offset ink drop */}
+                      <defs>
+                        <filter
+                          id="countryLift"
+                          x="-20%"
+                          y="-20%"
+                          width="150%"
+                          height="150%"
+                        >
+                          <feDropShadow
+                            dx="2.5"
+                            dy="2.5"
+                            stdDeviation="0"
+                            floodColor={INK}
+                            floodOpacity="1"
+                          />
+                        </filter>
+                      </defs>
+
                       <Geographies geography={geoUrl}>
                         {({ geographies }: { geographies: unknown[] }) =>
                           geographies.map((geo, index) => {
@@ -308,39 +376,39 @@ const MessagesMap = ({ countries }: MessagesMapProps) => {
                           </g>
                         </Marker>
                       )}
-                    </ZoomableGroup>
-                  </ComposableMap>
-                </TransformComponent>
+                    </ComposableMap>
+                  </TransformComponent>
 
-                {/* zoom controls */}
-                <div className="absolute top-2 right-2 z-10 flex flex-col gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => zoomIn(0.5)}
-                    aria-label="Zoom in"
-                    className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-                  >
-                    <FaPlus />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => zoomOut(0.5)}
-                    aria-label="Zoom out"
-                    className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-                  >
-                    <FaMinus />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => resetTransform()}
-                    aria-label="Reset view"
-                    className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-                  >
-                    <FaRotateLeft />
-                  </button>
-                </div>
-              </>
-            )}
+                  {/* zoom controls */}
+                  <div className="absolute top-2 right-2 z-10 flex flex-col gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => ctx.zoomIn(0.5)}
+                      aria-label="Zoom in"
+                      className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                    >
+                      <FaPlus />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => ctx.zoomOut(0.5)}
+                      aria-label="Zoom out"
+                      className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                    >
+                      <FaMinus />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => ctx.resetTransform()}
+                      aria-label="Reset view"
+                      className="grid size-8 cursor-pointer place-items-center rounded-lg border-2 border-[#1f1c14] bg-white text-sm shadow-[2px_2px_0_#1f1c14] transition-all duration-100 hover:bg-[#a3e635] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                    >
+                      <FaRotateLeft />
+                    </button>
+                  </div>
+                </>
+              );
+            }}
           </TransformWrapper>
         ) : (
           /* Skeleton mirrors the rendered map 1:1 — same viewBox,
