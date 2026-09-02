@@ -1,5 +1,6 @@
 import WavyFooterDecoration from "@/components/createPost/WavyFooterDecoration";
 import { FaGithub, FaInstagram } from "react-icons/fa6";
+import Link from "next/link";
 
 const socials = [
   {
@@ -49,6 +50,13 @@ const Footer = () => {
             Rainier Sison
           </span>
         </p>
+
+        <Link
+          href="/privacy"
+          className="font-kalam text-xs font-bold text-[#1f1c14]/40 underline decoration-[#65a30d] decoration-2 underline-offset-4 transition-colors hover:text-[#1f1c14]"
+        >
+          Privacy Policy
+        </Link>
       </div>
 
       {/* wavy decorative edge — full width, flush to the viewport bottom */}
