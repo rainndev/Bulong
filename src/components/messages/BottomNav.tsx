@@ -182,7 +182,8 @@ export default function BottomNav({
           </motion.div>
 
           {/* Off-screen share cards — one per ratio, captured for download.
-              Fixed designs, identical on mobile and desktop. */}
+              Each wrapper shrink-wraps (w-fit) so the capture is exactly
+              the card's own dimensions with no trailing empty space. */}
           <div
             aria-hidden="true"
             className="pointer-events-none fixed top-0 left-0 -translate-x-[9999px]"
@@ -193,6 +194,7 @@ export default function BottomNav({
                 ref={(node) => {
                   cardRefs.current[ratio] = node;
                 }}
+                className="w-fit"
               >
                 {isOpen && post && (
                   <ShareCard
