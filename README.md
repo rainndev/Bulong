@@ -1,4 +1,7 @@
 <div align="center">
+  
+<img width="1920" height="1440" alt="136shots_so" src="https://github.com/user-attachments/assets/21a9681b-6ae2-4aa0-9e7a-bb3818f3b6c7" />
+
 
 # Bulong
 
