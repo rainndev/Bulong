@@ -1,6 +1,7 @@
 "use client";
 
 import Footer from "@/components/landing/Footer";
+import GloveCursor from "@/components/landing/GloveCursor";
 import HeroPage from "@/components/HeroPage";
 import LandingPageNavBar from "@/components/LandingPageNavBar";
 import PageLoadingGate from "@/components/landing/PageLoadingGate";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <LenisPageWrapper>
       <PageLoadingGate />
+      <GloveCursor />
       <main className="sketch-grid flex min-h-dvh w-full flex-col items-center bg-[#fdfaf2] text-[#1f1c14]">
         <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center p-4 md:p-6 lg:p-10">
           <LandingPageNavBar />
