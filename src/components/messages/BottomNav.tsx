@@ -1,5 +1,8 @@
 import AnonymousInfoTags from "@/components/AnonymousInfoTags";
-import ShareCard from "@/components/messages/ShareCard";
+import ShareCard, {
+  SHARE_RATIOS,
+  type ShareRatio,
+} from "@/components/messages/ShareCard";
 import { socmedOptions } from "@/constants/socmed-options";
 import { deletePost } from "@/lib/actions/post";
 import { downloadImage } from "@/lib/utils";
@@ -8,6 +11,7 @@ import { SocmedTypes } from "@/types/socmed.types";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Dispatch,
+  RefObject,
   SetStateAction,
   useRef,
   useState,
@@ -34,14 +38,28 @@ export default function BottomNav({
   const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
     socmedOptions[0],
   );
+  const [selectedRatio, setSelectedRatio] = useState<ShareRatio>("1:1");
 
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<Record<ShareRatio, HTMLDivElement | null>>({
+    "1:1": null,
+    "4:3": null,
+    "9:16": null,
+    "16:9": null,
+  });
 
   const origin = useSyncExternalStore(
     subscribe,
     () => window.location.origin,
     () => "",
   );
+
+  const handleDownload = () => {
+    if (!post) return;
+    const node = cardRefs.current[selectedRatio];
+    if (node) {
+      downloadImage(post, { current: node } as RefObject<HTMLDivElement | null>);
+    }
+  };
 
   const handlePostDelete = async () => {
     if (!post) return;
@@ -124,9 +142,32 @@ export default function BottomNav({
               </p>
             </div>
 
+            {/* export ratio picker */}
+            <div className="mb-3 flex w-full items-center justify-center gap-2">
+              {SHARE_RATIOS.map((ratio) => {
+                const isActive = ratio === selectedRatio;
+
+                return (
+                  <button
+                    key={ratio}
+                    type="button"
+                    onClick={() => setSelectedRatio(ratio)}
+                    aria-pressed={isActive}
+                    className={`cursor-pointer rounded-full border-2 border-[#1f1c14] px-3 py-1.5 text-xs font-bold transition-all duration-100 ${
+                      isActive
+                        ? "-rotate-2 bg-[#a3e635] text-[#1f1c14] shadow-[2px_2px_0_#1f1c14]"
+                        : "bg-white text-[#1f1c14]/60 hover:text-[#1f1c14]"
+                    }`}
+                  >
+                    {ratio}
+                  </button>
+                );
+              })}
+            </div>
+
             <button
               type="button"
-              onClick={() => downloadImage(post, cardRef)}
+              onClick={handleDownload}
               className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-[#1f1c14] bg-[#a3e635] p-4 text-center text-sm font-bold shadow-[4px_4px_0_#1f1c14] transition-all duration-100 hover:-rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none"
             >
               <span>Download Image</span>
@@ -140,22 +181,30 @@ export default function BottomNav({
             </div>
           </motion.div>
 
-          {/* Off-screen share card — captured for download.
-              Fixed design, identical on mobile and desktop. */}
+          {/* Off-screen share cards — one per ratio, captured for download.
+              Fixed designs, identical on mobile and desktop. */}
           <div
             aria-hidden="true"
             className="pointer-events-none fixed top-0 left-0 -translate-x-[9999px]"
           >
-            <div ref={cardRef}>
-              {isOpen && post && (
-                <ShareCard
-                  post={post}
-                  socmed={selectedSocmed}
-                  origin={origin}
-                  handle={userName}
-                />
-              )}
-            </div>
+            {SHARE_RATIOS.map((ratio) => (
+              <div
+                key={ratio}
+                ref={(node) => {
+                  cardRefs.current[ratio] = node;
+                }}
+              >
+                {isOpen && post && (
+                  <ShareCard
+                    post={post}
+                    socmed={selectedSocmed}
+                    origin={origin}
+                    handle={userName}
+                    ratio={ratio}
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}
