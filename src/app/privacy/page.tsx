@@ -76,7 +76,7 @@ const sections = [
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="sketch-grid flex min-h-dvh w-full flex-col items-center bg-[#fdfaf2] text-[#1f1c14]">
+    <div className="sketch-grid font-fredoka flex min-h-dvh w-full flex-col items-center bg-[#fdfaf2] text-[#1f1c14]">
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-10 md:px-8 md:py-16">
         <h1 className="relative mt-2 text-[clamp(2rem,6vw,3.5rem)] leading-[1.05] font-bold tracking-tight">
           Privacy Policy
