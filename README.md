@@ -1,35 +1,73 @@
+<div align="center">
+
 # Bulong
 
-Bulong is a full-stack anonymous messaging web application inspired by NGL. It allows users to receive anonymous messages through a shareable link while providing strong control over message flow, analytics, and content management.
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61dafb?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2d3748?logo=prisma)](https://www.prisma.io)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169e1?logo=postgresql&logoColor=white)](https://neon.tech)
+[![Better Auth](https://img.shields.io/badge/Better_Auth-1-8b5cf6)](https://www.better-auth.com)
+[![License](https://img.shields.io/badge/license-educational/portfolio-green)](#license)
+
+</div>
+
+Bulong is a full-stack anonymous messaging platform. The idea is simple: you claim a handle, share your link, and people can send you honest messages without revealing who they are. Everything around that idea — the inbox, the dashboard, the abuse protection — is built to make anonymous feedback feel safe and useful rather than messy.
+
+The interface is drawn in a hand-sketched neo-brutalist style: paper backgrounds, ink borders, hard shadows, and a lime accent that carries through every page, email, and downloaded image.
+
+## Features
+
+**Account and inbox**
+
+- Email and password accounts with email verification (Brevo transactional email)
+- Claim a handle on the landing page with live availability checking — handles are profanity-filtered on both client and server
+- Personal anonymous link at `your-domain/@handle` — no login required to send
+- Message inbox with search, unread states, and a spoiler setting that hides previews of unread messages
+- Download any message as a shareable image card, branded and stamped with your link
+
+**Dashboard**
+
+- Weekly message chart, recent messages, and KPI stats (total, today, this week, average)
+- Interactive world map showing which countries your messages came from — zoom, pan, and hover any country
+- Daily message limits, link on/off toggle, and inbox pause controls in settings
+
+**Abuse protection**
+
+- Bilingual profanity filter (Filipino and English lists, with leetspeak and spacing evasion handling) applied to messages and handle claims
+- IP rate limiting with escalating blocks, per-inbox cooldowns, bot user-agent rejection, honeypot fields, and payload size limits
+- Message senders are never identified — only approximate country, region, device, OS, and browser are stored
+
+**Platform**
+
+- Responsive from mobile to desktop, with touch-optimized navigation
+- Privacy policy page written in plain language
+- Custom glove cursor and floating 3D decorations on the landing page (desktop only)
 
 ## Tech Stack
 
-- Next.js
-- Tailwind CSS
-- Prisma ORM
-- shadcn/ui components
-- PostgreSQL (Neon serverless database)
-- Better Auth (Authentication Lib)
-
-## Key Features
-
-- User account creation and authentication
-- Daily message limit management
-- Enable or disable anonymous message links
-- Shareable anonymous message links
-- Dashboard analytics for message insights
-- Export and share received messages as images
-- Message inbox with search functionality
+- Next.js (App Router) with React and TypeScript
+- Tailwind CSS for the design system
+- Prisma ORM on PostgreSQL (Neon)
+- Better Auth for authentication
+- react-simple-maps and react-zoom-pan-pinch for the dashboard map
+- Three.js (react-three-fiber) for the landing page decorations
+- Brevo for transactional email
 
 ## Environment Variables
 
 Create a `.env` file in the root directory:
 
 ```env
-DATABASE_URL="postgresql://example"
+DATABASE_URL="postgresql://..."
 
-BETTER_AUTH_SECRET=f2b7940example
-BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET="your-secret"
+BETTER_AUTH_URL="http://localhost:3000"
+
+# Optional — email verification falls back to console logging without these
+BREVO_API_KEY="xkeysib-..."
+EMAIL_FROM="Bulong <you@yourdomain.com>"
 ```
 
 ## Getting Started
@@ -37,56 +75,16 @@ BETTER_AUTH_URL=http://localhost:3000
 ```bash
 git clone https://github.com/rainndev/Bulong.git
 cd Bulong
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-## Purpose
+The app runs at `http://localhost:3000`. Push the Prisma schema with `npx prisma db push` before creating an account.
 
-This project is built to demonstrate full-stack web development using modern tools, focusing on authentication, database management, anonymous data handling, and dashboard-driven features.
+## Privacy
 
-> ⚠️ Note: The owl image used in this project is AI-generated by Gemini and is included for illustrative purposes. Please respect copyright and attribution guidelines.
-
-## Future Development
-
-Planned improvements and features for Bulong include:
-
-- **Dark Mode / Light Mode Toggle**
+Bulong stores no trackers, no ad pixels, and no sender identities. The full details — what is collected, which services process it, and the honest limits of anonymity — are on the [privacy policy page](/privacy) of the app.
 
 ## License
 
 Educational and portfolio use.
-
-## Preview
-
-##### Desktop
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/eb1f9aef-78c5-4fff-b364-20b25bd490e6" width="90%" />
-  <img src="https://github.com/user-attachments/assets/234016e9-8465-4190-a981-a99d68d2c2b6" width="90%" />
-  <img src="https://github.com/user-attachments/assets/2e44d8b4-6719-488d-8a72-bb003d7229d4" width="90%" />
-  <img src="https://github.com/user-attachments/assets/0e887c22-3e9f-44aa-943a-91943658a600" width="90%" />
-  <img src="https://github.com/user-attachments/assets/90460993-da8c-442c-8c56-e9c313c64425" width="90%" />
-  <img src="https://github.com/user-attachments/assets/d22a6757-992e-470b-8fa3-7e3eac4eb3af" width="90%" />
-  <img src="https://github.com/user-attachments/assets/0b589366-398d-40e0-88ac-07e9312b14dd" width="90%" />
-  <img src="https://github.com/user-attachments/assets/621c4b23-aac1-44f7-acd5-f7489e9b073c" width="90%" />
-  <img src="https://github.com/user-attachments/assets/2a0eefe9-07d4-4f80-96cd-8cf860fcbe4a" width="90%" />
-  <img src="https://github.com/user-attachments/assets/178498c3-7d52-46ef-bff7-977096f1ad3d" width="90%" />
-</p>
-
-##### Mobile
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/da327899-6b72-4d28-9e68-fb731bee41a5" width="40%" />
-  <img src="https://github.com/user-attachments/assets/1582b329-66e7-4d7f-827c-3963f849cf69" width="40%" />
-  <img src="https://github.com/user-attachments/assets/eb6ef1d8-ddd4-48d9-ae33-c2130d2446be" width="40%" />
-  <img src="https://github.com/user-attachments/assets/5f5b67d0-cd65-45c8-9a9f-34293a2ed80d" width="40%" />
-  <img src="https://github.com/user-attachments/assets/9518b310-1e23-41dc-aa02-7143d87c66a8" width="40%" />
-  <img src="https://github.com/user-attachments/assets/9ad32bb9-7faf-4bbb-8829-8dc2826f1f37" width="40%" />
-  <img src="https://github.com/user-attachments/assets/c6def804-04e9-4133-844e-e39da74d9994" width="40%" />
-  <img src="https://github.com/user-attachments/assets/ac3a0669-6515-4f45-90e5-80e7eec97d1a" width="40%" />
-  <img src="https://github.com/user-attachments/assets/4815d9dc-0df1-4eaa-8098-b971290d0548" width="40%" />
-  <img src="https://github.com/user-attachments/assets/a9ebeb61-fede-4c35-8bd5-639de32d92f7" width="40%" />
-  <img src="https://github.com/user-attachments/assets/fb818d75-66b4-4775-9ca2-9f1784d5c388" width="40%" />
-  <img src="https://github.com/user-attachments/assets/5c7b4a05-a50e-421e-9eb3-bf8151e836cd" width="40%" />
-</p>
