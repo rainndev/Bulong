@@ -11,9 +11,10 @@ const MessagesPage = async () => {
   const session = await requireAuth();
 
   const userId = session?.user.id;
+  const userName = session?.user.name ?? "";
   const posts = await getPost(userId as string);
 
-  return <MessagesClient posts={posts} userId={userId} />;
+  return <MessagesClient posts={posts} userId={userId} userName={userName} />;
 };
 
 export default MessagesPage;

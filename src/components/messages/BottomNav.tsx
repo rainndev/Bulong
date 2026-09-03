@@ -21,6 +21,7 @@ type BottomNavProps = {
   onClose: () => void;
   post: PostType | null;
   setDisplayedPosts: Dispatch<SetStateAction<PostType[]>>;
+  userName: string;
 };
 
 export default function BottomNav({
@@ -28,6 +29,7 @@ export default function BottomNav({
   onClose,
   post,
   setDisplayedPosts,
+  userName,
 }: BottomNavProps) {
   const [selectedSocmed, setSelectedSocmed] = useState<SocmedTypes>(
     socmedOptions[0],
@@ -150,6 +152,7 @@ export default function BottomNav({
                   post={post}
                   socmed={selectedSocmed}
                   origin={origin}
+                  handle={userName}
                 />
               )}
             </div>

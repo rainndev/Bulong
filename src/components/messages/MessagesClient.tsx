@@ -12,9 +12,10 @@ import { IoSearch } from "react-icons/io5";
 interface MessagesClientProps {
   posts: PostType[];
   userId: string;
+  userName: string;
 }
 
-const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
+const MessagesClient = ({ posts, userId, userName }: MessagesClientProps) => {
   const [selectedMessage, setSelectedMessage] = useState<PostType | null>(null);
   const [displayedPosts, setDisplayedPosts] = useState<PostType[]>(posts);
   const [search, setSearch] = useState("");
@@ -114,6 +115,7 @@ const MessagesClient = ({ posts, userId }: MessagesClientProps) => {
         onClose={() => setDialogShowing(false)}
         post={selectedMessage}
         setDisplayedPosts={setDisplayedPosts}
+        userName={userName}
       />
     </main>
   );

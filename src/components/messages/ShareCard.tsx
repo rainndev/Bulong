@@ -7,11 +7,14 @@ type ShareCardProps = {
   socmed: SocmedTypes;
   /** Site origin used for the short link pill (e.g. bulong.app). */
   origin?: string;
+  /** Recipient's handle (without the @) shown at the end of the link. */
+  handle?: string;
 };
 
-const ShareCard = ({ post, socmed, origin }: ShareCardProps) => {
+const ShareCard = ({ post, socmed, origin, handle }: ShareCardProps) => {
   const SocmedIcon = socmed.icon;
   const host = origin ? new URL(origin).host : "bulong.app";
+  const link = handle ? `${host}/@${handle}` : host;
 
   return (
     <div className="sketch-grid font-fredoka flex w-80 flex-col gap-4 rounded-xl border-2 border-[#1f1c14] bg-[#fdfaf2] p-6 text-[#1f1c14]">
@@ -53,7 +56,7 @@ const ShareCard = ({ post, socmed, origin }: ShareCardProps) => {
           })}
         </span>
         <span className="flex items-center justify-center rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-3 py-1 text-[8px] font-bold">
-          {host}sdsdsds
+          {link}
         </span>
       </div>
     </div>
