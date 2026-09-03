@@ -101,10 +101,10 @@ const HeroPage = () => {
             variants={itemVariants}
             className="text-[clamp(2.25rem,8vw,5.5rem)] leading-[1.05] font-bold tracking-tight"
           >
-            Sabihin mo na,
+            Ask Me Anything,
             <br />
             <span className="relative inline-block px-1">
-              nang anonymous.
+              No Names
               <WiggleUnderline className="absolute -bottom-3 left-0 h-5 w-full" />
             </span>
           </motion.h1>
@@ -113,8 +113,8 @@ const HeroPage = () => {
             variants={itemVariants}
             className="max-w-md px-2 text-lg leading-relaxed md:text-xl"
           >
-            Isang link para sa tanong, confessions, at mga hindi mo masabi nang
-            harapan. Ibulong na nila — ikaw ang magbabasa.
+            Share your link and receive anonymous messages from anyone,
+            anywhere.
           </motion.p>
 
           <motion.div variants={itemVariants} className="w-full max-w-md">
