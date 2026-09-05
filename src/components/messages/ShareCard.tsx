@@ -58,7 +58,7 @@ const ShareCard = ({
 
         {/* message */}
         <div className="rounded-2xl border-2 border-[#1f1c14] bg-white p-5 shadow-[4px_4px_0_#1f1c14]">
-          <p className="font-kalam mb-2 line-clamp-2 text-center text-base leading-snug font-bold break-words">
+          <p className="font-kalam mb-6 line-clamp-2 text-center text-base leading-snug font-bold break-words">
             {post.title || "No title"}
           </p>
           <span
@@ -84,7 +84,7 @@ const ShareCard = ({
               year: "numeric",
             })}
           </span>
-          <span className="flex items-center justify-center rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-3 py-1 text-[8px] font-bold">
+          <span className="flex items-center justify-center rounded-full border-2 border-[#1f1c14] bg-[#a3e635] px-3 py-1 text-[9px] font-bold">
             {link}
           </span>
         </div>
